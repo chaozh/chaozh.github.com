@@ -1,0 +1,116 @@
+title: Post Series插件(更名为SimplePostSeries)正式发布
+tags:
+  - WP插件
+id: 338
+comment: false
+categories:
+  - WordPress开发
+date: 2012-12-09 05:42:20
+---
+
+Post Series插件改名为Simple Post Series正式在Wordpress插件官网发布，可以[自由下载使用](http://wordpress.org/extend/plugins/simple-post-series/ "simple-post-series官网下载")。
+
+Simple Post Series为Wordpress增加按照专题管理文章并展示的功能，集所有类似插件功能之所长，设置选项完善。
+
+融合所有类似插件的相关功能：
+
+*   *可以在文章编辑页面通过按钮与面板添加shortcode以展示某个专题下的文章列表，支持文章与页面，
+*   *可以设置自动在文章页或主页上显示某个专题下的文章列表，可以设置展示摘要或缩略图，
+*   *可以在管理员文章管理页面上对某个专题进行筛选，文章管理更加方便，
+*   *2.0最新版支持文章拖拽添加到专题的功能，页面特别参考eg-series插件。
+专题文章的拖动管理页面，这是极其方便的管理页面，用户可以在该页面上自由拖动文章到某个专题，或是删除某个专题下的文章，或是改变文章的排序等。
+
+待完善：（BUG列表）
+
+<del>1.页面无法在专题展示中列出</del>
+
+### Description
+
+**simple-post-series** allows you to insert series short code for displaying a bunch of posts in the same serie.
+This plugin allows to include posts into series, to create, delete or rename series. It also includes _widgets_ and _shortcodes_ to display list of series, or the list of posts belonging to the series of the current post.
+
+With this plugin, you can:
+
+*   * Add / Delete a post from a serie,
+*   * Create / Rename / Delete series,
+*   * Display the list of series in a post, or display this list in sidebar, with widgets for exemple,
+*   * Filter posts by a special serie in your admin post managent page,
+*   * Automatically insert the list of posts of a specific serie, without using shortcode.
+**simple-post-series** is **TinyMCE Integrated**. That means you don't need to learn the shortcode syntax. The plugin add a button in the tinymce toolbar. You just have to click on this button, choose parameters/options, and click insert. That's all, the shortcode will be insert into your post with the right parameters.
+
+You can find latest source code in [github project](https://github.com/chaozh/Post-Series).
+
+This plugin is enlighted by Tuts+ and their Sessions. You can find a very helpful [cource in NetTuts+](http://wp.tutsplus.com/tutorials/plugins/adding-post-series-functionality-to-wordpress-with-taxonomies/) to figure out how this plugin works in Wordpress.
+
+### Installation
+
+1.  Uzip the `simple-post-series.zip` folder.
+2.  Upload the `simple-post-series` folder to your `/wp-content/plugins` directory.
+3.  In your WordPress dashboard, head over to the *Plugins* section.
+4.  Activate *Post Series*.
+
+### Usage
+
+**simple post series** adds two administration pages, a widget and shortcode.
+
+### Customize your theme
+
+simple-post-series uses now a specific taxonomy to implement series. It means
+
+*   * The link to series can be: http://host/path/series/[Name of the serie]
+*   * You can build / customize a specific page in your theme to display the content of a serie.
+You can customize your theme by creating page like 'taxonomy-series.php' which overrides default archive page to display the content of a serie.
+A sample archive page template is located in '[simple-post-series]/template/taxonomy-series.php' and you can freely modified it and place in your own theme.
+
+### Administration pages
+
+*   *** Series** gives ability to change or rename series,
+*   *** Settings/Post Series** contains all options of the plugin. In this page, you can activate the **auto display** feature.
+
+### Shortcodes
+
+To display the list of series: [series _options_], with the following options:
+
+*   *** id** of the series. Default ' ',
+*   *** slug** of the series. Default ' ',
+*   *** title** of the list. Default ' ',
+*   *** limit**: number of series to display in the list. Default: -1 to display all series,
+*   *** show_future**: displays unpublish posts in the series. Default: on,
+*   *** class_prefix**: of the list section. Default 'post-series'.
+
+### Screenshots
+
+1.  Post Editing page: TinyMCE integration and additional metabox to quickly choose or add a serie 加入专题设置模块,
+2.  List of posts in a serie 在文章页面展示专题列表,
+3.  Easily manage series 拖拽管理专题下所属文章,
+4.  TinyMCE window to choose shortcodes options, and insert shortcodes 文章编辑方便插入short code,
+5.  Insert short code in edit post 插入short code的结果,
+6.  Options page 插件设置页面,
+
+### Changelog
+
+= 2.1 =
+* New: Fix bugs and improve code robustion
+
+= 2.0 =
+* New: Add admin series bulk edition page for drag and drop posts to serie
+
+= 1.3 =
+
+* New: Add option to choose where to display lists
+* New: Add option to choose to display excerpt
+* New: Add option to choose to display thumbnail
+
+= 1.2 =
+
+* New: Add series filter in admin's edit.php
+* New: optional load of the stylesheet
+* New: sample archive page for displaying series taxonomy in custom theme
+
+= 1.1 =
+
+* New: add widget for post series with many options
+
+= 1.0 =
+
+* Plugin released. Everything is new! Have to change name from post-series to simple-post-series.
