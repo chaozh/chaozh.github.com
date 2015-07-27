@@ -1,12 +1,4 @@
 title: Win7 X64下PHP开发环境配置
-tags:
-  - MySQL
-  - PHP
-id: 914
-comment: false
-categories:
-  - WordPress开发
-  - 后端技巧
 date: 2014-12-17 11:04:58
 ---
 

@@ -2,10 +2,8 @@ title: 出自jquery作者简单js模板中的技巧
 tags:
   - javascript
   - JS模板
-id: 393
-comment: false
 categories:
-  - JavaScript技巧
+  - 前端
 date: 2013-01-09 14:19:54
 ---
 

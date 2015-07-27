@@ -1,10 +1,8 @@
 title: '使用data-*属性指南'
 tags:
   - html5
-id: 862
 categories:
-  - HTML技巧
-  - JavaScript技巧
+  - 前端
 date: 2014-08-25 22:33:08
 ---
 

@@ -1,10 +1,8 @@
 title: 制作Bookmarklet书签
 tags:
   - javascript
-id: 45
-comment: false
 categories:
-  - JavaScript技巧
+  - 前端
 date: 2012-02-19 11:32:49
 ---
 

@@ -2,9 +2,8 @@ title: JavaScript实用代码片段
 tags:
   - javascript
   - 算法
-id: 969
 categories:
-  - JavaScript技巧
+  - 前端
 date: 2015-06-30 22:59:57
 ---
 

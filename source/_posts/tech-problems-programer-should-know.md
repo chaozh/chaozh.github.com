@@ -7,7 +7,6 @@ tags:
 id: 891
 comment: false
 categories:
-  - 操作系统实现
   - 面试总结
 date: 2014-09-21 22:08:52
 ---

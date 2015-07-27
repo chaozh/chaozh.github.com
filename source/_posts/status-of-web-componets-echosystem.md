@@ -1,9 +1,8 @@
 title: Web Components生态圈现状
 tags:
   - html5
-id: 864
 categories:
-  - JavaScript技巧
+  - 前端
 date: 2014-08-28 11:11:46
 ---
 

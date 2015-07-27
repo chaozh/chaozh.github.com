@@ -2,11 +2,8 @@ title: 漫谈Web Components技术
 tags:
   - html5
   - JS模板
-  - 前端规范
-id: 839
 categories:
-  - HTML技巧
-  - JavaScript技巧
+  - 前端
 date: 2014-08-10 21:00:00
 ---
 
@@ -32,7 +29,9 @@ Web Components技术由W3C规范进行定义，实际由四种技术组成：
 ## 2. Custom ELements
 
 原本Custom ELements设计是通过新增的element标签来实现自定义html标签元素，但由于种种问题，最终删去了相关规范。目前只能通过`document.registerElement(tagName, prototype)`方法来定义标签。该方法提供元素原型继承的接口，可以通过`Object.create`方法创建元素作为prototype传入。在这个gangnam-style示例中就使用：
-<pre>var gangnamProto = Object.create(HTMLElement.prototype);
+
+```
+var gangnamProto = Object.create(HTMLElement.prototype);
 
   gangnamProto.createdCallback = function(){
      // deal with element view create 
@@ -45,13 +44,16 @@ Web Components技术由W3C规范进行定义，实际由四种技术组成：
   document.registerElement("x-gangnam-style", {
     prototype: gangnamProto 
   });
-</pre>
+```
+
 接着就可以直接在html文件中使用x-gangnam-style标签了
 
 ## 3. HTML Template
 
 该技术规范已经加入到HTML5规范中，成为一个新增的HTML5标签。使用非常简单，直接在html文件中添加template标签即可。该标签在浏览器中会被渲染处理，但不会展示，因此会比以前使用script做js的模板容器在效率上会高一些。需要注意的是获得template标签中的内容，需要使用其content属性，该属性返回`documentFragment`类型。而将content内容插入到目标元素中后会导致内容丢失，因此需要使用cloneNode方法进行拷贝保证其他元素仍然可以使用这个template中的content内容，或是使用`document.importNode`方法进行拷贝。在这个gangnam-style示例中就使用：
-<pre>&lt;template id="gangnam-style-tmpl"&gt;
+
+<pre>
+&lt;template id="gangnam-style-tmpl"&gt;
 &lt;style&gt;
 ...
 &lt;/style&gt;
@@ -81,6 +83,7 @@ gangnamProto.createdCallback = function(){
 ...  
 &lt;/script&gt;
 </pre>
+
 这样就可以在Custom Element中使用template中已经定义好的html结构与样式。当然为保证接口与样式的封装性，这里还将HTML Template与Shadow DOM结合了起来。
 
 ## 4\. Shadow DOM
