@@ -30,7 +30,7 @@ Web Components技术由W3C规范进行定义，实际由四种技术组成：
 
 原本Custom ELements设计是通过新增的element标签来实现自定义html标签元素，但由于种种问题，最终删去了相关规范。目前只能通过`document.registerElement(tagName, prototype)`方法来定义标签。该方法提供元素原型继承的接口，可以通过`Object.create`方法创建元素作为prototype传入。在这个gangnam-style示例中就使用：
 
-```
+```js
 var gangnamProto = Object.create(HTMLElement.prototype);
 
   gangnamProto.createdCallback = function(){
