@@ -75,3 +75,10 @@ theme: landscape
 deploy:
   type: git
   repo: http://chaozh@github.com/chaozh/chaozh.github.com
+      
+#Admin
+admin:
+  name: chaozh 
+  password: 1234 
+  secret: hey hexo 
+  expire: 60*1
