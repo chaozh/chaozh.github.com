@@ -1,4 +1,4 @@
-title: AnyNote数据库设计
+title: AnyNote数据库与API设计
 date: 2015-07-27 22:20:39
 categories:
 - 移动开发 
@@ -94,3 +94,4 @@ user:
 - authCode
 - privilige 权限系统
 
+#API设计
