@@ -7,7 +7,7 @@ tags:
 ---
 参考Typecho设计数据库
 
-note: [wp怎么实现的post多版本？个人思路：type="revision", ]
+note: 
 
 - nid 自增
 - title
@@ -44,12 +44,27 @@ CREATE TABLE `test`.`an_notes` (
   `note_pwd` VARCHAR(20) NULL COMMENT '',
   PRIMARY KEY (`note_ID`)  COMMENT '');
 ```
+[wp怎么实现的post多版本？个人思路：type="revision"]
+
+Revisions are stored in the posts table.
+Revisions are stored as children of their associated post (the same thing we do for attachments). They are given a post_status of 'inherit', a post_type of 'revision', and a post_name of {parent ID}- revision(-#) for regular revisions and {parent ID}-autosave for autosaves.
+By default, WP keeps track of the changes to title, author, content, excerpt.
+
+revisions: 
+
+- rid
+- nid-revision-# / nid-autosave-#
+- uid
+- content
+- diff
+
 
 post: [post与note的一对多 github？]
 
 - pid 自增
 - title
-- cid[] ? 这块比较复杂，是否允许临时修改
+- content 由cid生成，包括style信息
+- nid[] ? 这块比较复杂，是否允许临时修改(redis缓存)
 
 meta:
 
@@ -94,4 +109,33 @@ user:
 - authCode
 - privilige 权限系统
 
+```
+CREATE TABLE IF NOT EXISTS `an_users` (
+`id` INTEGER NOT NULL auto_increment , 
+`user_ID` BIGINT(20) NOT NULL, 
+`user_name` VARCHAR(60) NOT NULL, 
+`user_pwd` VARCHAR(20) NOT NULL, 
+`user_url` VARCHAR(100) NOT NULL, 
+`user_email` VARCHAR(100) NOT NULL, 
+`user_nickname` VARCHAR(50) NOT NULL, 
+`user_created` DATETIME NOT NULL, 
+`user_status` INTEGER NOT NULL, 
+`user_authcode` VARCHAR(80), 
+`user_privilige` INTEGER NOT NULL, 
+ PRIMARY KEY (`id`)) ENGINE=InnoDB;
+```
+
 #API设计
+url(/user)
+
+* POST /user/signin
+* POST /user/signout
+* POST /user/logout
+
+url(/notes/:id)
+
+* POST /notes 创建
+* GET /notes 列表，分页问题
+* GET /notes/:id 获得
+* PUT/POST /notes/:id 更新
+* DELETE /notes/:id 删除
