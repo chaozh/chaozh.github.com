@@ -40,3 +40,7 @@ categories:
 2. 委托服务端处理能力
 3. 可扩展性
 4. JVM
+
+## 4. 参考资料
+1. [zookeeper节点数与watch的性能测试](http://codemacro.com/2014/09/21/zk-watch-benchmark)
+2. [对Zookeeper的一些分析](http://blog.csdn.net/wwwsq/article/details/7644445)

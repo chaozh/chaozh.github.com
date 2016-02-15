@@ -85,3 +85,5 @@ zk本身的系统特性设计很出色，同时选择的实现技术也比较扎
 3. [持续可用与CAP理论 – 一个系统开发者的观点](http://www.nosqlnotes.net/archives/333)
 4. [Kafka深度解析](http://www.jasongj.com/2015/01/02/Kafka%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/)
 5. [Zookeeper架构设计与应用要点](http://shiyanjun.cn/archives/474.html)
+6. [Zab vs. Paxos](https://cwiki.apache.org/ZOOKEEPER/zab-vs-paxos.html)
+6. [架构师需要了解的Paxos原理、历程及实战](http://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&mid=403582309&idx=1&sn=80c006f4e84a8af35dc8e9654f018ace&3rd=MzA3MDU4NTYzMw==&scene=6#rd)
