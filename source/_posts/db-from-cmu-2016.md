@@ -55,7 +55,7 @@ CMU课程15-721最新一期开课啦！
 总结下设计特点为：
 
 1. 不需要缓存池和页结构（直接用指针取代id索引？定长或变长数据？但是一定得使用checksum保证数据正确）
-2. 获得锁时间跟获得数据时间一样！导致可能允许牺牲一点并发度（coarse-grained locking因为数据IO足够快）并且可以将锁信息与数据信息一起保存（增加CPU cache locality，mutex相对太慢一定改用CAS）
+2. 获得锁时间跟获得数据时间一样！导致可能允许牺牲一点并发度（coarse-grained locking因为数据IO足够快）并且可以将锁信息与数据信息一起保存（增加CPU cache locality，mutex相对太慢，一定改用CAS）
 3. 索引设计问题凸显（需要多考虑一下CPU cache）
 4. 查询处理方式巨大改变（不需要顺序扫描，传统一次处理一个tuple方式相对太慢），考虑vector-at-a-time
 5. 仍然需要WAL，可能可以简化；仍然需要checkpoint操作
@@ -115,4 +115,4 @@ Optimistic方法 其中validation步骤：（可以并发进行）
 - backword 与已经提交的事务判断
 - forword 与还未提交事务判断
 
-本课未完待补充
+本课未学完待补充
