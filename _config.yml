@@ -74,7 +74,7 @@ theme: landscape
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: http://chaozh@github.com/chaozh/chaozh.github.com
+  repo: git@github.com:chaozh/chaozh.github.com.git
       
 #Admin
 admin:

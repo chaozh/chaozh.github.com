@@ -61,6 +61,8 @@ latch实现方法:
 其中non-scalable指锁阻塞后性能不能线性增长
 [详细解释](https://pdos.csail.mit.edu/6.828/2009/lec/l-mcs.html)
 
+个人补充：[spinlock vs mutex](http://www.yebangyu.org/blog/2016/01/24/spinlock-and-mutex/)
+
 现代OLTP索引设计：
 
 1. BW树(Hekaton)

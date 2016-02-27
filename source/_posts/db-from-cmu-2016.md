@@ -68,9 +68,25 @@ CMU课程15-721最新一期开课啦！
 
 介绍各种事务模型：nested trx、saga trx（其实在《事务处理》一书里面都已经见识过）
 
-介绍各种并发控制方式：等待补充
+介绍各种并发控制方式：
+Two-Phase Locking 和死锁避免方法
+
+- DL_DETECT
+- NO_WAIT
+- WAIT_DIE
+
+Timestamp Ordering及优化方法
+
+- Basic T/O
+- MVCC
+- OCC
+- H-STORE 
 
 测试结果出自14年的文章: [Staring into the Abyss: An Evaluation of Concurrency Control with One Thousand Cores](http://15721.courses.cs.cmu.edu/spring2016/papers/p209-yu.pdf)
+
+个人补充：MC涉及多线程访问内存值，CC解决多CPU副本一致性
+
+[Memory Consistency和Cache Coherence](http://www.yebangyu.org/blog/2016/01/09/memoryconsistencyandcachecoherence/)
 
 ## Concurrency Control II — Multi-versioning
 
