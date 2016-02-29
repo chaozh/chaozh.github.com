@@ -14,7 +14,7 @@ CMU课程15-721最新一期开课啦！
 
 ## Indexes I — Locking & Latching
 
-本节就是对应用在B树索引上的各种锁和latch技术进行讲解
+本节就是对应用在传统B树索引上的各种锁和latch技术进行讲解
 
 技术总结信息来自这篇文章：[A Survey of B-Tree Locking Techniques](http://15721.courses.cs.cmu.edu/spring2016/papers/a16-graefe.pdf)
 
@@ -50,7 +50,7 @@ B树(键值都在) -> B+树(值都在叶子节点) 其中B+树设计选择有：
 
 ## Indexes II — OLTP
 
-latch实现方法: 
+本节关注latch实现方法: 
 
 - Compare&Swap CAS操作，使用`__sync_bool_compare_and_swap(&M, 20, 30)` 是其他实现的基础
 - Os Mutex 使用`pthread_mutex_t` (,about 25ns invocation)
@@ -61,7 +61,9 @@ latch实现方法:
 其中non-scalable指锁阻塞后性能不能线性增长
 [详细解释](https://pdos.csail.mit.edu/6.828/2009/lec/l-mcs.html)
 
-现代OLTP索引设计：
+个人补充：工程实践中共享对象的读写一致性方案(读写锁，COW与引用计数)，引用计数并发可以使用HazardPointer解决
+
+重点讲解几个典型mem DB中OLTP索引设计：
 
 1. BW树(Hekaton)
 
@@ -69,8 +71,12 @@ latch实现方法:
 - deltas 没有直接修改(使用额外record或info)，建少cpu缓存失效，使用epoch方便垃圾回收
 - mapping table CAS使用在page的物理位置信息上 
 
+该技术来自微软这篇文章：[The Bw-Tree: A B-tree for New Hardware](http://15721.courses.cs.cmu.edu/spring2016/papers/bwtree-icde2013.pdf)
+
 2. Concurrent skip list(MemSQL), latch free
 仅使用CAS操作实现insert与update无锁化
+
+该技术来自这篇文章：[Concurrent Maintenance of Skip Lists](http://15721.courses.cs.cmu.edu/spring2016/papers/pugh-skiplists1990.pdf)
 
 3. Adaptive基树(Hyper)
 
@@ -78,9 +84,23 @@ latch实现方法:
 
 OLAP的不同在于可以drill down、roll up、slice、pivot等维度变化操作
 
+本节主要讲解行索引设计与bitmap
+
 Star Schema & Snowflake Schema => 采用行数据库模式
 
 
+## Storage Models & Data Layout
+
+主要mem DB的数据存储模型，注意C++使用`reinterpret_cast`在编译期强制转换类型，需要注意缓存对齐中的按字对齐(e.g. 64-bit word)
+
+Null处理：定义特殊值, Bitmap表示, Null Flag
+
+存储模型分为：
+- N-ary Storage Model(NSM) 适合OLTP，insert-heavy，物理上使用堆组织或索引组织元组(比如使用聚族索引)
+- Decomposition Storage Model(DSM) 行存储又叫纵向扩展，适合OLAP,元组物理上使用固定长度或嵌入元组id
+- Hybrid Model 
+
+可以观察到刚插入的数据一般都比较活跃，时间推移后期一般变成只读数据，OLTP通过ETL过程进入OLAP数据仓库
 
 
 
