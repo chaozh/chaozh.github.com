@@ -62,6 +62,7 @@ B树(键值都在) -> B+树(值都在叶子节点) 其中B+树设计选择有：
 [详细解释](https://pdos.csail.mit.edu/6.828/2009/lec/l-mcs.html)
 
 个人补充：工程实践中共享对象的读写一致性方案(读写锁，COW与引用计数)，引用计数并发可以使用HazardPointer解决
+个人补充：[spinlock vs mutex](http://www.yebangyu.org/blog/2016/01/24/spinlock-and-mutex/)
 
 重点讲解几个典型mem DB中OLTP索引设计：
 
