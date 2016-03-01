@@ -69,8 +69,8 @@ B树(键值都在) -> B+树(值都在叶子节点) 其中B+树设计选择有：
 1. BW树(Hekaton)
 
 - latch free B+树
-- deltas 没有直接修改(使用额外record或info)，建少cpu缓存失效，使用epoch方便垃圾回收
-- mapping table CAS使用在page的物理位置信息上 
+- deltas 没有直接修改(使用额外record或info，物理page上挂链表)，建少cpu缓存失效，使用epoch方便垃圾回收
+- mapping table 树所有都使用pid，需要维护pid到page物理位置的指针表，CAS使用在该指针上 
 
 该技术来自微软这篇文章：[The Bw-Tree: A B-tree for New Hardware](http://15721.courses.cs.cmu.edu/spring2016/papers/bwtree-icde2013.pdf)
 
@@ -99,7 +99,7 @@ Null处理：定义特殊值, Bitmap表示, Null Flag
 存储模型分为：
 - N-ary Storage Model(NSM) 适合OLTP，insert-heavy，物理上使用堆组织或索引组织元组(比如使用聚族索引)
 - Decomposition Storage Model(DSM) 行存储又叫纵向扩展，适合OLAP,元组物理上使用固定长度或嵌入元组id
-- Hybrid Model 
+- Hybrid Model 可以切换或同时适配
 
 可以观察到刚插入的数据一般都比较活跃，时间推移后期一般变成只读数据，OLTP通过ETL过程进入OLAP数据仓库
 
