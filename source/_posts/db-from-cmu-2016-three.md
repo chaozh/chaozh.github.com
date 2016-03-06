@@ -33,17 +33,23 @@ CMU课程15-721最新一期开课啦！
 
 补充一点内存访问架构（实际是体系结构中重要部分，由硬件设计决定）
 
-- Uniform：多cpu与多内存都必须走中心bus
-- Non-Uniform：几个cpu之间组成bus，cpu与内存一一对应
+- UMA：多cpu与多内存都必须走中心bus
+- NUMA：几个cpu之间组成bus，cpu与内存一一对应
 
 数据分配策略：
 
 - 内存分配与cpu绑定，参考linux的`move_pages`
 - 使用malloc
 
+将查询语句变为可调度的执行计划，OLTP简单，OLAP比较难。Hyper就是一个NUMA架构下多核横向分布动态调度架构：
+
+[Morsel-Driven Parallelism: A NUMA-Aware Query Evaluation Framework for the Many-Core Age](http://15721.courses.cs.cmu.edu/spring2016/papers/p743-leis.pdf)
+
+每个核分配一个worker（并行），pull接收分配的任务，数据分布采用RR算法
+
 ##Join Alogrithms I — Hashing
 
-不懂为何hash join算法作为第一个项目作业，而不是在介绍这个之后再布置
+不懂为何hash join算法作为第一个项目作业，而不是在介绍这个之后再布置，实际上这里讲解的是最新研究的多核版本算法
 
 ##Join Alogrithms II — Sort-Merge
 
@@ -51,7 +57,17 @@ CMU课程15-721最新一期开课啦！
 
 ##Logging & Recovery I — Physical Logging
 
+传统DB磁盘日志基于ARIES算法，使用fuzzy cp规则，管理Active Transan Table与Dirty Page Table，赋予LSN并在易失与非易失中都要维护，过程为：analysis,redo,undo。最慢的过程发生在其他事务等待log刷到磁盘。
 
+mem DB就不需要维护Dirty Page Table，因为所有数据都在内存。undo记录也没必要存储。
+
+实例是**Silo**系统，其将log，cp，恢复操作都并行化优化，[论文](http://15721.courses.cs.cmu.edu/spring2016/papers/zheng-osdi14.pdf)将这些设计考虑与最终选择都讲解的非常清晰。
+
+该系统假设每个CPU socket对应有一个存储设备。每个设备分配一个日志线程，CPU socket对应一组工作线程。日志线程每10个epoch创建一个文件，将旧日志文件重命名并记录最大epoch。日志维护两个队列：Free Buffers与Flushing Buffers。会有一个特殊日志线程跟踪最新已经持久化的epoch(即各个日志线程中持久化的epoch最大值)，小于此epoch的事务信息才可以丢弃。
+
+每个disk对应一个cp线程，该线程有可能因为分区而写多个文件（voltDB甚至直接使用MVCC的version来做cp），cp的频率。恢复也可以并行进行。使用YCSB和TPC-C测试，吞吐率损失10%，lantency没有统计。
 
 ##Logging & Recovery II — Alternative Methods
+
+讨论一下Logical Logging以及Facebook的快速恢复方法。
 

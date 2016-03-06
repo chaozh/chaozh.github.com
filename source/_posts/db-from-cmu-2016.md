@@ -102,21 +102,21 @@ Timestamp Ordering及优化方法
 
 - SNAPSHOT_ISOLATION 保证事务所见snapshot相同（不能强化到可串行化级别 2009新paper有可串行化snapshot方案），防止Write Skew（部分写更新）
 
-介绍多版本MVCC现代实现方法(timestamp-ordered好处在于不需要lock！)
-
-### Hekaton(SQL Server) 
-  
-  事务开始结束都赋予时间戳, 为每个tuple维护版本链(BEGING, END, POINTER)，维护全局事务状态图(ACTIVE, VALIDATING[precommited,2PL不需要这个状态，因为锁即可保证]),事务维护元数据(Read set,Write set,Scan set[避免幻读],Commit dependency)，乐观事务在多核表现下明显好于悲观事务
-  
-  实现方面仅使用lock-free数据结构(没有latch或spin lock，使用bw-tree和skiplist，CAS)
-  
-  该系统设计11年论文：[High-Performance Concurrency Control Mechanisms for Main-Memory Databases](http://15721.courses.cs.cmu.edu/spring2016/papers/p298-larson.pdf)
+下面介绍多版本MVCC现代实现方法(timestamp-ordered好处在于不需要lock！)
 
 mvcc设计考虑：
 
 - version chains（oldest-to-newest[w]，newest-to-oldest[r]）
 - version storage（全量或delta存[回滚段]）
 - garbage collection（额外线程或合作，GC在重写负载造成15%额外负载]）
+
+**Hekaton(SQL Server)**
+  
+  事务开始结束都赋予时间戳, 为每个tuple维护版本链(BEGING, END, POINTER)，维护全局事务状态图(ACTIVE, VALIDATING[precommited,2PL不需要这个状态，因为锁即可保证]),事务维护元数据(Read set,Write set,Scan set[避免幻读],Commit dependency)，乐观事务在多核表现下明显好于悲观事务
+  
+  实现方面仅使用lock-free数据结构(没有latch或spin lock，使用bw-tree和skiplist，CAS)
+  
+  该系统设计11年论文：[High-Performance Concurrency Control Mechanisms for Main-Memory Databases](http://15721.courses.cs.cmu.edu/spring2016/papers/p298-larson.pdf)
 
 ## Concurrency Control III — Optimistic
 

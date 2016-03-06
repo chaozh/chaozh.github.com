@@ -72,7 +72,7 @@ B树(键值都在) -> B+树(值都在叶子节点) 其中B+树设计选择有：
 - deltas 没有直接修改(使用额外record或info，物理page上挂链表)，建少cpu缓存失效，使用epoch方便垃圾回收
 - mapping table 树所有都使用pid，需要维护pid到page物理位置的指针表，CAS使用在该指针上 
 
-该技术来自微软这篇文章：[The Bw-Tree: A B-tree for New Hardware](http://15721.courses.cs.cmu.edu/spring2016/papers/bwtree-icde2013.pdf)
+该技术来自微软Hekaton的这篇文章：[The Bw-Tree: A B-tree for New Hardware](http://15721.courses.cs.cmu.edu/spring2016/papers/bwtree-icde2013.pdf)
 
 2. Concurrent skip list(MemSQL), latch free
 仅使用CAS操作实现insert与update无锁化
