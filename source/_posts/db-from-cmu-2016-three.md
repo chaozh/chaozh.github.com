@@ -69,5 +69,10 @@ mem DB就不需要维护Dirty Page Table，因为所有数据都在内存。undo
 
 ##Logging & Recovery II — Alternative Methods
 
-讨论一下Logical Logging以及Facebook的快速恢复方法。
+讨论一下逻辑日志，内存checkpoint以及Facebook的快速恢复方法（共享内存恢复）。
+
+OLTP中节点失效很少见(数据不大，通常<10个节点)，因此比较适合使用逻辑日志（存储方法名，输入参数，额外安全检测）
+voltDB设计(MySQL binLog?)
+
+
 

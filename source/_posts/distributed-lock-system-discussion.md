@@ -19,3 +19,5 @@ redis引出
 [论证读锁问题确实存在](http://jvns.ca/blog/2016/02/09/til-clock-skew-exists/)
 
 推荐还是运用[理论](http://blog.acolyer.org/2016/02/09/the-heard-of-model/)证明一下吧
+
+[测试方法](http://colin-scott.github.io/blog/2016/03/04/technologies-for-testing-and-debugging-distributed-systems/)
