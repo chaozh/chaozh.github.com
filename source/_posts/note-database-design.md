@@ -3,8 +3,9 @@ date: 2015-07-27 22:20:39
 categories:
 - 移动开发 
 tags:
-－ MySQL
+- MySQL
 ---
+
 参考Typecho设计数据库
 
 note: 
@@ -125,7 +126,8 @@ CREATE TABLE IF NOT EXISTS `an_users` (
  PRIMARY KEY (`id`)) ENGINE=InnoDB;
 ```
 
-#API设计
+## API设计
+
 url(/user)
 
 * POST /user/signin

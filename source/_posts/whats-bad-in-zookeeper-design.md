@@ -36,11 +36,18 @@ categories:
 
 1. 更丰富有效的API
     
-    支持多IP，自动处理重连与恢复
+    支持多IP，自动处理重连与恢复，服务端可以动态加入移除
 2. 委托服务端处理能力
-3. 可扩展性
+3. 横向可扩展性
 4. JVM
 
-## 4. 参考资料
+## 4. 继任者etcd？
+
+1. raft协议取代zab
+2. 
+
+## 5. 参考资料
 1. [zookeeper节点数与watch的性能测试](http://codemacro.com/2014/09/21/zk-watch-benchmark)
 2. [对Zookeeper的一些分析](http://blog.csdn.net/wwwsq/article/details/7644445)
+3. [ZooKeeper真的low吗？上千节点场景配置服务讨论](http://cloud.51cto.com/art/201508/487445.htm)
+4. [剖析etcd](http://www.infoq.com/cn/articles/coreos-analyse-etcd)

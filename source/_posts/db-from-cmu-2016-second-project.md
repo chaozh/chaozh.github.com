@@ -19,6 +19,11 @@ CMU课程15-721最新一期开课啦！
 - split/merge
 - 动态垃圾回收
 
+论文中几个奇怪概念：
+
+- install CAS 
+- epoch机制
+
 ## Profile方法
 
 profile工具使用valgrind或perf
