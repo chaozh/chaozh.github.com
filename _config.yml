@@ -7,7 +7,7 @@ title: chaozh.com
 subtitle: 超然台上仙的知识库|系统架构,移动开发,独立游戏
 description: 系统架构,移动开发,独立游戏
 author: Chao Zheng 
-language: zh-CN
+language: zh-Hans
 timezone:
 
 # URL
@@ -68,7 +68,12 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: landscape
+theme: landscape 
+disqus_shortname: chaozh
+
+#social:
+#    GitHub: http://github.com/chaozh
+#    DouBan: https://www.douban.com/people/54961884/
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
