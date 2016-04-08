@@ -14,7 +14,7 @@ CMU课程15-721最新一期开课啦！
 
 索引技术课程（三节）介绍的技术实际跟并发控制结合很紧密，接下来讨论查询相关技术（穿插了日志技术内容）
 
-##Query Execution & Scheduling
+## Query Execution & Scheduling
 
 重点介绍查询执行与调度，特别是多用户DB中查询如何并行执行
 
@@ -47,15 +47,15 @@ CMU课程15-721最新一期开课啦！
 
 每个核分配一个worker（并行），pull接收分配的任务，数据分布采用RR算法
 
-##Join Alogrithms I — Hashing
+## Join Alogrithms I — Hashing
 
 不懂为何hash join算法作为第一个项目作业，而不是在介绍这个之后再布置，实际上这里讲解的是最新研究的多核版本算法
 
-##Join Alogrithms II — Sort-Merge
+## Join Alogrithms II — Sort-Merge
 
 
 
-##Logging & Recovery I — Physical Logging
+## Logging & Recovery I — Physical Logging
 
 传统DB磁盘日志基于ARIES算法，使用fuzzy cp规则，管理Active Transan Table与Dirty Page Table，赋予LSN并在易失与非易失中都要维护，过程为：analysis,redo,undo。最慢的过程发生在其他事务等待log刷到磁盘。
 
@@ -67,7 +67,7 @@ mem DB就不需要维护Dirty Page Table，因为所有数据都在内存。undo
 
 每个disk对应一个cp线程，该线程有可能因为分区而写多个文件（voltDB甚至直接使用MVCC的version来做cp），cp的频率。恢复也可以并行进行。使用YCSB和TPC-C测试，吞吐率损失10%，lantency没有统计。
 
-##Logging & Recovery II — Alternative Methods
+## Logging & Recovery II — Alternative Methods
 
 讨论一下逻辑日志，内存checkpoint以及Facebook的快速恢复方法（共享内存恢复）。
 
