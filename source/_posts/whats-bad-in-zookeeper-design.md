@@ -38,6 +38,7 @@ categories:
     
     支持多IP，自动处理重连与恢复，服务端可以动态加入移除
 2. 委托服务端处理能力
+    script能力？像redis支持luaScript
 3. 横向可扩展性
 4. JVM
 
