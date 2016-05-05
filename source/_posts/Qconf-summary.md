@@ -1,4 +1,4 @@
-# Qcon day 1
+# 2016 Qcon北京
 
 ## 1.1 七周七并发
 
@@ -68,7 +68,7 @@ openJDK hotspot vs jeorocket
 
 # sp
 kubernet 1000node限制 封装+100ms延迟 
-华为王宇冬提问：扩展存储问题（有状态使用ceph，性能下降问题）
+华为王宇冬提问：扩展存储问题（有状态就使用ceph，性能下降问题[无解？]）
 
 ## 1.3 网易蜂巢容器云
 

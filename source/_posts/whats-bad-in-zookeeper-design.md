@@ -4,7 +4,7 @@ tags:
 - zookeeper
 - paxos
 categories:
-  - 系统经验
+- 系统经验
 ---
 
 ## 1.实际使用暴露的不足
@@ -51,4 +51,6 @@ categories:
 1. [zookeeper节点数与watch的性能测试](http://codemacro.com/2014/09/21/zk-watch-benchmark)
 2. [对Zookeeper的一些分析](http://blog.csdn.net/wwwsq/article/details/7644445)
 3. [ZooKeeper真的low吗？上千节点场景配置服务讨论](http://cloud.51cto.com/art/201508/487445.htm)
-4. [剖析etcd](http://www.infoq.com/cn/articles/coreos-analyse-etcd)
+4. [Zookeeper常见问题整理](http://www.aboutyun.com/blog-1328-2362.html)
+5. [ZAB问题总结](https://www.douban.com/note/277477728/)
+6. [剖析etcd](http://www.infoq.com/cn/articles/coreos-analyse-etcd)
