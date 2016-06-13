@@ -50,7 +50,7 @@ B树(键值都在) -> B+树(值都在叶子节点) 其中B+树设计选择有：
 
 ## Indexes II — OLTP
 
-本节关注latch实现方法: 
+本节先关注latch实现方法: 
 
 - Compare&Swap CAS操作，使用`__sync_bool_compare_and_swap(&M, 20, 30)` 是其他实现的基础
 - Os Mutex 使用`pthread_mutex_t` (,about 25ns invocation)
@@ -83,12 +83,15 @@ B树(键值都在) -> B+树(值都在叶子节点) 其中B+树设计选择有：
 
 ## Indexes III — OLAP
 
-OLAP的不同在于可以drill down、roll up、slice、pivot等维度变化操作
+OLAP的不同在于可以drill down、roll up、slice、pivot等维度变化操作，本节主要讲解OLAP中列索引设计
 
-本节主要讲解行索引设计与bitmap
+个人补充：很多需要数据库行转列操作
 
-Star Schema & Snowflake Schema => 采用行数据库模式
+Star Schema vs Snowflake Schema (分层级关系表) 使用B+树结构因为数据重复会导致大量的空间浪费，OLAP更适合采用列数据库模式(方便压缩)
 
+SQL Server的列索引设计(如何在行存储上实现列索引)：最初设计表必须是只读的, 实现结构为segment directory即blob storage with dictionary/delta encode & compress 针对不同数据类型采用不同编码方法；新版支持insert/update/delete, 采用delta store支持插入更新,bitmap实现删除
+
+bitmap索引技术：每个attr使用一个bitmap表示每个tuple的值(估算10million tuple, 43000个zip codes则需要额外53.75GB，原因是zip作为attr数量太大)，需要考虑压缩方法
 
 ## Storage Models & Data Layout
 
