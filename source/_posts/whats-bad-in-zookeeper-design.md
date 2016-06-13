@@ -2,6 +2,7 @@ title: Zookeeper系统的不足
 date: 2015-10-15 20:00:11
 tags:
 - zookeeper
+- raft
 - paxos
 categories:
   - 系统经验
@@ -12,7 +13,7 @@ categories:
 回答Zookeeper使用时还有哪些问题
 
 1. API使用复杂
-2. 实际客户端逻辑复杂
+2. 实际客户端逻辑复杂(锁异步时间)
 3. ZK异常状态判断
 4. 回调次数限制
 5. Zab协议与全系统的有效性（能否避免脑裂发生）
@@ -28,7 +29,7 @@ categories:
 设计层面上的不足
 
 1. 事务API能力不足
-2. 中心的仲裁能力
+2. 中心无仲裁能力
 3. 回调次数
 4. 可扩展性
 
@@ -39,13 +40,15 @@ categories:
     支持多IP，自动处理重连与恢复，服务端可以动态加入移除
 2. 委托服务端处理能力
     script能力？像redis支持luaScript
+    节点单独超时时间设计
 3. 横向可扩展性
 4. JVM
 
 ## 4. 继任者etcd？
 
 1. raft协议取代zab
-2. 
+2. go GC
+3. restful API
 
 ## 5. 参考资料
 1. [zookeeper节点数与watch的性能测试](http://codemacro.com/2014/09/21/zk-watch-benchmark)

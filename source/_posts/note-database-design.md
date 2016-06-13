@@ -66,35 +66,40 @@ post: [post与note的一对多 github？]
 - title
 - content 由cid生成，包括style信息
 - nid[] ? 这块比较复杂，是否允许临时修改(redis缓存)
+- status
 
 meta:
 
 - mid 自增
 - name
-- type
+- type tag, category, board, …
 - desc
-- order ?
-- count
+- parent
 
-notemeta: []
+notemeta: [] tags/books
 
 - mcid 自增 仅优化用？
 - mid
 - nid
+- order ?
+- count
+- status
 
 postmeta:
 
 - pcid
 - pid
 - mid
-
+- order ?
+- count
+- status
 
 options:
 
 - oid 自增
+- uid 对应uid
 - key
 - value
-- usr 对应uid
 
 user:
 
