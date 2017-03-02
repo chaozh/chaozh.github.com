@@ -1,10 +1,10 @@
 title: Cracking the coding interview Q1-6
+categories:
+- 课程总结
 tags:
   - 算法
   - 面试
 id: 569
-categories:
-  - 面试总结
 date: 2013-08-12 03:09:17
 ---
 

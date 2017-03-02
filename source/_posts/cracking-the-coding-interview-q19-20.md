@@ -1,10 +1,10 @@
 title: Cracking the coding interview Q19-20
+categories:
+- 课程总结
 tags:
   - 算法
   - 面试
 id: 678
-categories:
-  - 面试总结
 date: 2013-09-05 10:57:55
 ---
 

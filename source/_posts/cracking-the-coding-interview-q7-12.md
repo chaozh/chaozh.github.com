@@ -1,10 +1,10 @@
 title: Cracking the coding interview Q7-12
+categories:
+- 课程总结
 tags:
   - 算法
   - 面试
 id: 598
-categories:
-  - 面试总结
 date: 2013-08-15 13:02:54
 ---
 

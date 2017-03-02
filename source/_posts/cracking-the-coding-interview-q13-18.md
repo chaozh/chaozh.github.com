@@ -1,10 +1,10 @@
 title: Cracking the coding interview Q13-18
+categories:
+- 课程总结
 tags:
   - 算法
   - 面试
 id: 628
-categories:
-  - 面试总结
 date: 2013-08-23 11:18:07
 ---
 
