@@ -1,14 +1,11 @@
-title: fabric-ca-design
+title: Hyperledger Fabric CA设计
 date: 2017-03-23 22:22:53
 categories:
 - 新技术跟踪
-  tags:
+tags:
 - 区块链
 - fabric
 ---
-
-# Hyperledger Fabric CA设计
-
 ## 1. 需求描述
 
 基于商业安全需求考虑进行设计，需要身份与角色管理相结合（身份管理将商业中的问责制更加明确）交易隐私表现为：交易匿名和交易不可关联。
@@ -37,6 +34,3 @@ configtx.yaml包含示例区块链网络内角色的定义；/crypto目录包含
 部署合约时可以选择背书策略
 
 改名为fabric-ca服务
-
-
-

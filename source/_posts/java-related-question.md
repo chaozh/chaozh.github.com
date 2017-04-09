@@ -2,7 +2,7 @@ title: Java架构师问题总结
 date: 2016-03-08 10:03:34
 categories:
 - 面试总结
-  tags:
+tags:
 - JVM
 - 事务
 - 数据库
