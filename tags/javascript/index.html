@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Tag: javascript | chaozh.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="系统架构,移动开发,独立游戏">
+<meta property="og:type" content="website">
+<meta property="og:title" content="chaozh.com">
+<meta property="og:url" content="http://chaozh.github.com/tags/javascript/index.html">
+<meta property="og:site_name" content="chaozh.com">
+<meta property="og:description" content="系统架构,移动开发,独立游戏">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chaozh.com">
+<meta name="twitter:description" content="系统架构,移动开发,独立游戏">
+  
+    <link rel="alternative" href="/atom.xml" title="chaozh.com" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">chaozh.com</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">超然台上仙的知识库|系统架构,移动开发,独立游戏</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/php-development-env-setup-in-win7-x64.html">PHP-WIN</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chaozh.github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-2015-shenzhen-jsconf-summary-part-two" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/31/2015-shenzhen-jsconf-summary-part-two/" class="article-date">
+  <time datetime="2015-07-31T19:03:16.000Z" itemprop="datePublished">2015-07-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/31/2015-shenzhen-jsconf-summary-part-two/">2015 shen JSconf总结（第二天）　</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第二天干货非常多，全是实战经验，基本没有什么技术介绍。</p>
+<p>##Part Two 2015-07-12</p>
+<p>###1. 七牛前端测试实践 - 马逸清<br>angularjs dom隔离，测试不需mock；依赖注入可以mock (service,  controller) 可以使用stub</p>
+<p>stub适合返回值依赖，mock行为验证</p>
+<p>官方jasmine<br>View状态测试</p>
+<p><strong>phantom，sinon(stub)，fixture(karma)</strong></p>
+<p>###2. Node Profiler - 朴灵@阿里云alinode<br>hack了部分v8代码，跟CPU Profile相关</p>
+<ul>
+<li>常用工具: benchmark.js，node-webkit-agent，ab/wrk(压力测试)，–prof &amp; mac-tick-processor(v8)</li>
+<li>v8以JIT方式执行js(产出机器码)，以函数为单位处理<br>Crankshaft架构(可以运行时优化 fulCompiler -&gt; optimizeCompiler) P：bailout, deoptimize</li>
+<li>Profiler： 更多函数状态，优化建议(v8能否优化) <a href="http://alinode.aliyun.com" target="_blank" rel="noopener">http://alinode.aliyun.com</a></li>
+<li>(program) 系统空转</li>
+</ul>
+<p>? 第一次访问测试</p>
+<p>###3. P2P pipes - mafintosh(dat)</p>
+<p>demo: multiplayer game(socket)<br>websockets, webrtc</p>
+<p>**ndjson, nc, crypto, dupsh(two app in-out pipe), airpaste(udp multicast with pipe), blecat(blutooth with pipe), webcat(webrtc with pipe)</p>
+<p>###4. 微服务架构下的服务通信 - 老雷leizongmin @ucdok.com/ superid.me一登<br><strong>后台Node逻辑</strong><br>SDK - 多进程？- API服务器（人脸识别模块）</p>
+<p>=》 SDK - API服务器 -人脸识别进程（多线程）</p>
+<p>=》 - 更多应用（后台微服务架构）</p>
+<p>–&gt; 服务注册（消息队列总线式 / P2P）+远程调用</p>
+<p><strong>实现原理</strong></p>
+<p>总线可以用redis实现，通信也用redis订阅机制（服务提供者可以动态加入）<br>vs amqp-rpc， eureca.io</p>
+<p>未来：备份切换，数据量太大</p>
+<p>服务发现 + 服务通信</p>
+<p>ppt地址 github.com/leizongmin/clouds</p>
+<p><strong>etcd + k8s + docker</strong></p>
+<p>###5. 前端服务化之路 - Herman@阿里CXDC 客服中心</p>
+<p> 前后端分离-》前端给后端提供接口（服务化）-》web component<br> **flipper.js 支持IE8以上 – webcomponents.js 更好的隔离性</p>
+<p>###6. JS lang - hax贺诗俊@百姓网<br>NodeJS + CommonJS -&gt; ES6 module( class, arrow function[this bind], map/set, for..of..[for in] )</p>
+<p>WebAssembly</p>
+<p><strong>babel(es6 compiler)</strong></p>
+<p>###7. JS on Fiber - 庄恒飞@孢子社区fibjs-&gt; 那么社区named.cn<br>fibjs vs nodejs， Fiber-Driven，No Callback</p>
+<ul>
+<li>Module lib: CommonJS，async require</li>
+<li>coroutine.parallel 【改变nodejs单线程】多CPU利用率<br>js，用<br><code>brew install fibjs [http://fibjs.org]</code><br>fibjs底层多种线程(fiber) -&gt; js线程-》work线程池【实际改动了v8下一层，解决了nodejs的callback与计算密集】</li>
+</ul>
+<p>##Lighting Talk</p>
+<ol>
+<li>tangrui.net (js in JVM: 1.6 ringo 1.8 nashorm(vert.x/avatar.js)) cde.io</li>
+<li>wangyan @oneapm.com (npm2dot) 转换dot格式</li>
+<li>dafeng @strikling.com “GraphQL &amp; Relay”: restful api问题：依赖多次发送-&gt;custom endpoint-》 GraphQL帮忙管理</li>
+<li>homlinju @fontmin js方案的字体最小化</li>
+<li>一狂 @阿里cxdc www.zouyesheng.com angular问题：不单单使用，模块化加载，自己的渲染机制，怎么合作？模块内定义dir最后手动触发bootstrap</li>
+<li>EvanYou @vue webpack vue-element.js </li>
+<li>xeodou crazyapp.net/#/explore</li>
+</ol>
+<p>###8. Persistent data structure in JS-NiYue@splunk<br>persistent data structure [like COW] -&gt; concurrency<br>real good: </p>
+<ol>
+<li>performance（判断状态是否变化）</li>
+<li>features on copy（undo/redo，recording/reply，time traveling） </li>
+</ol>
+<p>实现策略：COW -&gt; structual sharing<br>问题：内存消耗，内存回收</p>
+<p><strong>mori, Immutable</strong> </p>
+<p><strong>一页千级dom元素？</strong><br>LightTable演示</p>
+<p>###9. WebIDE with React - hulufei @coding.net<br>React - Flux - karma</p>
+<p>Components: <code>&lt;WebIDE/&gt;</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> App = React.createClass(&#123;</span><br><span class="line">	render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		&lt;div&gt;<span class="xml"><span class="tag">&lt;<span class="name">Menu</span>/&gt;</span></span><span class="xml"><span class="tag">&lt;<span class="name">Tree</span>/&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Flux: Dispatchor -&gt; store -&gt; view -&gt; action<br><code>&lt;Editor/&gt;</code>与<code>&lt;SettingModel/&gt;</code> 通信：<br>SettingStore -&gt; SettingAction</p>
+<p>Addons: store或action引用API层</p>
+<p><strong>roit, ace rather than codemirror</strong><br>QA：store划分标准：组件需要，共享； 数据放store里面方便做数据缓存，返回promise；Flux写太多模板代码；</p>
+<p>###10. WebGL &amp; WebVR - Martin @Zurich - archilogic.com @g33konaut</p>
+<p>faces + vertices -&gt; GL buffers -&gt; shader code -&gt; print</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> renderer = THREE.WebGLRenderer();</span><br><span class="line"><span class="keyword">var</span> box = <span class="keyword">new</span> <span class="type">THREE</span>.Mesh(</span><br><span class="line">	<span class="keyword">new</span> <span class="type">THREE</span>.BoxGeometry(<span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>),</span><br><span class="line">	<span class="keyword">new</span> <span class="type">Three</span>.MeshBasicMaterial()</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">scene.add(box);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> light = <span class="keyword">new</span> <span class="type">THREE</span>.PointLight()</span><br><span class="line">light.position.<span class="keyword">set</span>();</span><br><span class="line">renderer.render(<span class="function"><span class="keyword">function</span></span>()&#123;</span><br><span class="line">	box.rotation.y += Math.PI / <span class="number">200</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//OBJMITLoader()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//VR</span></span><br><span class="line"><span class="keyword">var</span> vrEffect = <span class="keyword">new</span> <span class="type">THREE</span>.VREffect(render),</span><br><span class="line">	vrControls = <span class="keyword">new</span> <span class="type">THREE</span>.VRControls()</span><br></pre></td></tr></table></figure>
+<p>###11. maintainable nodejs - 死马 不四@天猫前端,dead-horse@github koa<br>提供固定的输出</p>
+<p>异步try-catch -&gt; promise 可以传递error<br>默认的错误监听函数，可以利用事件方式让外层感知</p>
+<p><strong>bluebird, co</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2015/07/31/2015-shenzhen-jsconf-summary-part-two/" data-id="cjap5ltt8001yb8rlktqvw4r4" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2015/07/31/2015-shenzhen-jsconf-summary-part-two/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebGL/">WebGL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/karma/">karma</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-very-useful-javascript-code-snippers" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/30/very-useful-javascript-code-snippers/" class="article-date">
+  <time datetime="2015-06-30T22:59:57.000Z" itemprop="datePublished">2015-06-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/06/30/very-useful-javascript-code-snippers/">JavaScript实用代码片段</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近抽空在忙<a href="http://chaozh.github.io/RiskDemo" target="_blank" rel="noopener">小项目</a>，总结了下一些项目中碰到的常见问题，搜集对应的实用JS代码片段，跟大家分享。</p>
+<h2 id="1-产生限定范围内不重复的随机数"><a href="#1-产生限定范围内不重复的随机数" class="headerlink" title="1.产生限定范围内不重复的随机数"></a>1.产生限定范围内不重复的随机数</h2><p>在深js也碰到了完全相同的问题，即抽奖程序的核心算法，结果是bug频出。这里给出<a href="https://github.com/jsconfcn/raffle" target="_blank" rel="noopener">js抽奖程序</a>，大家去鄙视一下。<br>一种思路是在给定大小数组中每次抽取一个随机位置的数进行剔除，这个程序的问题是必须始终维护抽取的数组，好处是不会重复抽取：</p>
+<pre>var originalArray=[];
+for (var i=0;i&lt;len;i++) { 
+    originalArray[i]= i; 
+} 
+var getRandom = function(){
+    var index=Math.floor(Math.random()*originalArray.length); //随机取一个位置 
+    var value = originalArray[parseInt(index)];
+    originalArray.splice(index,1);
+    return value;
+}
+</pre>
+有什么其他好方法不妨分享一下。
+
+## 2\. 数字保留两位小数
+
+数字进行截断保留两位小数只想到如下方法
+<pre>floatNum = Math.round(floatNum*100)/100;</pre>
+但是还有情况是仅展示两位小数，这时只要用原生的API方法就可以了
+<pre>floatNum.toFixed(2)</pre>
+
+<h2 id="3-触发change事件"><a href="#3-触发change事件" class="headerlink" title="3. 触发change事件"></a>3. 触发change事件</h2><p>这是在使用AmazeUI中按钮组时碰到的问题，按钮组并没有对应的js封装，所以点击div模拟的按钮并不能触发实际单选按钮的change事件，因此需要jquery来手动触发。估计Bootstrap应该有进行更好的封装吧。</p>
+<pre>$button.children().attr('checked',true).trigger("change");</pre>
+这里使用`children`仅是为了获得包含在外层`div`下的单选按钮，还得设置check状态
+
+## 4\. 单选按钮选择信息获取
+
+按钮组中究竟选择了哪一个可以使用下面代码获得
+<pre>$('input[name="radio-options"]:checked').val()</pre>
+
+<h2 id="5-中文编解码"><a href="#5-中文编解码" class="headerlink" title="5. 中文编解码"></a>5. 中文编解码</h2><p>在URL中传递中文就需要进行URI编码转为16进制的数字表示</p>
+<pre>location.href = "result.html?u="+encodeURIComponent(name)+"&amp;b="+invest_status.profit+"&amp;r="+invest_status.rounds;</pre>
+展示也得使用相应的URI函数解码进行
+<pre>user = decodeURI(name);</pre>
+发现不少浏览器现在已经支持直接在URL中插入中文，估计这里有些变化了。
+
+## 6\. 转换为数字类型
+
+两种方法，一种是
+<pre>option = parseInt(IntNumStr);</pre>
+另一种是
+<pre>option = Number(IntNumStr);</pre>
+注意单选按钮的选择值就可以用这个方法进行转换
+
+## 7\. 浏览器url信息处理
+
+主要是处理GET请求的分隔符"&amp;"与值的获得，也就是运用`.split("&amp;")`和`.split("=")`
+<pre>infos = url.split('&amp;'), user = (infos[0].split('='))[1];</pre>
+搜到一个大而全的[处理工具](https://github.com/websanova/js-url)
+
+## 8\. 网页title设置
+
+直接给`document.title`赋值即可
+
+## 9\. 异步加载与性能优化
+
+promise
+
+## 10.文件上传处理
+
+<pre><input id="input" type="file">
+window.Blob slice
+file</pre>
+
+<h2 id="11-多场景管理"><a href="#11-多场景管理" class="headerlink" title="11. 多场景管理"></a>11. 多场景管理</h2><h2 id="12-简单模板与双向绑定"><a href="#12-简单模板与双向绑定" class="headerlink" title="12. 简单模板与双向绑定"></a>12. 简单模板与双向绑定</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2015/06/30/very-useful-javascript-code-snippers/" data-id="cjap5ltwr008hb8rlt3kqbj1n" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2015/06/30/very-useful-javascript-code-snippers/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-techniques-from-simple-javascript-templating" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/01/09/techniques-from-simple-javascript-templating/" class="article-date">
+  <time datetime="2013-01-09T14:19:54.000Z" itemprop="datePublished">2013-01-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/01/09/techniques-from-simple-javascript-templating/">出自jquery作者简单js模板中的技巧</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>短短的一段代码，看懂之后能真正认识javascript语言中的各种技巧 来自<a href="http://ejohn.org/blog/javascript-micro-templating/" title="JavaScript Micro-Templating  " target="_blank" rel="noopener">JavaScript Micro-Templating</a></p>
+<pre>
+// Simple JavaScript Templating
+// John Resig - http://ejohn.org/ - MIT Licensed
+(function(){
+  var cache = {};
+  // tmpl解析函数，参数str通常为模板tag的id，参数data为传入的数据
+  this.tmpl = function tmpl(str, data){ 
+   //首先判断传入str第一个字符是否为非单词字符，\W等价于[^A-Za-z0-9_]，注意判断条件取反
+    var fn = !/\W/.test(str) ? 
+      //为真，说明开头字符为单词字符，即str表示id，则首先查找缓存中的模板函数
+      cache[str] = cache[str] || 
+        //未缓存则并取出模板中的内容运行tmpl解析函数，由于未传入data参数，故返回模板函数指针进行缓存
+        tmpl(document.getElementById(str).innerHTML) : 
+
+      // 为假，说明开头字符为非单词字符，即str表示模板内容，则创建相应的模板函数fn对象
+      new Function("obj", //fn接受一个参数obj，实质即data
+         //函数内容，p为需要显示的内容以数组形式保存，内部函数print即调用p的push方法将所有参数压入（该函数用法不明）
+        "var p=[],print=function(){p.push.apply(p,arguments);};" + 
+
+        //使用with关键字，将参数obj即data带入到执行环境中，这样模板中的变量即可使用
+        "with(obj){p.push('" +
+        // 在创建fn函数对象时即将str模板内容转换为完全的js代码，
+        // 例子：&lt;i class='a'&gt;&lt;%=user.id%&gt;&lt;/i&gt;
+        str
+        // 先清除各种换行符以方便后面作为替代符号进行使用
+          .replace(/[\r\t\n]/g, " ")
+        // 将模板开头标志替换为缩进符，
+        // 例子：&lt;i class='a'&gt;\t=user.id%&gt;&lt;/i&gt;
+          .split("&lt;%").join("\t")           
+        // 模板中非脚本部分（即html标签）中的单引号替换为换行符，其中$1即正则中小括号能匹配的内容
+        // 例子：&lt;i class=\ra\r&gt;\t=user.id%&gt;&lt;/i&gt;
+          .replace(/((^|%&gt;)[^\t]*)'/g, "$1\r")
+        // 将模板中直接显示的变量提取出来，用单引号与逗号进行分隔,由于字符串使用单引号，故而上一步需要记录
+        // 例子：&lt;i class=\ra\r&gt;',user.id,'&lt;/i&gt;
+          .replace(/\t=(.*?)%&gt;/g, "',$1,'")
+        // 将代替模板开头标志的缩进符替换为push调用结束，注意例子中的\t在上一步已被删去
+          .split("\t").join("');")
+        // 将模板结束标志替换为p.push调用开始，意为模板标志之间的html标签即以字符串的形式压入p数组
+        // 注意例子中的%&gt;也在显示变量那步被删除
+          .split("%&gt;").join("p.push('")
+        // 还原模板中原有字符串部分的单引号
+        // 例子：&lt;i class=\\'t\\'&gt;',user.id,'&lt;/i&gt;
+          .split("\r").join("\\'")
+        // fn函数返回最终拼接的字符串,p.push('&lt;i class=\\'t\\'&gt;',user.id,'&lt;/i&gt;');，注意push方法是可以压入多个元素的
+      + "');}return p.join('');");
+
+    //如果传入data，则返回运行模板函数后的最终结果，否则返回模板函数fn指针
+    return data ? fn( data ) : fn; 
+  };
+})();
+</pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/01/09/techniques-from-simple-javascript-templating/" data-id="cjap5ltwh007vb8rlgii8p30m" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/01/09/techniques-from-simple-javascript-templating/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS模板/">JS模板</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-how-to-make-bookmarklet-in-javascript" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/02/19/how-to-make-bookmarklet-in-javascript/" class="article-date">
+  <time datetime="2012-02-19T11:32:49.000Z" itemprop="datePublished">2012-02-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/02/19/how-to-make-bookmarklet-in-javascript/">制作Bookmarklet书签</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>基本模板就是这样，主要是javascript:起了作用，导致代码执行。</p>
+<pre rel="javascript">javascript:(function(){
+
+if(window.bookmarklet!=undefined){bookmarklet();}
+else{document.body.appendChild(document.createElement('script')).src='http://YOURURL/bookmarklets.js';}
+
+})();</pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2012/02/19/how-to-make-bookmarklet-in-javascript/" data-id="cjap5ltut004rb8rlqrvtsfbp" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2012/02/19/how-to-make-bookmarklet-in-javascript/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/WordPress开发/">WordPress开发</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品设计/">产品设计</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端语言/">后端语言</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/新技术跟踪/">新技术跟踪</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/">系统架构</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/项目经历/">项目经历</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统经验/">系统经验</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/课程总结/">课程总结</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融/">金融</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试总结/">面试总结</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目经历/">项目经历</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InnoDB/">InnoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS模板/">JS模板</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux设置/">Linux设置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVCC/">MVCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP主题/">WP主题</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP实现/">WP实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP插件/">WP插件</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP设置/">WP设置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/">WebGL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache-coherence/">cache coherence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history/">history</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios应用/">ios应用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptv/">iptv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/">join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kv存储/">kv存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutex/">mutex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/">paxos</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raft/">raft</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url重定向/">url重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web2-0/">web2.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文汉化/">中文汉化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/互联网企业/">互联网企业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/债券/">债券</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内核/">内核</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式锁/">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/华为/">华为</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基金/">基金</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外设/">外设</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源项目/">开源项目</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无锁并发/">无锁并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/期货/">期货</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栅格系统/">栅格系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/科研/">科研</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/股票/">股票</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本加载/">脚本加载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/腾讯/">腾讯</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/苹果/">苹果</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法/">语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读写锁/">读写锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调度/">调度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金山/">金山</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隔离级别/">隔离级别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目管理/">项目管理</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/InnoDB/" style="font-size: 10px;">InnoDB</a> <a href="/tags/JS模板/" style="font-size: 11.67px;">JS模板</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Linux设置/" style="font-size: 10px;">Linux设置</a> <a href="/tags/MVCC/" style="font-size: 10px;">MVCC</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WP主题/" style="font-size: 16.67px;">WP主题</a> <a href="/tags/WP实现/" style="font-size: 10px;">WP实现</a> <a href="/tags/WP插件/" style="font-size: 16.67px;">WP插件</a> <a href="/tags/WP设置/" style="font-size: 11.67px;">WP设置</a> <a href="/tags/WebGL/" style="font-size: 11.67px;">WebGL</a> <a href="/tags/Zookeeper/" style="font-size: 10px;">Zookeeper</a> <a href="/tags/cache-coherence/" style="font-size: 10px;">cache coherence</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/fabric/" style="font-size: 11.67px;">fabric</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/google/" style="font-size: 11.67px;">google</a> <a href="/tags/history/" style="font-size: 10px;">history</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/ios应用/" style="font-size: 10px;">ios应用</a> <a href="/tags/iptv/" style="font-size: 10px;">iptv</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/kv存储/" style="font-size: 10px;">kv存储</a> <a href="/tags/memory/" style="font-size: 10px;">memory</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/paxos/" style="font-size: 11.67px;">paxos</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raft/" style="font-size: 10px;">raft</a> <a href="/tags/url重定向/" style="font-size: 10px;">url重定向</a> <a href="/tags/web2-0/" style="font-size: 10px;">web2.0</a> <a href="/tags/zookeeper/" style="font-size: 11.67px;">zookeeper</a> <a href="/tags/中文汉化/" style="font-size: 11.67px;">中文汉化</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/互联网企业/" style="font-size: 11.67px;">互联网企业</a> <a href="/tags/债券/" style="font-size: 11.67px;">债券</a> <a href="/tags/内核/" style="font-size: 11.67px;">内核</a> <a href="/tags/分布式锁/" style="font-size: 10px;">分布式锁</a> <a href="/tags/区块链/" style="font-size: 13.33px;">区块链</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/基金/" style="font-size: 11.67px;">基金</a> <a href="/tags/外设/" style="font-size: 10px;">外设</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/实习/" style="font-size: 15px;">实习</a> <a href="/tags/开源项目/" style="font-size: 10px;">开源项目</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/数据库/" style="font-size: 18.33px;">数据库</a> <a href="/tags/无锁并发/" style="font-size: 10px;">无锁并发</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/期货/" style="font-size: 11.67px;">期货</a> <a href="/tags/栅格系统/" style="font-size: 10px;">栅格系统</a> <a href="/tags/科研/" style="font-size: 10px;">科研</a> <a href="/tags/算法/" style="font-size: 18.33px;">算法</a> <a href="/tags/索引/" style="font-size: 11.67px;">索引</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/股票/" style="font-size: 11.67px;">股票</a> <a href="/tags/脚本加载/" style="font-size: 10px;">脚本加载</a> <a href="/tags/腾讯/" style="font-size: 15px;">腾讯</a> <a href="/tags/苹果/" style="font-size: 10px;">苹果</a> <a href="/tags/语法/" style="font-size: 11.67px;">语法</a> <a href="/tags/读写锁/" style="font-size: 10px;">读写锁</a> <a href="/tags/调度/" style="font-size: 10px;">调度</a> <a href="/tags/金山/" style="font-size: 10px;">金山</a> <a href="/tags/锁/" style="font-size: 10px;">锁</a> <a href="/tags/键盘/" style="font-size: 10px;">键盘</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试/" style="font-size: 20px;">面试</a> <a href="/tags/项目管理/" style="font-size: 11.67px;">项目管理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/03/">March 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/02/Qconf-summary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/08/blockchain-tech-summary/">区块链技术总结与架构实战</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/fabric-ca-design/">Hyperledger Fabric CA设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/05/sicp-charpter-two/">SICP第二章总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chao Zheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  </footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/php-development-env-setup-in-win7-x64.html" class="mobile-nav-link">PHP-WIN</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'chaozh';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

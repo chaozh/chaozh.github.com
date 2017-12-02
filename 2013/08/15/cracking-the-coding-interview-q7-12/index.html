@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Cracking the coding interview Q7-12 | chaozh.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="7.7 Explain how you would design a chat server In particular, provide details about the various backend components, classes, and methods. What would be the hard">
+<meta name="keywords" content="算法,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cracking the coding interview Q7-12">
+<meta property="og:url" content="http://chaozh.github.com/2013/08/15/cracking-the-coding-interview-q7-12/index.html">
+<meta property="og:site_name" content="chaozh.com">
+<meta property="og:description" content="7.7 Explain how you would design a chat server In particular, provide details about the various backend components, classes, and methods. What would be the hardest problems to solve? We can learn from">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-02T09:46:23.907Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cracking the coding interview Q7-12">
+<meta name="twitter:description" content="7.7 Explain how you would design a chat server In particular, provide details about the various backend components, classes, and methods. What would be the hardest problems to solve? We can learn from">
+  
+    <link rel="alternative" href="/atom.xml" title="chaozh.com" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">chaozh.com</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">超然台上仙的知识库|系统架构,移动开发,独立游戏</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/php-development-env-setup-in-win7-x64.html">PHP-WIN</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chaozh.github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-cracking-the-coding-interview-q7-12" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/15/cracking-the-coding-interview-q7-12/" class="article-date">
+  <time datetime="2013-08-15T13:02:54.000Z" itemprop="datePublished">2013-08-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/课程总结/">课程总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Cracking the coding interview Q7-12
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>7.7 Explain how you would design a chat server In particular, provide details about the various backend components, classes, and methods. What would be the hardest problems to solve?</strong></p>
+<p>We can learn from twitter and QQ server design. The main concepts of the chat server would be user(status), chat group and messages.</p>
+<p><pre>enum Status{offline, online, away}<br>struct Message{ User from_user; User to_user; String post_message;}<br>class User {Status type; Message posts[]; sendMessage(); addGroup(); updateStatus(); createGroup(); }<br>struct Group { Message posts[]; User list[];}</pre><br>Information sync with memory cache and database; Server scale; User session management;</p>
+<p><strong>7.9 Explain the data structures and algorithms that you would use to design an in-memory file system. Illustrate with an example in code where possible</strong></p>
+<p>File system must inlude dir and file structure. The key points are design of super block, directory and inodes. Super block mainly deal with namespace and organize inodes, which we could use hash table for fast fetching. Inodes contains meta data and organize datas, which we could use B tree (memory efficient) or radix tree(linux, fast fetching) or log structure (journaling tech for availability). Directory mainly deal with file lookup operations which convert string path to the rightful inode.</p>
+<p><strong>7.10 Describe the data structures and algorithms that you would use to implement a garbage collector in C++</strong></p>
+<p>Organize object with Smart ptr using  reference counting tech(bad with dead lock). Will java’s mark-sweep tech work?</p>
+<p><strong>8.1 Write a method to generate the nth Fibonacci number</strong></p>
+<p><pre>def fibonacci(n):<br>    a,b=0,1<br>    while(n&gt;0):<br>        a,b,n=b,a+b,n-1<br>    return a</pre><br><strong>8.2 Imagine a robot sitting on the upper left hand corner of an NxN grid. The robot can only move in two directions: right and down. How many possible paths are there for the robot? FOLLOW UP Imagine certain squares are “off limits”, such that the robot can not step on them. Design an algorithm to get all possible paths for the robot.</strong></p>
+<p>Using DFS and traceback to print all paths.</p>
+<p><strong>8.3 Write a method that returns all subsets of a set.</strong></p>
+<p><strong> </strong> It’s easy to solve this problem using 2^n bitmap for all subsets status and go thourgh to print corresponding subset.</p>
+<p><pre>def subsets(a, idx, len):<br>    sbs = []<br>    if idx == len:<br>        sb = []<br>        sbs.append(sb) #empty set<br>        print(sb)<br>    else:<br>        rsb = subsets(a, idx+1, len)<br>        e = a[idx]</pre></p>
+<pre><code>    #print(idx,rsb)
+    for i in rsb:
+        t1 = i[:]
+        sbs.append(t1) #keep origin
+        t2 = i[:]
+        t2.append(e) #add new elm
+        sbs.append(t2)
+        print(t2)
+return sbs&lt;/pre&gt;
+</code></pre><p><strong>8.4 Write a method to compute all permutations of a string. </strong></p>
+<p><pre>void permutations(const string &amp;s, vector &amp;v){<br>    if (s == “”){<br>        v.push_back(s);<br>    }else{<br>        string c = s.substr(0, 1); // substr(offset, len)<br>        vector vt;</pre></p>
+<pre><code>    permutations(s.substr(1), vt); // get rest permutations
+    for (std::vector::iterator i = vt.begin(); i != vt.end(); ++i)
+    {
+        v.push_back(*i);
+        //insert in any space between the character to get permutation
+        for (int j = 0; j &amp;lt;= i-&amp;gt;length(); ++j)
+        {
+            string st = *i; //copy one
+            st.insert(j, c);
+            v.push_back(st);
+        }
+
+    }
+}
+</code></pre><p>}<br>if duplicate character is allowed which may result in duplicate answers then</p>
+<p><pre>void unique_permutations(const string &amp;s, set &amp;v){<br>    if (s == “”){<br>        v.insert(s);<br>    }else{<br>        for (int i = 0; i &lt; s.length(); ++i){<br>            string c = s.substr(i, 1); // substr(offset, len)<br>            string t = s; //copy one for erase<br>            set vt;<br>            unique_permutations(t.erase(i, 1), vt); // get rest permutations<br>            for (std::set::const_iterator i = vt.begin(); i != vt.end(); ++i)<br>            {<br>                v.insert(<em>i);<br>                v.insert(c + </em>i);<br>            }<br>        }<br>    }<br>}</pre><br><strong>8.5 Implement an algorithm to print all valid (e g , properly opened and closed) combi -nations of n-pairs of parentheses EXAMPLE: input: 3 (e g , 3 pairs of parentheses) output: ()()(), ()(()), (())(), ((()))</strong></p>
+<p><pre>void paretheses(int n, int idx, int len, string res){<br>    int i, j;<br>    int remain = idx + 1;<br>    if(n == len){<br>        res += “(“;<br>        for(j = remain; j &gt; 0; –j){<br>            res += “)”;<br>        }<br>        cout&lt;&lt;res&lt;&lt;”,”;<br>        }else{<br>                 res += “(“;<br>                 for(i = remain; i &gt;= 0; –i){<br>            string tmp = res;</pre></p>
+<pre><code>        for(j = i; j &amp;gt; 0; --j){
+            tmp += &quot;)&quot;;
+        }
+
+        paretheses(n + 1, remain - i, len, tmp);
+
+    }
+}
+</code></pre><p>}<br><strong>8.6 Implement the “paint fill” function that one might see on many image editing programs. That is, given a screen (represented by a 2 dimensional array of Colors), a point, and a new color, fill in the surrounding area until you hit a border of that color’. </strong></p>
+<p>Using recursive DFS or better using BFS way to search, no need to traceback so pretty easy.</p>
+<p><strong>8.7 Given an infinite number of quarters (25 cents), dimes (10 cents), nickels (5 cents) and pennies (1 cent), write code to calculate the number of ways of representing n cents</strong></p>
+<p>It could be solved by generating function, but a little bit complicate:</p>
+<p><pre>int cents[] = {1, 5, 10, 25};<br>int caculate(int n){<br>    int i, j, k, res;<br>    int <em>c1 = new int[n+1];<br>    int </em>c2 = new int[n+1];<br>    for(i=0; i&lt;=n; ++i){<br>        c1[i] = 1;  //firstly one cent<br>        c2[i] = 0;<br>    }</pre></p>
+<pre><code>//then 5, 10, 25 cents
+for(i=1; i&amp;lt;=3; ++i){
+
+    for(j=0; j&amp;lt;=n; ++j){
+        for(k=0; k+j&amp;lt;=n; k+=cents[i]){
+            c2[j+k] += c1[j];
+        }
+    }
+
+    for(j=0; j&amp;lt;=n; ++j){
+        c1[j] = c2[j];
+        c2[j] = 0;
+    }
+}
+
+res = c1[n];
+
+delete[] c1;
+delete[] c2;
+
+return res;
+</code></pre><p>}<br>or using a recursive method:</p>
+<p><pre>int caculate2(int sum, int c, int n){<br>    int ways = 0;<br>    int i;<br>    if(sum &lt;= n){<br>           if(sum == n) return 1;<br>                for(i=3; i&gt;=0; –i){<br>                if(c &gt;= cents[i])<br>            ways += caculate2(sum+cents[i], cents[i], n);<br>        }<br>    }<br>    return ways;<br>}</pre><br><strong>9.2 Write a method to sort an array of strings so that all the anagrams are next to each other </strong></p>
+<p>Simply sort every string alphabetically first and then compare with other strings (c++ string could use “&gt;” op to compare).</p>
+<p><strong>9.3 Given a sorted array of n integers that has been rotated an unknown number of times, give an O(log n) algorithm that finds an element in the array.You may assume that the array was originally sorted in increasing order EXAMPLE: Input: find 5 in array (10 14 15 16 19 20 25 1 3 4 5 7) Output: 10 (the index of 5 in the array)</strong></p>
+<p><pre>int search(int n, int a[], int len){<br>    int low, high, mid;<br>    low = 0, high = len-1;<br>    while(low&lt;=high){<br>       mid = (low + high)/2;<br>       if(a[mid] == n){<br>          return mid;<br>       }else if (a[mid] &lt; n){ //25 1 3 4 5 7 10 14 15 16 19 20<br>           if(a[mid] &lt; a[low]){<br>               if(a[low] &lt; n) high = mid -1;<br>               else low = mid + 1;<br>           }else<br>               low = mid + 1;<br>       }else if (a[mid] &gt; n){<br>           if(a[mid] &lt; a[low]) high = mid -1;<br>           else{<br>              if(a[low] &lt; n) high = mid - 1;<br>              else low = mid + 1;<br>           }<br>       }<br>    }<br>}</pre><br><strong>9.4  If you have a 2 GB file with one string per line, which sorting algorithm would you use to sort the file and why?</strong></p>
+<p>&nbsp;</p>
+<p><strong>9.5 Given a sorted array of strings which is interspersed with empty strings, write a method to find the location of a given string<br>Example: find “ball” in [“at”, “”, “”, “”, “ball”, “”, “”, “car”, “”, “”, “dad”, “”, “”] will return 4<br>Example: find “ballcar” in [“at”, “”, “”, “”, “”, “ball”, “car”, “”, “”, “dad”, “”, “”] will return -1</strong></p>
+<p>Using binary search method just moving right to neglect empty strings.</p>
+<p><strong>9.6 Given a matrix in which each row and each column is sorted, write a method to find an element in it. </strong><br>Just search line by line in O(m+n) time:</p>
+<p><pre>int search_matrix(int mat[][], int m, int n, int x){<br>    int row = 0, col = n-1;<br>    while(row&lt;=m &amp;&amp; col &gt;=0){<br>        if(mat[row][col] == x) return row * n + col;<br>        else if(mat[row][col] &gt; x) –col;<br>        else  ++row;<br>    }<br>}</pre><br>Binary search method also works:</p>
+<p><pre>int search_matrix(int mat[][], int m, int n, int x){<br>    int r1 = 0, c1 = 0;<br>    int r2 = m-1, c2 = n-1;<br>    int i = (r1+r2)/2, j = (c1+c2)/2;<br>    while((i!=r1||i!=r2) &amp;&amp; (j!=c1||j!=c2)){ //may have some problems<br>        if(mat[i][j] == x)<br>           return i<em>n+j;<br>        else if(mat[i][j] &lt; x){<br>            r2 = i, c2 = j;<br>        }else {<br>            r1 = i, c1 = j;<br>        }<br>        i = (r1+r2)/2, j = (c1+c2)/2;<br>    }<br>}</em></pre><br><em>*9.7 A circus is designing a tower routine consisting of people standing atop one another’s shoulders. For practical and aesthetic reasons, each person must be both shorter and lighter than the person below him or her. Given the heights and weights of each person in the circus, write a method to compute the largest possible number of people in such a tower.<br>EXAMPLE:<br>Input (ht, wt): (65, 100) (70, 150) (56, 90) (75, 190) (60, 95) (68, 110)<br>Output:The longest tower is length 6 and includes from top to bottom: (56,90) (60,95) (65,100) (68,110) (70,150) (75,190)</em></p>
+<p>It’s a LIS problem which can be solved in O(nlgn) by mento and binary search. (hdu1025)</p>
+<p><strong>10.2 There are three ants on different vertices of a triangle. What is the probability of collision (between any two or all of them) if they start walking on the sides of the triangle? Similarly find the probability of collision with ‘n’ ants on an ‘n’ vertex polygon.</strong></p>
+<p>Q1:For three ants and triangle, every ant has two directions and vertices to crawl, so there will be 2^3 conditions and only when all ants choose the same direction(clockwise or anticlockwise) will lead them not to collision. So probability of collision is 1 - 2/2^3</p>
+<p>Q2: Similarly, probability of collision is 1 - 2/2^n</p>
+<p><strong>10.3 Given two lines on a Cartesian plane, determine whether the two lines would intersect. </strong></p>
+<p>line is different from segment, but the latter is more difficlut to judge if intersect with each other which could be solved by vector multiply.</p>
+<p><strong>10.4 Write a method to implement *, - , / operations You should use only the + operator</strong></p>
+<p>For multiply operation:</p>
+<p><pre>for i in range (1,n):<br>         res+=m</pre><br>For minus operation:</p>
+<p><pre>for i in range(0,n):<br>     if (i + m == n):<br>         return i</pre><br>For division operation:</p>
+<p><pre>res=0<br>for i in range(1,m):<br>    res+=n<br>    if(res==m):<br>       return i<br>    if(res&gt;m):<br>       return i-1</pre><br><strong>10.5 Given two squares on a two dimensional plane, find a line that would cut these two squares in half </strong></p>
+<p>Any line go though the center of square would cut it in half, so a line go though both squares’ center would be the answer. Just be careful with the case that both sqaures’ center are the same point.</p>
+<p><strong>10.6 Given a two dimensional graph with points on it, find a line which passes the most number of points</strong></p>
+<p>Rather than using two points pair methond to represent the segment(we could also go though and check every pair in O(n^3) time), we could use slope and y-intercept thus this problem is no different than finding most common number in a list of numbers.</p>
+<p><strong>10.7 Design an algorithm to find the kth number such that the only prime factors are 3, 5, and 7</strong></p>
+<p>Using O(n^2) time to caculate one by one, which can be accelerated by hash list to reduce repeated aculation(hdu1058)</p>
+<p><strong>11.2 You are given the source to an application which crashes when it is run. After running it ten times in a debugger, you find it never crashes in the same place. The application is single threaded, and uses only the C standard library. What programming errors could be causing this crash? How would you test each one?</strong></p>
+<p>Memory leak causes out of memory and leads to crash or variable is not initialized with proper value. Unproper system configuration could also leads to crash (eg. max fd or max thread numbers) and sometimes interacting with hardware may also cause such problems.</p>
+<p><strong>11.3 We have the following method used in a chess game: boolean canMoveTo(int x, int y) x and y are the coordinates of the chess board and it returns whether or not the piece can move to that position. Explain how you would test this method </strong></p>
+<p>Invalid conditions for four corners and all possible move in board.<br>Valid conditions for all direction and all pieces.</p>
+<p><strong>11.4 How would you load test a webpage without using any test tools?</strong></p>
+<p>Load test usaually includes thoughput, response time, resource utilization and pressure tests.</p>
+<p><strong>11.5 How would you test an ATM in a distributed banking system?</strong></p>
+<p>Test should include UI test (accessiblity test) and functional test (single machine test and ditributed system test).</p>
+<p><strong>12.1 If you were integrating a feed of end of day stock price information (open, high, low, and closing price) for 5,000 companies, how would you do it? You are responsible for the development, rollout and ongoing monitoring and maintenance of the feed. Describe the different methods you considered and why you would recommend your approach.The feed is delivered once per trading day in a comma separated format via an FTP site. The feed will be used by 1000 daily users in a web application.</strong></p>
+<p>This problem actually ask you how to store this feed. SQL Database would be a good choice. NoSQL storage engine like mogodb would also do the job. Format could be XML or JSON.</p>
+<p><strong>12.2 How would you design the data structures for a very large social network (Facebook, LinkedIn, etc)? Describe how you would design an algorithm to show the connection, or path, between two people (eg, Me-&gt;Bob-&gt;Susan-&gt;Jason-&gt;You)</strong></p>
+<p>Using array to store friends’ id so a graph in general. We could use other information to seperate people’s information cleverly.</p>
+<p><strong>12.3 Given an input file with four billion integers, provide an algorithm to generate an integer which is not contained in the file. Assume you have 1 GB of memory. FOLLOW UP What if you have only 10 MB of memory?</strong></p>
+<p>If 1 GB memory we could simply use bitmap approach. For 10 MB memory we have to deal with blocks of numbers firstly using counting method and then deal with proper blocks using bitmap.</p>
+<p><strong>12.4 You have an array with all the numbers from 1 to N, where N is at most 32,000. The array may have duplicate entries and you do not know what N is. With only 4KB of memory available, how would you print all duplicate elements in the array?</strong></p>
+<p>Just use bitmap method as we have space for 0 ~ 4<em>2^10</em>8 which is exactly bigger than 32,000.</p>
+<p><strong>12.5 If you were designing a web crawler, how would you avoid getting into infinite loops?</strong></p>
+<p>Simply try DFS or BFS approach to go through the whole gragh which means you have got a map to store the all urls as points.</p>
+<p><strong>12.6 You have a billion urls, where each is a huge page. How do you detect the duplicate documents?</strong></p>
+<p>You have to check the content of huge web page for url rather than url it self. To content comparing we could use hash finger method(or other similar method), then we’ve got a billion finger prints which is still a large number. We could hash those finger prints to different files and deal with every file in memory one by one or hash those to different machine.</p>
+<p><strong>12.7 You have to design a database that can store terabytes of data. It should support efficient range queries. How would you do it?</strong></p>
+<p>Using B+ tree to build the database.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/08/15/cracking-the-coding-interview-q7-12/" data-id="cjap5lttx002xb8rlswxajsx2" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/08/15/cracking-the-coding-interview-q7-12/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/08/23/cracking-the-coding-interview-q13-18/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Cracking the coding interview Q13-18
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/14/python-for-loop-with-backstep/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">python技巧：逆序循环</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/WordPress开发/">WordPress开发</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品设计/">产品设计</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端语言/">后端语言</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/新技术跟踪/">新技术跟踪</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/">系统架构</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/项目经历/">项目经历</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统经验/">系统经验</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/课程总结/">课程总结</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融/">金融</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试总结/">面试总结</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目经历/">项目经历</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InnoDB/">InnoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS模板/">JS模板</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux设置/">Linux设置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVCC/">MVCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP主题/">WP主题</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP实现/">WP实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP插件/">WP插件</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP设置/">WP设置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/">WebGL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache-coherence/">cache coherence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history/">history</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios应用/">ios应用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptv/">iptv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/">join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kv存储/">kv存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutex/">mutex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/">paxos</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raft/">raft</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url重定向/">url重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web2-0/">web2.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文汉化/">中文汉化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/互联网企业/">互联网企业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/债券/">债券</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内核/">内核</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式锁/">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/华为/">华为</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基金/">基金</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外设/">外设</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源项目/">开源项目</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无锁并发/">无锁并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/期货/">期货</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栅格系统/">栅格系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/科研/">科研</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/股票/">股票</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本加载/">脚本加载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/腾讯/">腾讯</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/苹果/">苹果</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法/">语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读写锁/">读写锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调度/">调度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金山/">金山</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隔离级别/">隔离级别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目管理/">项目管理</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/InnoDB/" style="font-size: 10px;">InnoDB</a> <a href="/tags/JS模板/" style="font-size: 11.67px;">JS模板</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Linux设置/" style="font-size: 10px;">Linux设置</a> <a href="/tags/MVCC/" style="font-size: 10px;">MVCC</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WP主题/" style="font-size: 16.67px;">WP主题</a> <a href="/tags/WP实现/" style="font-size: 10px;">WP实现</a> <a href="/tags/WP插件/" style="font-size: 16.67px;">WP插件</a> <a href="/tags/WP设置/" style="font-size: 11.67px;">WP设置</a> <a href="/tags/WebGL/" style="font-size: 11.67px;">WebGL</a> <a href="/tags/Zookeeper/" style="font-size: 10px;">Zookeeper</a> <a href="/tags/cache-coherence/" style="font-size: 10px;">cache coherence</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/fabric/" style="font-size: 11.67px;">fabric</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/google/" style="font-size: 11.67px;">google</a> <a href="/tags/history/" style="font-size: 10px;">history</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/ios应用/" style="font-size: 10px;">ios应用</a> <a href="/tags/iptv/" style="font-size: 10px;">iptv</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/kv存储/" style="font-size: 10px;">kv存储</a> <a href="/tags/memory/" style="font-size: 10px;">memory</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/paxos/" style="font-size: 11.67px;">paxos</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raft/" style="font-size: 10px;">raft</a> <a href="/tags/url重定向/" style="font-size: 10px;">url重定向</a> <a href="/tags/web2-0/" style="font-size: 10px;">web2.0</a> <a href="/tags/zookeeper/" style="font-size: 11.67px;">zookeeper</a> <a href="/tags/中文汉化/" style="font-size: 11.67px;">中文汉化</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/互联网企业/" style="font-size: 11.67px;">互联网企业</a> <a href="/tags/债券/" style="font-size: 11.67px;">债券</a> <a href="/tags/内核/" style="font-size: 11.67px;">内核</a> <a href="/tags/分布式锁/" style="font-size: 10px;">分布式锁</a> <a href="/tags/区块链/" style="font-size: 13.33px;">区块链</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/基金/" style="font-size: 11.67px;">基金</a> <a href="/tags/外设/" style="font-size: 10px;">外设</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/实习/" style="font-size: 15px;">实习</a> <a href="/tags/开源项目/" style="font-size: 10px;">开源项目</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/数据库/" style="font-size: 18.33px;">数据库</a> <a href="/tags/无锁并发/" style="font-size: 10px;">无锁并发</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/期货/" style="font-size: 11.67px;">期货</a> <a href="/tags/栅格系统/" style="font-size: 10px;">栅格系统</a> <a href="/tags/科研/" style="font-size: 10px;">科研</a> <a href="/tags/算法/" style="font-size: 18.33px;">算法</a> <a href="/tags/索引/" style="font-size: 11.67px;">索引</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/股票/" style="font-size: 11.67px;">股票</a> <a href="/tags/脚本加载/" style="font-size: 10px;">脚本加载</a> <a href="/tags/腾讯/" style="font-size: 15px;">腾讯</a> <a href="/tags/苹果/" style="font-size: 10px;">苹果</a> <a href="/tags/语法/" style="font-size: 11.67px;">语法</a> <a href="/tags/读写锁/" style="font-size: 10px;">读写锁</a> <a href="/tags/调度/" style="font-size: 10px;">调度</a> <a href="/tags/金山/" style="font-size: 10px;">金山</a> <a href="/tags/锁/" style="font-size: 10px;">锁</a> <a href="/tags/键盘/" style="font-size: 10px;">键盘</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试/" style="font-size: 20px;">面试</a> <a href="/tags/项目管理/" style="font-size: 11.67px;">项目管理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/03/">March 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/02/Qconf-summary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/08/blockchain-tech-summary/">区块链技术总结与架构实战</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/fabric-ca-design/">Hyperledger Fabric CA设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/05/sicp-charpter-two/">SICP第二章总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chao Zheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  </footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/php-development-env-setup-in-win7-x64.html" class="mobile-nav-link">PHP-WIN</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'chaozh';
+  
+  var disqus_url = 'http://chaozh.github.com/2013/08/15/cracking-the-coding-interview-q7-12/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

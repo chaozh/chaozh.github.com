@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives: 2013/4 | chaozh.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="系统架构,移动开发,独立游戏">
+<meta property="og:type" content="website">
+<meta property="og:title" content="chaozh.com">
+<meta property="og:url" content="http://chaozh.github.com/archives/2013/04/index.html">
+<meta property="og:site_name" content="chaozh.com">
+<meta property="og:description" content="系统架构,移动开发,独立游戏">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chaozh.com">
+<meta name="twitter:description" content="系统架构,移动开发,独立游戏">
+  
+    <link rel="alternative" href="/atom.xml" title="chaozh.com" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">chaozh.com</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">超然台上仙的知识库|系统架构,移动开发,独立游戏</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/php-development-env-setup-in-win7-x64.html">PHP-WIN</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chaozh.github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-why-sometimes-pthread-mutex-overhead-rwlock" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/04/10/why-sometimes-pthread-mutex-overhead-rwlock/" class="article-date">
+  <time datetime="2013-04-10T10:22:28.000Z" itemprop="datePublished">2013-04-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统经验/">系统经验</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/04/10/why-sometimes-pthread-mutex-overhead-rwlock/">为何线程互斥锁优于读写锁</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>尽管确实是在读多写少的情况下使用，但系统在测试中确实出现线程互斥锁优于读写锁的情况，</p>
+<p>muduo库中给出了多种互斥锁优于读写锁的原因：</p>
+<p>1. 读锁加锁的开销不会比mutex小，因为它需要更新当前reader的数目，如果临界区很小，那么mutex往往更快。</p>
+<p>实际上mutex是由整形变量及等待队列构成</p>
+<p>2. 读锁可能提升为写锁，增大调试难度</p>
+<p>实际上系统调试过程中的确出现过这样的问题，甚至导致死锁，当时是以这样顺序调用的：</p>
+<p>写申请（获得写锁）-&gt;读申请（读申请被忽略）-&gt;释放（实际把写锁释放）-&gt;释放（实际获得读锁）-&gt;下次的写申请（卡死）</p>
+<p>3. 写锁会阻塞后面的读锁，在要求读低延迟的情况下使用并不适当。</p>
+<p>这条完全不明白。</p>
+<p>至于spinlock与互斥锁的使用对比在这篇文章《<a href="http://www.searchtb.com/2011/01/pthreads-mutex-vs-pthread-spinlock.html" target="_blank" rel="noopener">Pthreads mutex vs Pthreads spinlock</a>》介绍得十分清楚。</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/04/10/why-sometimes-pthread-mutex-overhead-rwlock/" data-id="cjap5ltwz0095b8rl1bff7887" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/04/10/why-sometimes-pthread-mutex-overhead-rwlock/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mutex/">mutex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/读写锁/">读写锁</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-conde-interview-brain-teasers-guess-rewards" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/04/09/conde-interview-brain-teasers-guess-rewards/" class="article-date">
+  <time datetime="2013-04-09T07:27:03.000Z" itemprop="datePublished">2013-04-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试总结/">面试总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/04/09/conde-interview-brain-teasers-guess-rewards/">面试题：猜奖品问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一个猜测游戏中，某一个瓶子中装有奖品。游戏者需要猜出奖品在哪个瓶子中，并且在m次结束游戏。（即m次猜中）<br>有n个黑色的瓶子（以至于游戏中看不到瓶中是否有东西）设从0到n-1编号，一字排开。每一次如果游戏者猜错了，那么奖品会各以50%的概率移动到左边或者右边的瓶子中。当奖品位于最左边或者最右边，游戏者猜错时，奖品必然右移或者左移。</p>
+<p>问题：请设计一个满足n和m的策略，帮助游戏者完成游戏。</p>
+<p>最多需要m=2n次 必能猜中<br>第一轮 先从0开始顺序往右猜，即0,1,…n-1,这样 如果奖品初始位于偶数位置处 必定能猜中<br>如果奖品初始是位于奇数处，则需要第二轮<br>如果n为偶数 则第一轮结束后奖品仍在奇数处<br>这样第二轮从1开始往右，即1,2,…,n-1 这样必中<br>如果n为奇数 则第一轮结束后奖品已经跳到偶数处<br>这样第二轮从0开始往右，即0,1,…,n-1 必中</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/04/09/conde-interview-brain-teasers-guess-rewards/" data-id="cjap5lttm002ib8rlmbzgqv8n" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/04/09/conde-interview-brain-teasers-guess-rewards/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-nested-classes-in-c-plus-plus" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/04/07/nested-classes-in-c-plus-plus/" class="article-date">
+  <time datetime="2013-04-07T12:28:15.000Z" itemprop="datePublished">2013-04-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/后端语言/">后端语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/04/07/nested-classes-in-c-plus-plus/">C++中的局部类与嵌套类</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>局部类指在函数内部定义的类，自然局部类不能含有static成员，所有函数定义也必须在定义体内完成。基本不会使用。</p>
+<p>嵌套类指在类内部定义类，该类名只能在外围类中使用，嵌套类中的函数成员可以在定义体外定义（但是需要使用限定符以使用类名），嵌套类中申明的成员不是外围类对象的成员，反之亦然。</p>
+<p>因此分析访问关系时，完全可以当做非嵌套类处理，即嵌套类无法访问外围类的私有成员，也不能对外围类中定义的私有嵌套类创建对象，嵌套类可以访问static private成员，嵌套类中申明的友元也不能访问外围类中的私有成员。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/04/07/nested-classes-in-c-plus-plus/" data-id="cjap5ltvm006bb8rl6sn8o1id" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/04/07/nested-classes-in-c-plus-plus/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/WordPress开发/">WordPress开发</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品设计/">产品设计</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端语言/">后端语言</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/新技术跟踪/">新技术跟踪</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/">系统架构</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/项目经历/">项目经历</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统经验/">系统经验</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/课程总结/">课程总结</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融/">金融</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试总结/">面试总结</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目经历/">项目经历</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InnoDB/">InnoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS模板/">JS模板</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux设置/">Linux设置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVCC/">MVCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP主题/">WP主题</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP实现/">WP实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP插件/">WP插件</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP设置/">WP设置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/">WebGL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache-coherence/">cache coherence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history/">history</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios应用/">ios应用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptv/">iptv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/">join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kv存储/">kv存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutex/">mutex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/">paxos</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raft/">raft</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url重定向/">url重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web2-0/">web2.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文汉化/">中文汉化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/互联网企业/">互联网企业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/债券/">债券</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内核/">内核</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式锁/">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/华为/">华为</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基金/">基金</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外设/">外设</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源项目/">开源项目</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无锁并发/">无锁并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/期货/">期货</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栅格系统/">栅格系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/科研/">科研</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/股票/">股票</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本加载/">脚本加载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/腾讯/">腾讯</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/苹果/">苹果</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法/">语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读写锁/">读写锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调度/">调度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金山/">金山</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隔离级别/">隔离级别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目管理/">项目管理</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/InnoDB/" style="font-size: 10px;">InnoDB</a> <a href="/tags/JS模板/" style="font-size: 11.67px;">JS模板</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Linux设置/" style="font-size: 10px;">Linux设置</a> <a href="/tags/MVCC/" style="font-size: 10px;">MVCC</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WP主题/" style="font-size: 16.67px;">WP主题</a> <a href="/tags/WP实现/" style="font-size: 10px;">WP实现</a> <a href="/tags/WP插件/" style="font-size: 16.67px;">WP插件</a> <a href="/tags/WP设置/" style="font-size: 11.67px;">WP设置</a> <a href="/tags/WebGL/" style="font-size: 11.67px;">WebGL</a> <a href="/tags/Zookeeper/" style="font-size: 10px;">Zookeeper</a> <a href="/tags/cache-coherence/" style="font-size: 10px;">cache coherence</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/fabric/" style="font-size: 11.67px;">fabric</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/google/" style="font-size: 11.67px;">google</a> <a href="/tags/history/" style="font-size: 10px;">history</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/ios应用/" style="font-size: 10px;">ios应用</a> <a href="/tags/iptv/" style="font-size: 10px;">iptv</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/kv存储/" style="font-size: 10px;">kv存储</a> <a href="/tags/memory/" style="font-size: 10px;">memory</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/paxos/" style="font-size: 11.67px;">paxos</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raft/" style="font-size: 10px;">raft</a> <a href="/tags/url重定向/" style="font-size: 10px;">url重定向</a> <a href="/tags/web2-0/" style="font-size: 10px;">web2.0</a> <a href="/tags/zookeeper/" style="font-size: 11.67px;">zookeeper</a> <a href="/tags/中文汉化/" style="font-size: 11.67px;">中文汉化</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/互联网企业/" style="font-size: 11.67px;">互联网企业</a> <a href="/tags/债券/" style="font-size: 11.67px;">债券</a> <a href="/tags/内核/" style="font-size: 11.67px;">内核</a> <a href="/tags/分布式锁/" style="font-size: 10px;">分布式锁</a> <a href="/tags/区块链/" style="font-size: 13.33px;">区块链</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/基金/" style="font-size: 11.67px;">基金</a> <a href="/tags/外设/" style="font-size: 10px;">外设</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/实习/" style="font-size: 15px;">实习</a> <a href="/tags/开源项目/" style="font-size: 10px;">开源项目</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/数据库/" style="font-size: 18.33px;">数据库</a> <a href="/tags/无锁并发/" style="font-size: 10px;">无锁并发</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/期货/" style="font-size: 11.67px;">期货</a> <a href="/tags/栅格系统/" style="font-size: 10px;">栅格系统</a> <a href="/tags/科研/" style="font-size: 10px;">科研</a> <a href="/tags/算法/" style="font-size: 18.33px;">算法</a> <a href="/tags/索引/" style="font-size: 11.67px;">索引</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/股票/" style="font-size: 11.67px;">股票</a> <a href="/tags/脚本加载/" style="font-size: 10px;">脚本加载</a> <a href="/tags/腾讯/" style="font-size: 15px;">腾讯</a> <a href="/tags/苹果/" style="font-size: 10px;">苹果</a> <a href="/tags/语法/" style="font-size: 11.67px;">语法</a> <a href="/tags/读写锁/" style="font-size: 10px;">读写锁</a> <a href="/tags/调度/" style="font-size: 10px;">调度</a> <a href="/tags/金山/" style="font-size: 10px;">金山</a> <a href="/tags/锁/" style="font-size: 10px;">锁</a> <a href="/tags/键盘/" style="font-size: 10px;">键盘</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试/" style="font-size: 20px;">面试</a> <a href="/tags/项目管理/" style="font-size: 11.67px;">项目管理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/03/">March 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/02/Qconf-summary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/08/blockchain-tech-summary/">区块链技术总结与架构实战</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/fabric-ca-design/">Hyperledger Fabric CA设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/05/sicp-charpter-two/">SICP第二章总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chao Zheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  </footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/php-development-env-setup-in-win7-x64.html" class="mobile-nav-link">PHP-WIN</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'chaozh';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

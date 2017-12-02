@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives: 2016 | chaozh.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="系统架构,移动开发,独立游戏">
+<meta property="og:type" content="website">
+<meta property="og:title" content="chaozh.com">
+<meta property="og:url" content="http://chaozh.github.com/archives/2016/index.html">
+<meta property="og:site_name" content="chaozh.com">
+<meta property="og:description" content="系统架构,移动开发,独立游戏">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chaozh.com">
+<meta name="twitter:description" content="系统架构,移动开发,独立游戏">
+  
+    <link rel="alternative" href="/atom.xml" title="chaozh.com" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">chaozh.com</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">超然台上仙的知识库|系统架构,移动开发,独立游戏</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/php-development-env-setup-in-win7-x64.html">PHP-WIN</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chaozh.github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-token-auth-in-frontend" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/31/token-auth-in-frontend/" class="article-date">
+  <time datetime="2016-10-31T20:47:25.000Z" itemprop="datePublished">2016-10-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/31/token-auth-in-frontend/">Token based auth in frontend</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考<br><a href="https://blog.coding.net/blog/oauth-and-oauth-scribe" target="_blank" rel="noopener">https://blog.coding.net/blog/oauth-and-oauth-scribe</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2016/10/31/token-auth-in-frontend/" data-id="cjap5ltwo0089b8rlbn3zqvig" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2016/10/31/token-auth-in-frontend/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-summary-of-hardware-arch-from-programers-view" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/02/summary-of-hardware-arch-from-programers-view/" class="article-date">
+  <time datetime="2016-07-02T20:00:11.000Z" itemprop="datePublished">2016-07-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统经验/">系统经验</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/02/summary-of-hardware-arch-from-programers-view/">程序员实用硬件体系结构归纳</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-硬件体系结构"><a href="#1-硬件体系结构" class="headerlink" title="1. 硬件体系结构"></a>1. 硬件体系结构</h2><p>硬件关注大致CPU、CPU Cache(L1, L2, L3)、内存、SSD、普通硬盘HDD、网络网卡这几个层次</p>
+<h2 id="2-CPU架构"><a href="#2-CPU架构" class="headerlink" title="2. CPU架构"></a>2. CPU架构</h2><p>CPU核内主要技术点包括Super pipeling、Superscalar<br>、Simulaneous Multi-Threading(SMT)、out-of-order等，目前CPU都使用多核架构，例如来自Intel Core i7的Nehalem架构Fetch to retire，</p>
+<p>CPU使用IMC接口与内存互联，使用QPI连接多个处理器((processors 比如Nehalem Quadcore)</p>
+<h2 id="2-1-性能指标"><a href="#2-1-性能指标" class="headerlink" title="2.1 性能指标"></a>2.1 性能指标</h2><p>参考性能指标包括：</p>
+<ol>
+<li>主频：        CPU的时钟频率，内核工作的时钟频率</li>
+<li>外频：        系统总线的工作频率</li>
+<li>倍频：        CPU外频与主频相差的倍数</li>
+<li>前端总线：        将CPU连接到北桥芯片的总线</li>
+<li>总线频率：        与外频相同或者是外频的倍数</li>
+<li>总线数据带宽：    (总线频率 * 数据位宽) / 8</li>
+</ol>
+<p>相关组件有L1,L2,L3 cache (缓存数据与指令)<br>L1,L2:        core独占；     带宽：20-80GB/S；延时：1-5ns<br>L3：        core之间共享； 带宽：10-20GB/S；延时：10ns<br>Cache line size：    64 Bytes</p>
+<p>QPI接口<br>Intel中，连接一个CPU中的多个处理器，直接互联 QPI带宽：~20GB/s</p>
+<h3 id="2-2-程序优化"><a href="#2-2-程序优化" class="headerlink" title="2.2 程序优化"></a>2.2 程序优化</h3><h2 id="3-CPU-Cache"><a href="#3-CPU-Cache" class="headerlink" title="3. CPU Cache"></a>3. CPU Cache</h2><p>Cache Line是Cache与内存Memory交换的最小单位，X86架构的CPU基本为64B，以组相联的形式组织</p>
+<p>一种方案Write Invalidate写导致其他CPU L1/L2的同一Cache Line失效，另一种Write Update写同时更新其他CPU L1/L2的同一Cache Line</p>
+<p>写策略通常有Write Back新脏数据先读到Cache然后修改，Write Through新脏数据直接写到Memory</p>
+<p>主要问题是Cache Coherence算法，比如MESI, MOESI等</p>
+<p>MESI协议，有四种状态：</p>
+<ul>
+<li>Invalid 无数据, </li>
+<li>Shared 与Memory一致数据且多节点共享, </li>
+<li>Exclusive 与Memory一致数据且单节点持有, </li>
+<li>Modified 最新修改数据且单节点持有。</li>
+</ul>
+<p>有六种交互信息：</p>
+<ul>
+<li>Read</li>
+<li>Read Reponse</li>
+<li>Invalidate</li>
+<li>Invalidate Acknowledge</li>
+<li>Read Invalidate</li>
+<li>Writeback</li>
+</ul>
+<p>MOESI协议，五种状态：owned 与Shared共存，持有最新修改且Memory过期</p>
+<p>这些协议作用于CPU Cache L1/2和内存，与Register无关</p>
+<h2 id="4-Memory"><a href="#4-Memory" class="headerlink" title="4. Memory"></a>4. Memory</h2><p>正确理解Memory Ordering与并发的关系</p>
+<h3 id="4-1-Atomic"><a href="#4-1-Atomic" class="headerlink" title="4.1 Atomic"></a>4.1 Atomic</h3><p>涉及到内存的读写指令，特别是非对齐的双字操作，可以使用专用指令：CMPXCHG, XCHG, XADD等，或使用lock指令（使用在指令之前表示当前指令操作的内存只被当前CPU所用）</p>
+<h3 id="4-2-Memory-Barrier"><a href="#4-2-Memory-Barrier" class="headerlink" title="4.2 Memory Barrier"></a>4.2 Memory Barrier</h3><h3 id="程序优化"><a href="#程序优化" class="headerlink" title="程序优化"></a>程序优化</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="">CPU架构浅析</a></li>
+<li><a href="http://www.rdrop.com/users/paulmck/scalability/paper/whymb.2010.06.07c.pdf" target="_blank" rel="noopener">Memory Barriers: a Hardware View for Software Hackers</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2016/07/02/summary-of-hardware-arch-from-programers-view/" data-id="cjap5ltw3007ab8rlxz3j4hib" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2016/07/02/summary-of-hardware-arch-from-programers-view/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CPU/">CPU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cache-coherence/">cache coherence</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/memory/">memory</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-node-party-shenzhen" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/09/node-party-shenzhen/" class="article-date">
+  <time datetime="2016-04-09T14:05:31.000Z" itemprop="datePublished">2016-04-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/09/node-party-shenzhen/">深圳node party小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="实战ES2015"><a href="#实战ES2015" class="headerlink" title="实战ES2015"></a>实战ES2015</h2><ul>
+<li>classes</li>
+<li>export&amp;import 统一标准</li>
+<li>使用rollup.js打包、HTTP/2</li>
+</ul>
+<h2 id="平台化运营实践"><a href="#平台化运营实践" class="headerlink" title="平台化运营实践"></a>平台化运营实践</h2><p>腾讯MTT对比pm2设计</p>
+<ul>
+<li>进程管理</li>
+<li>日志类型（按大小滚动，按时间滚动）</li>
+<li>日志输出 时间|pid|级别|文件名:行号</li>
+<li>可配置的服务（不重启）</li>
+<li>TAF协议与JCE规范（编解码,不动态解析方便debug）</li>
+<li>调用监控（流量、耗时、超时率、异常率、服务+接口）与特性监控（自定义）</li>
+</ul>
+<p>日常问题</p>
+<ul>
+<li>时间计算 <code>Date.now()</code>最快，<code>process.uptime()</code>最好</li>
+<li>内存与进程 虚拟核心与物理核心问题</li>
+<li>用户环境 服务调用只在同环境中进行，服务转发？？</li>
+<li><p>染色应用 将整个服务调用链日志统一收集展示</p>
+<p>  push 类推送业务 （峰值流量-&gt;削峰）<br>  用户访问相关业务 （越平滑流量越大）<br>  定时拉取任务（持续资源使用-&gt;错峰）</p>
+</li>
+</ul>
+<p><code>process.setMaxListeners(Infinity)</code>隐患<br>load高、cpu不高 -&gt; 查io(socket)、swap使用率</p>
+<h2 id="Nodejs广发证券：koa2与微服务"><a href="#Nodejs广发证券：koa2与微服务" class="headerlink" title="Nodejs广发证券：koa2与微服务"></a>Nodejs广发证券：koa2与微服务</h2><p>nodejs定位（实现API Server）</p>
+<ul>
+<li>Restful Extend（Filter&amp;Sort，Bulk Inserts，Pagination，Optional-filds）</li>
+<li>Falcor @ Netflix </li>
+<li>使用Koa2 async&amp;await（异步，错误处理）koa-adapter</li>
+<li>接口验证与数据验证 koa-validate&amp;joi(数据验证)</li>
+</ul>
+<p>日常</p>
+<ul>
+<li>es2015使用</li>
+<li>npm scripts（npm-check）</li>
+<li>入库前检查 使用husky检查，</li>
+<li>测试覆盖 （经常修改、复杂、多人合作）<code>npm run coverage:lab</code> plato（js源码可视化）</li>
+</ul>
+<p>线上运行</p>
+<ul>
+<li>StrongLoop 性能优化系列文章</li>
+<li>上线准备（Event Loop监控，通过环境变量与信号来调整log级别，异常重启比忽略好）</li>
+<li>支持几千几万的流量（request-debug）</li>
+<li>docker运维，镜像部署方便，链路监控（Zebking）</li>
+</ul>
+<h2 id="TypeScript在Nodejs应用"><a href="#TypeScript在Nodejs应用" class="headerlink" title="TypeScript在Nodejs应用"></a>TypeScript在Nodejs应用</h2><p>techird.com </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2016/04/09/node-party-shenzhen/" data-id="cjap5ltvn006eb8rlm4redj3j" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2016/04/09/node-party-shenzhen/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-docker-operation-summary" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/20/docker-operation-summary/" class="article-date">
+  <time datetime="2016-03-20T19:17:41.000Z" itemprop="datePublished">2016-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/20/docker-operation-summary/">docker常用操作总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-安装注意"><a href="#1-安装注意" class="headerlink" title="1.安装注意"></a>1.安装注意</h2><ul>
+<li>不要直接用apt-get安装docker， apt-get安装的版本有些低。 安装用<code>curl -sSL https://get.docker.com/ubuntu/ | sudo sh</code>可以安装最新版</li>
+<li>docker对linux内核版本有要求，内核版本不能太低， 如果太低会导致docker的一些功能不能使用， 比如<code>docker exec</code>命令在低版本的linux内核下不能用， 运行linux命令<code>uname -r</code>可以查看linux内核版本， docker官方文档说linux内核版本不能低于3.13，升级linux内核：<code>sudo apt-get install linux-image-generic-lts-trusty</code>手动升级方法：高版本的linux内核不支持aufs的存储类型，建议用devicemapper存储类型。 </li>
+<li>docker在mac下改用docker-machine，弃用boot2docker用户接口,执行<code>eval &quot;$(docker-machine env docker-vm)&quot;</code>之后即可正常使用docker</li>
+</ul>
+<h2 id="2-封装原则"><a href="#2-封装原则" class="headerlink" title="2.封装原则"></a>2.封装原则</h2><ul>
+<li>容器要有专职， 尽量一个容器只有一个服务，原则上说一个进程就一个容器，不要让一个容器里面有多个进程，进程越大，耦合性越大。</li>
+<li>容器内可以用supervision管理进程，防止进程异常退出。</li>
+<li>环境变量作为容器配置项，Dockerfile中可以用ENV设置环境变量， docker run命令可以用 -e 设置环境变量。注意这里设置的环境命令都是root用户的。如果想让Apache用户也使用这些环境变量，执行下面shell命令<code>env | grep JD_ | sed &quot;s/^/export /g&quot; &gt;&gt; /etc/apache2/envvars</code>表示以JD_开头的环境变量都设置为Apache的环境变量。</li>
+</ul>
+<h2 id="3-docker的坑"><a href="#3-docker的坑" class="headerlink" title="3.docker的坑"></a>3.docker的坑</h2><ul>
+<li>最坑的 –link 链接容器。 用docker自带的–link把多个容器链接在以前， 有重启或升级的问题， 比如很多容器都依赖于 db 这个容器， 然后db容器重启了， 重启时docker分配的ip会变， 导致其他依赖于db的容器都要重启。–link 链接的容器还有启动顺序的问题， 需要先启动db容器再启动其他依赖于db的容器， 这样导致 –link和–restart=always 不能一起用， 如果一起用会发现宿主机重启了， docker容器并没有全部重启，因为这时候docker容器是同时被启动的，并不知道启动顺序。 最后决定不用 –link 链接容器了。 另外有两种链接容器的方法，一种是给容器设置固定ip ，这个方法比较复杂： 另外还有一种简单的链接方式， 可以用宿主机的端口链接， 比如一个mysql容器，先设置宿主机的3306端口映射到mysql容器中。 然后查宿主机的内网ip ， 用ifconfig 查，eth0的网卡可以看见内网ip， 假设内网ip为10.128.130.175 ， docker容器是可以访问这个宿主机内网ip的， 这样其他容器要链接mysql容器，链接数据库时链接10.128.130.175:3306 即可。 我们可以在docker run启动容器时用–add-host参数为容器设置一个hosts 。这样容器内代码可以用指定的域名去访问数据库，不用关心内网ip的变化。</li>
+<li>pid的问题。docker容器中的进程有时会生成pid文件， 比如Apache进程会生成的pid文件为 /var/run/apache2/apache2.pid ， 当进程启动时，这个pid文件就存在，当进程退出时，这个pid文件也会被删除， 我们把正在运行的容器用docker commit 提交为镜像时会把pid文件也提交到镜像中，这样从新镜像运行容器时，容器可能因为已经存在pid文件而无法启动。 以Apache为例，可能就会报 “httpd(pid 1) ready runing” 之类的错误 ， 报错告诉你httpd正在运行，但其实并没有运行只是存在pid文件而已。 所以最好是用docker stop 把容器停掉， 再用docker commit 创建镜像。<br>pid的问题还可能会出现在docker run时设置–restart=always 参数的时候， 设置了此参数容器退出了会自动重启， 宿主机重启了容器也能自动重启。 但是容器在重启的时候很容易pid文件存在。pid文件存在时进程会自动退出， 但又因为设置了–restart=always 进程退出的那一瞬间 容器又自动重启， 所以容器就在那里不断的退出再自动重启退出再自动重启。 此时运行命令 docker ps 是能看见容器是运行中的状态。 但是用 docker exec -it container_name bash 始终进不了容器，会报如下错误：<br>Cannot run exec command 0eb8e17609dd78c9137c62d94cfaa62795de161d643fc3cb00387b60f11090be in container 8837b983fe2f08f5f3b9999259d5f255a83774b19282b6f9c21a9d688f7f7f2a: No active container exists with ID 8837b983fe2f08f5f3b9999259d5f255a83774b19282b6f9c21a9d688f7f7f2a<br>No active container exists with ID 这句的意思是说 找不到有效的容器。但是docker ps又看见容器是在运行中，为什么会找不到有效的容器？这是因为这个容器现在其实一直在不断重启中，所以进不去。</li>
+</ul>
+<p>解决方法， 可以在容器启动命令脚本（如 /run.sh） 中 加上一句删除pid文件的代码， 如rm /var/run/apache2/apache2.pid这样在启动进程之前强制删除了pid文件，就不会重复重启了。<br>docker容器的hosts文件。<br>在正在运行的容器 用docker exec 进入修改 /etc/hosts 文件 ，这个容器被重启后会发现 hosts文件会被还原。 所以不要直接修改hosts文件， 需要增加hosts ，在docker run时 用 –add-host 参数。<br>虚拟目录不会提交到镜像<br>Dockerfile 中 VOLUME 指定的目录 或 docker run 时 -v 参数指定的目录， 在docker commit 时不会提交到镜像中。 如果-v 参数指定的容器内的目录原本有文件， 原本的文件都会被删除， 只存在宿主机目录的文件。</p>
+<h2 id="4-docker容器的重启"><a href="#4-docker容器的重启" class="headerlink" title="4.docker容器的重启"></a>4.docker容器的重启</h2><p>容器一个容器运行中apache而我们要重启Apache，应该怎么重启？ 可能新手会<code>docker exec -it container_name bash</code>进入容器， 然后运行<code>service apache2 restart</code>启动Apache，这样是不能启动apache的， 只会把容器停止掉。 因为容器的主进程就是Apache ， 主进程退出时会退出容器， 在重启apache的时候 主进程先退出了， 这时候docker容器也跟着退出了，所以Apache不会重启。 要重启Apache 用docker命令：<code>docker restart container_name</code></p>
+<h2 id="5-退出容器的方法"><a href="#5-退出容器的方法" class="headerlink" title="5.退出容器的方法"></a>5.退出容器的方法</h2><p>如果是docker run运行一个容器， 没有加 -d 参数让它后台运行， 这时候 ctrl+c 退出进程也会让容器停止， 如果先退出但不停止容器可以ctrl+p然后ctrl+q</p>
+<h2 id="6-Dockerfile编写技巧"><a href="#6-Dockerfile编写技巧" class="headerlink" title="6.Dockerfile编写技巧"></a>6.Dockerfile编写技巧</h2><ul>
+<li><p>将Ubuntu的源设置为国内的源，这样安装软件会快很多<code>RUN sed -i &quot;s/archive.ubuntu.com/mirrors.163.com/g&quot; /etc/apt/sources.list</code></p>
+</li>
+<li><p>RUN</p>
+</li>
+</ul>
+<p>Dockerfile 中可以RUN执行系统命令创建镜像。不能用RUN命令来常驻进程。 比如不能运行RUN gearmand -d。</p>
+<ul>
+<li>ONBUILD</li>
+</ul>
+<p>ONBUILD修饰的命令在子Dockerfile文件中也会被执行，举例说明：<br>一个Dockerfile中有ONBUILD命令， 如ONBUILD ADD . /app/src， 运行docker build -t Image_name .创建一个名为Image_name的镜像。 另外在创建一个Dockerfile ， 第一个行是FROM Image_name现在这个Dockerfile是继承于前一个Dockerfile的，现在这个Dockerfile在build时会执行他父Dockerfile的ONBUILD命令， 所以现在这个Dockerfile在build时也会执行 ADD . /app/src 这个命令。</p>
+<ul>
+<li>ENTRYPOINT</li>
+</ul>
+<p>感觉 ENTRYPOINT 会比 CMD 更省资源， ENTRYPOINT 使用时用数组形式。如：<br><code>entrypoint [&quot;/init.sh&quot;, &quot;/usr/bin/supervisord&quot;, &quot;-n&quot;, &quot;-c&quot;, &quot;/etc/supervisord.conf&quot;]</code><br>/init.sh是一个初始化脚本，初始化脚本内容大概为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">!/bin/bash</span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"><span class="comment"># 执行一些初始化代码</span></span><br><span class="line"><span class="built_in">exec</span>“<span class="variable">$@</span>”</span><br></pre></td></tr></table></figure>
+<p>最后要跟上<code>exec&quot;$@&quot;</code>，这样才能让init.sh 脚本后的supervisord被执行。</p>
+<ul>
+<li>.dockerignore文件中列的文件不会被 ADD或COPY 指令添加到容器中。</li>
+</ul>
+<h2 id="7-好用的docker镜像"><a href="#7-好用的docker镜像" class="headerlink" title="7.好用的docker镜像"></a>7.好用的docker镜像</h2><ul>
+<li><p>jwilder/nginx-proxy 这是一个nginx反向代理。<br>启动nginx反向代理：<br><code>docker run --name nginx -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock -t --restart=always jwilder/nginx-proxy</code><br>再启动其他容器， 如：<br><code>docker run -e VIRTUAL_HOST=yourdomain.com -d tutum/apache-php</code><br>nginx的容器会监听其他容器的启动， 并根据VIRTUAL_HOST设置域名。这样可以通过 yourdomain.com 访问刚才启动的容器中的网站了。</p>
+</li>
+<li><p>tutum/apache-php 这个镜像是一个好用的apache环境。</p>
+</li>
+</ul>
+<h2 id="8-清理docker"><a href="#8-清理docker" class="headerlink" title="8.清理docker"></a>8.清理docker</h2><p>docker info 可以查看docker的信息，/var/lib/docker/devicemapper/devicemapper 目录下存放了docker的文件， 可以用du -h –max-depth=1 看文件的大小。</p>
+<p>删除为none的镜像，可以立马回收空间:</p>
+<p><code>docker images --no-trunc| grep none | awk &#39;{print $3}&#39; | xargs -r docker rmi</code></p>
+<p>删除退出了的容器:</p>
+<p>docker rm docker ps -a | grep Exited | awk ‘{print $1 }’</p>
+<p>删除没有用的镜像。 （有容器运行的镜像不会被删除）：</p>
+<p>docker rmi <code>docker images -aq</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2016/03/20/docker-operation-summary/" data-id="cjap5ltum004ab8rlh07ow2ra" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2016/03/20/docker-operation-summary/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-distributed-lock-system-discussion" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/08/distributed-lock-system-discussion/" class="article-date">
+  <time datetime="2016-03-08T12:53:34.000Z" itemprop="datePublished">2016-03-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统经验/">系统经验</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/08/distributed-lock-system-discussion/">分布式锁实现问题讨论</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>分布式锁除了使用Zookeeper这个常用工具外，也有使用Redis这个KV内存存储进行实现的。某人介绍了一种基于Redis的分布式锁实现方法(命名为Redlock)并刊登到了redis官网：</p>
+<p><a href="http://redis.io/topics/distlock" target="_blank" rel="noopener">Redlock实现</a></p>
+<p>某人之后还发文详细讨论了实现方法，并说明自己感觉这个算法并不安全</p>
+<p><a href="http://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html" target="_blank" rel="noopener">分布式锁如何实现</a></p>
+<p>接着Redlock算法的原作者开始就此事发文详细讨论，说明这个算法足够安全</p>
+<p><a href="http://antirez.com/news/101" target="_blank" rel="noopener">Redlock实现安全吗？</a></p>
+<p>与此同时观众们也在发帖论战</p>
+<p><a href="https://news.ycombinator.com/item?id=11065933" target="_blank" rel="noopener">观众开帖论战</a></p>
+<p><a href="http://fpj.me/2016/02/10/note-on-fencing-and-distributed-locks/" target="_blank" rel="noopener">有人跟帖</a></p>
+<p><a href="http://jvns.ca/blog/2016/02/09/til-clock-skew-exists/" target="_blank" rel="noopener">论证RedLock问题确实存在</a></p>
+<p>推荐还是运用<a href="http://blog.acolyer.org/2016/02/09/the-heard-of-model/" target="_blank" rel="noopener">理论</a>证明一下吧</p>
+<p><a href="http://colin-scott.github.io/blog/2016/03/04/technologies-for-testing-and-debugging-distributed-systems/" target="_blank" rel="noopener">测试方法</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2016/03/08/distributed-lock-system-discussion/" data-id="cjap5ltul0045b8rl30xdtjmr" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2016/03/08/distributed-lock-system-discussion/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Zookeeper/">Zookeeper</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式锁/">分布式锁</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-java-related-question" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/08/java-related-question/" class="article-date">
+  <time datetime="2016-03-08T10:03:34.000Z" itemprop="datePublished">2016-03-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试总结/">面试总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/08/java-related-question/">Java架构师问题总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="常见面试流程"><a href="#常见面试流程" class="headerlink" title="常见面试流程"></a>常见面试流程</h2><ol>
+<li><p>技术相关</p>
+<ul>
+<li>java语言（基本、容器、多线程、异常处理、JVM）</li>
+<li>设计模式</li>
+<li>Spring</li>
+<li>MySQL、Redis等（JDBC）</li>
+<li>前端相关</li>
+<li>Shell相关</li>
+<li>算法题</li>
+</ul>
+</li>
+<li><p>项目相关 </p>
+</li>
+</ol>
+<h2 id="Java语言基础"><a href="#Java语言基础" class="headerlink" title="Java语言基础"></a>Java语言基础</h2><h3 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h3><ol>
+<li>绝对不能在构造函数中调用会被Override的函数</li>
+<li>QA：builder模式与Config类(InstanceSpec)取舍? builder需要创建静态类</li>
+<li>QA：构造函数什么时候可以抛异常?</li>
+<li>Q：init私有方法什么时候使用? A:构造方法里面禁止加入任何业务逻辑，如果有初始化逻辑，请放在<code>init</code>方法中</li>
+</ol>
+<h3 id="String使用"><a href="#String使用" class="headerlink" title="String使用"></a>String使用</h3><ol>
+<li>判断是否相等<strong>绝对</strong>不能直接使用”==”进行，可以使用<code>equals</code>方法</li>
+<li>判断是否为空: <code>StringUtils.isBlank()</code>，<code>Str.isEmpty()</code>，<code>Str.length()==0</code></li>
+<li>循环体内，字符串的联接方式，使用 StringBuilder的<code>append</code>方法进行扩展</li>
+</ol>
+<h3 id="集合使用"><a href="#集合使用" class="headerlink" title="集合使用"></a>集合使用</h3><ol>
+<li>Array初始化<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new ArrayList&lt;Element&gt;(<span class="name">Arrays</span>.asList(<span class="name">array</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>使用工具类<code>Arrays.asList()</code>把数组转换成集合时，不能使用其修改集合相关的方法，它的add/remove/clear方法会抛出 UnsupportedOperationException异常。</p>
+<ol>
+<li><p>使用集合转数组的方法，必须使用集合的<code>toArray(T[] array)</code>，传入的是类型完全一样的数组，大小就是<code>list.size()</code>。</p>
+</li>
+<li><p>ArrayList的subList结果不可强转成ArrayList，否则会抛出ClassCastException</p>
+</li>
+<li><p>QA：集合接口的区别 list collection hashmap</p>
+</li>
+<li><p>不要在foreach循环里进行元素的remove/add操作。remove元素请使用Iterator方式，如果并发操作，需要对Iterator对象加锁</p>
+</li>
+<li><p>高度注意Map类集合 K/V 能不能存储 <code>null</code> 值的情况</p>
+<p>| 集合类               | Key       | Value     | Super       | 说明    |<br>| —————– | ——— | ——— | ———– | —– |<br>| Hashtable         | 不允许为 null | 不允许为 null | Dictionary  | 线程安全  |<br>| ConcurrentHashMap | 不允许为 null | 不允许为 null | AbstractMap | 分段锁技术 |<br>| TreeMap           | 不允许为 null | 允许为 null  | AbstractMap | 线程不安全 |<br>| HashMap           | 允许为 null  | 允许为 null  | AbstractMap | 线程不安全 |</p>
+</li>
+<li><p>利用 Set 元素唯一的特性，可以快速对一个集合进行去重操作</p>
+</li>
+</ol>
+<h3 id="Exception处理"><a href="#Exception处理" class="headerlink" title="Exception处理"></a>Exception处理</h3><ol>
+<li>标准Exception分为两种expcetion，一种继承自RunTimeException，不需要方法捕捉，比如NullPointerException，IllegalStateException；另一种必须catch或throws，比如InterruptedException</li>
+<li>推荐使用Preconditions.checkNotNull等工具</li>
+<li>catch后的代码仍然会执行，返回值与抛出异常都需要满足匹配，try中抛出的异常就会被对应catch捕获，上一个catch中抛出也会被下一个catch捕获，如果分支继续抛异常来结束那么该分支可以忽略返回值<br>处理方法：1. 异常转义；2. 异常链接getCause</li>
+<li>单元测试函数应该抛出任何异常</li>
+<li><p>利用jdk7新语法自动关闭文件流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(InputStream is = <span class="keyword">new</span> FileInputStream)&#123;</span><br><span class="line">	<span class="comment">//文件操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对No such method error处理：打印出具体绑定类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Object&gt;.class.getProtectionDomain();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="注释处理"><a href="#注释处理" class="headerlink" title="注释处理"></a>注释处理</h3><ol>
+<li>Bean注入<br>@Autowired<br>ApplicationContext ac;<br>lockAnnotation = (LockAnnotation)ac.getBean(“LockAnnotation”)</li>
+<li>@Service与@Resouce可以配合使用<br><a href="http://bit1129.iteye.com/blog/2114126" target="_blank" rel="noopener">http://bit1129.iteye.com/blog/2114126</a></li>
+<li>AOP<br><a href="http://www.xdemo.org/springmvc-aop-annotation/" target="_blank" rel="noopener">http://www.xdemo.org/springmvc-aop-annotation/</a></li>
+</ol>
+<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><ol>
+<li><p>后台定时任务</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//start</span></span><br><span class="line">ScheduledExecutorService excutor = 	Excutor.<span class="keyword">new</span><span class="type">SingleThreadScheduledExecutor</span>();</span><br><span class="line">excutor.scheduleWithFixedDelay(runnable, time);</span><br><span class="line"><span class="comment">//end</span></span><br><span class="line">excutor.shutdown(); <span class="comment">//excutor.shutdownNow();</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>线程池</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Future&lt;<span class="keyword">Object</span>&gt;&gt; threads = Lists.newArrayList(); </span><br><span class="line">ExcutorService excutor = 	Excutors.newCachedThreadPool();</span><br><span class="line">Future&lt;<span class="keyword">Object</span>&gt; t = executor.submit(<span class="keyword">new</span> 	Callable&lt;<span class="keyword">Object</span>&gt;() &#123;</span><br><span class="line">	@Override</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">Object</span> call() <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		<span class="comment">//do sth here!</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line">threads.<span class="built_in">add</span>(t);</span><br><span class="line"><span class="keyword">for</span>(Future&lt;<span class="keyword">Object</span>&gt; t: threads)</span><br><span class="line">	t.<span class="built_in">get</span>();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>CountDownLatch与Semaphore使用</p>
+<p>CountDownLatch设置初始值，调用<code>wait()</code>方法会阻塞直到被<code>notify()</code>方法唤醒；调用<code>countDown()</code>来减少值；创建时不会阻塞，需要调用<code>await()</code>阻塞直至计数值为0；该机制被设计为只会触发一次，因此不会有方法来还原初始值。</p>
+<p>Semaphore设置初始值，调用<code>acquire()</code>方法减少该值否则阻塞直至计数值大于0，调用<code>release(num)</code>来增加值，调用<code>availablePermits()</code>判断是否阻塞</p>
+</li>
+<li><p>单例模式注意使用double check方法</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Helper <span class="title">getHelper</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (helper == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (helper == <span class="keyword">null</span>) &#123;</span><br><span class="line">                helper = <span class="keyword">new</span> Helper();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> helper;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Q：该模式有失效的可能？ A：可参考 The “Double-Checked Locking is Broken” Declaration,推荐问题<br>解决方案中较为简单一种(适用于 JDK5 及以上版本)，将目标属性声明为 volatile 型。</p>
+<ol>
+<li><p>executor 重要的三个参数含义<br>corePoolSize, maxmumPoolSize, [keepAliveTime], BlockingQueue<runable></runable></p>
+</li>
+<li><p>多线程的方法</p>
+</li>
+</ol>
+<h3 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h3><ol>
+<li>有哪些垃圾回收器 优缺点 </li>
+<li>四种导致full gc场景</li>
+<li>持久代满了，gc不成功则out of memory</li>
+<li>旧生代满了</li>
+<li>新生代向S0和S1转移数据，S0和S1向旧生代转移数据，两边内存都设置较小，持续进行导致</li>
+<li>直接system.gc</li>
+<li>Q: 原子变量实现? 设置unsafe 内存交换</li>
+<li>给 JVM 设置-XX:+HeapDumpOnOutOfMemoryError 参数，让 JVM 碰到 OOM 场景时输出 dump 信息。</li>
+</ol>
+<h3 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h3><ol>
+<li>Q: 何时使用乐观锁 悲观锁 出现场景，jdbc事务提交使用哪种锁（一般使用DB的悲观锁）</li>
+</ol>
+<h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><p>调优：tcp窗口，事务大小</p>
+<ol>
+<li>常用模块<br>aop, aspects, beans, core, context, expression, orm, jdbc, jms, tx, test, web, webmvc </li>
+<li><p>主要接口</p>
+</li>
+<li><p>五种事务传播性Propagation<br>required, supports, mandatory, requires_new, not_supported, never, nested </p>
+</li>
+</ol>
+<h2 id="netty"><a href="#netty" class="headerlink" title="netty"></a>netty</h2><p>结构 lf缺陷</p>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><ol>
+<li>设置AUTO_INCREMENT<br><a href="http://www.searchdatabase.com.cn/showcontent_38510.htm" target="_blank" rel="noopener">http://www.searchdatabase.com.cn/showcontent_38510.htm</a></li>
+<li><p>使用datetime或timestamp类型，查询范围写法：send_time &lt;= ‘2015-09-24 15:24:16’</p>
+<blockquote>
+<p>区别：首先 DATETIM和TIMESTAMP类型所占的存储空间不同，前者8个字节，后者4个字节，这样造成的后果是两者能表示的时间范围不同。前者范围为1000-01-01 00:00:00 ~ 9999-12-31 23:59:59，后者范围为1970-01-01 08:00:01到2038-01-19 11:14:07。所以可以看到TIMESTAMP支持的范围比DATATIME要小,容易出现超出的情况.<br>其次，TIMESTAMP类型在默认情况下，insert、update 数据时，TIMESTAMP列会自动以当前时间（CURRENT_TIMESTAMP）填充/更新。<br>第三，TIMESTAMP比较受时区timezone的影响以及MYSQL版本和服务器的SQL MODE的影响<br>所以一般来说，我比较倾向选择DATETIME，至于你说到索引的问题，选择DATETIME作为索引，如果碰到大量数据查询慢的情况，也可以分区表解决。<br><strong>最佳实践：</strong> 只要用int类型存格林时间的unix timestamp值就好了，使用TIMESTAMP主要是为了方便记current_timestamp</p>
+</blockquote>
+</li>
+<li><p>使用txt类型取代nvarchar<br>SQLserver 中使用nvarchar存储变长unicode字符串</p>
+</li>
+<li>使用tinyint(8)或bool(1)取代bit类型, int(32), bigint(64)</li>
+<li>DEFAULT 为0，则可以查询’’（空字符串）；DEFAULT为NULL，则查询’’（空字符串）不匹配</li>
+<li>业务ID自增设计<br><code>insert msgId into [table] value(select max(msgId) from [table] + 1)</code><br>这里max函数会导致锁表<br>解决方法：单记一个max version表，利用行锁进行多线程同步</li>
+<li>当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重启数据库，这样业务就有几秒钟的中断。<br>还有一个hack的方法，用过gdb直接修改mysqld内存中max_connections的值，具体做法如下：<br><code>gdb -ex &quot;set max_connections=5000&quot; -batch -p &#39;pgrep -x mysqld&#39;</code></li>
+<li>小数类型为 decimal，禁止使用 float 和 double。如果存储的数据范围超过 decimal 的范围，建议将数据拆成整数和小数分开存储。</li>
+<li>表必备三字段:id, gmt_create, gmt_modified。</li>
+<li>不得使用外键与级联，一切外键概念必须在应用层解决。更禁止使用存储过程。</li>
+</ol>
+<h2 id="JBOSS"><a href="#JBOSS" class="headerlink" title="JBOSS"></a>JBOSS</h2><p>调优方法</p>
+<ol>
+<li>connector 改为Nio</li>
+<li>使用G1回收器，+UseG1GC 提供一种计算方法预期最大停止时间</li>
+<li>调整内存使用</li>
+</ol>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p>运用功能 模块实现 核心组件 upstream配置        </p>
+<ol>
+<li>高并发服务器建议调小 TCP 协议的 time_wait 超时时间，变更/etc/sysctl.conf 文件：net.ipv4.tcp_fin_timeout = 30</li>
+</ol>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><ol>
+<li>连接数</li>
+<li>集群设置 集群算法</li>
+</ol>
+<h2 id="Curator"><a href="#Curator" class="headerlink" title="Curator"></a>Curator</h2><ol>
+<li>使用InterProcessMutex中的RevocationListener因为在另一个专用线程因此没法直接调用release释放，Revoke唤醒需要使用对应的lock节点而不是目录<br>QA：这个设计很奇怪，按常理revoke应该调用在lock的path上然后自动通知当前获得锁的lock结构，并且应该有方法允许释放【可能状态比较难统一】</li>
+<li>2.9版本之后可以自动清理锁目录，需要设置container.checkIntervalMs</li>
+<li>共享锁实现<br><a href="http://www.tuicool.com/articles/yQBVfeA" target="_blank" rel="noopener">http://www.tuicool.com/articles/yQBVfeA</a></li>
+<li>start方法只能在初始化后调用一次，close调用后只能销毁</li>
+</ol>
+<h2 id="Dubbo"><a href="#Dubbo" class="headerlink" title="Dubbo"></a>Dubbo</h2><ol>
+<li>使用transient关键字保证成员不被串行化</li>
+</ol>
+<p>实现思路</p>
+<h3 id="1-WS服务转RPC"><a href="#1-WS服务转RPC" class="headerlink" title="1. WS服务转RPC"></a>1. WS服务转RPC</h3><p>分为两个难点：wsdl信息提取，RPC服务端的API生成<br>wsdl信息提取：例如从BPM提取出ReceiveMsg方法与参数<br>RPC服务端API生成：<br><a href="http://dubbo.io/User+Guide-zh.htm#UserGuide-zh-API%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener">http://dubbo.io/User+Guide-zh.htm#UserGuide-zh-API%E9%85%8D%E7%BD%AE</a><br>API方法所依赖的接口service与实现serviceImpl可以使用通用的泛化实现接口与实现<br><a href="http://dubbo.io/Generic+Implementation-zh.htm" target="_blank" rel="noopener">http://dubbo.io/Generic+Implementation-zh.htm</a></p>
+<h3 id="2-RPC服务转WS"><a href="#2-RPC服务转WS" class="headerlink" title="2. RPC服务转WS"></a>2. RPC服务转WS</h3><p>分为两个难点：参考Dubbo客户端实现RPC客户端自动生成，WS服务端API生成<br>RPC信息提取：<br>WS服务端API生成：</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2016/03/08/java-related-question/" data-id="cjap5ltvc005qb8rldyvo7jyg" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2016/03/08/java-related-question/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/事务/">事务</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-intro-openchain" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/07/intro-openchain/" class="article-date">
+  <time datetime="2016-03-07T21:34:00.000Z" itemprop="datePublished">2016-03-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统经验/">系统经验</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/07/intro-openchain/">Open Chain系统设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="OpenChain简介"><a href="#OpenChain简介" class="headerlink" title="OpenChain简介"></a>OpenChain简介</h2><p><a href="https://github.com/openchain/openchain/" target="_blank" rel="noopener">openchain</a>使用C#开发的分布式总账系统，有比较强的横向扩展能力，并利用比特币的区块链保证不可更改性。</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ol>
+<li>openchain是一种区块链吗？<br>答：不是，其不使用块这个概念，并直接使用事务链。</li>
+<li>openchain是一条侧链吗？<br>答：提供了模块将openchain部署为侧链，但并非必要步骤。</li>
+</ol>
+<h2 id="部署方法"><a href="#部署方法" class="headerlink" title="部署方法"></a>部署方法</h2><p>提供docker方法直接部署openchain的服务器，使用sqlite作为默认存储，运行在.NET Core和.NET Framework上面</p>
+<h2 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h2><ol>
+<li>事务流<br>openchain的服务节点可以分为两种：validator节点、observer节点：前者接收事务并进行验证，只有通过验证的才计入总账（验证规则由管理员配置）；后者会下载所有通过验证的事务信息流（形成备份？）</li>
+<li>利用区块链<br> 即利用公链提交事务形成hash（使用OP_RETURN）</li>
+<li>数据结构<br> 使用Protocol Buffers进行客户端与服务器之间的编解码操作</li>
+<li>总账结构<br> kv结构的有层级的总账</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2016/03/07/intro-openchain/" data-id="cjap5ltv9005ib8rlw0h7jwof" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2016/03/07/intro-openchain/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/事务/">事务</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-db-from-cmu-2016-three" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/01/db-from-cmu-2016-three/" class="article-date">
+  <time datetime="2016-03-01T19:15:00.000Z" itemprop="datePublished">2016-03-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/课程总结/">课程总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/01/db-from-cmu-2016-three/">CMU课程15-721数据库系统设计（第三周）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CMU课程15-721最新一期开课啦！</p>
+<p><a href="http://15721.courses.cs.cmu.edu/spring2016/schedule.html" target="_blank" rel="noopener">课程安排</a></p>
+<p>索引技术课程（三节）介绍的技术实际跟并发控制结合很紧密，接下来讨论查询相关技术（穿插了日志技术内容）</p>
+<h2 id="Query-Execution-amp-Scheduling"><a href="#Query-Execution-amp-Scheduling" class="headerlink" title="Query Execution &amp; Scheduling"></a>Query Execution &amp; Scheduling</h2><p>重点介绍查询执行与调度，特别是多用户DB中查询如何并行执行</p>
+<p>处理进程模型：</p>
+<ul>
+<li>进程-woker 依赖OS调度，使用共享内存，例：DB2、Postgres、Oracle；还是因为当时没有linux设计</li>
+<li>进程池 CPU缓存支持不好</li>
+<li>线程-worker DB管控调度，新DB都用这个模型规避共享内存</li>
+</ul>
+<p>利用多核并发加速执行：</p>
+<ul>
+<li>Intra-Operator 在子集上独立运行相同函数（mapreduce）</li>
+<li>Inter-Operator 运行类似流水线，做一部分工作（stream）</li>
+</ul>
+<p>个人补充：MySQL仍然是一个线程完成一个work</p>
+<p>补充一点内存访问架构（实际是体系结构中重要部分，由硬件设计决定）</p>
+<ul>
+<li>UMA：多cpu与多内存都必须走中心bus</li>
+<li>NUMA：几个cpu之间组成bus，cpu与内存一一对应(目前常用架构！)</li>
+</ul>
+<p>数据分配策略：</p>
+<ul>
+<li>内存分配与cpu绑定，参考linux的<code>move_pages</code></li>
+<li>使用malloc</li>
+</ul>
+<p>将查询语句变为可调度的执行计划，OLTP简单，OLAP比较难。Hyper就是一个NUMA架构下多核横向分布动态调度架构：</p>
+<p><a href="http://15721.courses.cs.cmu.edu/spring2016/papers/p743-leis.pdf" target="_blank" rel="noopener">Morsel-Driven Parallelism: A NUMA-Aware Query Evaluation Framework for the Many-Core Age</a></p>
+<p>每个核分配一个worker（并行），pull接收分配的任务，数据分布采用RR算法</p>
+<h2 id="Join-Alogrithms-I-—-Hashing"><a href="#Join-Alogrithms-I-—-Hashing" class="headerlink" title="Join Alogrithms I — Hashing"></a>Join Alogrithms I — Hashing</h2><p>原先不懂为何hash join算法作为第一个项目作业，而不是在介绍这个之后再布置。后来发现实际上这里讲解的是最新研究的多核版本算法</p>
+<h2 id="Join-Alogrithms-II-—-Sort-Merge"><a href="#Join-Alogrithms-II-—-Sort-Merge" class="headerlink" title="Join Alogrithms II — Sort-Merge"></a>Join Alogrithms II — Sort-Merge</h2><h2 id="Logging-amp-Recovery-I-—-Physical-Logging"><a href="#Logging-amp-Recovery-I-—-Physical-Logging" class="headerlink" title="Logging &amp; Recovery I — Physical Logging"></a>Logging &amp; Recovery I — Physical Logging</h2><p>传统DB磁盘日志基于ARIES算法，使用fuzzy cp规则，管理Active Transan Table与Dirty Page Table，赋予LSN并在易失与非易失中都要维护，过程为：analysis,redo,undo。最慢的过程发生在其他事务等待log刷到磁盘。</p>
+<p>mem DB就不需要维护Dirty Page Table，因为所有数据都在内存。undo记录也没必要存储。</p>
+<p>实例是<strong>Silo</strong>系统，其将log，cp，恢复操作都并行化优化，<a href="http://15721.courses.cs.cmu.edu/spring2016/papers/zheng-osdi14.pdf" target="_blank" rel="noopener">论文</a>将这些设计考虑与最终选择都讲解的非常清晰。</p>
+<p>该系统假设每个CPU socket对应有一个存储设备。每个设备分配一个日志线程，CPU socket对应一组工作线程。日志线程每10个epoch创建一个文件，将旧日志文件重命名并记录最大epoch。日志维护两个队列：Free Buffers与Flushing Buffers。会有一个特殊日志线程跟踪最新已经持久化的epoch(即各个日志线程中持久化的epoch最大值)，小于此epoch的事务信息才可以丢弃。</p>
+<p>每个disk对应一个cp线程，该线程有可能因为分区而写多个文件（voltDB甚至直接使用MVCC的version来做cp），cp的频率。恢复也可以并行进行。使用YCSB和TPC-C测试，吞吐率损失10%，lantency没有统计。</p>
+<h2 id="Logging-amp-Recovery-II-—-Alternative-Methods"><a href="#Logging-amp-Recovery-II-—-Alternative-Methods" class="headerlink" title="Logging &amp; Recovery II — Alternative Methods"></a>Logging &amp; Recovery II — Alternative Methods</h2><p>讨论一下逻辑日志，内存checkpoint以及Facebook的快速恢复方法（共享内存恢复）。</p>
+<p>OLTP中节点失效很少见(数据不大，通常&lt;10个节点)，因此比较适合使用逻辑日志，记录格式通常包括（存储方法名，输入参数，额外安全检测信息），注意逻辑日志协议设计要满足可确定性，因此需要：</p>
+<ul>
+<li>事务执行前顺序已经固定</li>
+<li>事务逻辑是确定的</li>
+</ul>
+<p>voltDB设计日志协议：在事务运行前日志就已经记录命令，且此时顺序已经分配完毕（个人理解类似MySQL），cp操作由特殊事务进行并将系统切换为COW模式，另一个特殊线程负责扫描表并制作快照，无视cp发起后的所有变化操作；DBMS同步不需要2PC协议</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2016/03/01/db-from-cmu-2016-three/" data-id="cjap5ltu9003ib8rl47gl5usl" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2016/03/01/db-from-cmu-2016-three/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/join/">join</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/调度/">调度</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-db-from-cmu-2016-second-project" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/29/db-from-cmu-2016-second-project/" class="article-date">
+  <time datetime="2016-02-29T10:03:34.000Z" itemprop="datePublished">2016-02-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/课程总结/">课程总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/29/db-from-cmu-2016-second-project/">CMU课程15-721数据库系统设计（第二个项目）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CMU课程15-721最新一期开课啦！</p>
+<p><a href="http://15721.courses.cs.cmu.edu/spring2016/schedule.html" target="_blank" rel="noopener">课程安排</a></p>
+<h2 id="Project-2-Concurrent-Index"><a href="#Project-2-Concurrent-Index" class="headerlink" title="Project #2 - Concurrent Index"></a>Project #2 - Concurrent Index</h2><p>实现一个支持无锁并发的BW树作为索引底层数据结构</p>
+<ul>
+<li>PID到指针的映射表</li>
+<li>改动链</li>
+<li>split/merge</li>
+<li>动态垃圾回收</li>
+</ul>
+<p>论文中几个奇怪概念：</p>
+<ul>
+<li>install CAS 即使用CAS操作来替换映射表中的项目</li>
+<li>epoch机制 即使用版本号保证没有其他操作正在进行（可以执行物理删除）</li>
+</ul>
+<p>实现要求：</p>
+<ul>
+<li>支持重复key且可以配置，如果配置为不允许则<code>InsertEntry</code>插入重复key的索引条目时返回<code>false</code>，且<code>DeleteEntry</code>只删除<key, value="">完全匹配的索引条目</key,></li>
+<li>支持consolidation，需要考虑阈值</li>
+<li>支持split与merge，特别是并发插入与删除的情况</li>
+<li>应该有工具函数帮助测试结构完整性并可以修复，类似<code>fsck</code></li>
+<li>支持动态垃圾回收，调用<code>Cleanup</code>函数进行物理释放，会使用<code>GetMemoryFootprint</code>统计内存情况</li>
+<li>支持<code>reverse iterators</code>并保证<code>concurrent mutators</code>正常工作</li>
+</ul>
+<h2 id="Profile方法"><a href="#Profile方法" class="headerlink" title="Profile方法"></a>Profile方法</h2><p>profile工具使用valgrind或perf</p>
+<ol>
+<li>valgrind</li>
+</ol>
+<p>使用memcheck或callgrind动态检查：<code>valgrind --tool=callgrind --trace-children=yes ./build/src/peloton -D data &amp;&gt; /dev/null&amp;</code></p>
+<ol>
+<li>perf</li>
+</ol>
+<p>通过收集linux的cpu周期计数实现，也支持收集其他事件<br><code>perf record -e cycles:u -c 2000</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2016/02/29/db-from-cmu-2016-second-project/" data-id="cjap5ltu6003db8rlxcsiu4c7" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2016/02/29/db-from-cmu-2016-second-project/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/无锁并发/">无锁并发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/索引/">索引</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-db-from-cmu-2016-first-project" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/17/db-from-cmu-2016-first-project/" class="article-date">
+  <time datetime="2016-02-17T10:03:34.000Z" itemprop="datePublished">2016-02-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/课程总结/">课程总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/17/db-from-cmu-2016-first-project/">CMU课程15-721数据库系统设计（第一个项目）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CMU课程15-721最新一期开课啦！</p>
+<p><a href="http://15721.courses.cs.cmu.edu/spring2016/schedule.html" target="_blank" rel="noopener">课程安排</a></p>
+<h2 id="Project-1-Hash-Join-Operator"><a href="#Project-1-Hash-Join-Operator" class="headerlink" title="Project #1 - Hash Join Operator"></a>Project #1 - Hash Join Operator</h2><p>做这个项目前必须了解几个join算法，问题是这些算法在本次课程里都没有讲解过。</p>
+<p>1.嵌套循环连接(Nested Loops)</p>
+<p>适用范围两个表, 一个叫外部表, 一个叫内部表。如果外部输入非常小，而内部输入非常大并且已预先建立索引，那么嵌套循环联接将特别有效率。循环嵌套连接查找内部循环表的次数等于外部循环的行数，当外部循环没有更多的行时，循环嵌套结束。</p>
+<p>2.合并联接(Merge)</p>
+<p>指两个表在on的过滤条件上都有索引, 都是有序的, 这样join时, sql server就会使用性能更好的Merge join算法。如果一个有索引,一个没索引,则会选择Nested Loops join算法。首先从两个输入集合中各取第一行，如果匹配，则返回匹配行。假如两行不匹配，则有较小值的输入集合+1。</p>
+<p>3.哈希联接(Hash)</p>
+<p>如果两个表在on的过滤条件上都没有索引, 则就会使用Hash join算法。也就是说, 使用Hash join算法是由于缺少现成的索引。</p>
+<p>哈希匹配分为两个阶段,分别为生成和探测阶段：首先是生成阶段，将输入源中的每一个条目经过散列函数的计算都放到不同的Hash Bucket中；接下来是探测阶段，对于另一个输入集合，同样针对每一行进行散列函数，确定其所应在的Hash Bucket,在针对这行和对应Hash Bucket中的每一行进行匹配，如果匹配则返回对应的行。</p>
+<p>同时做这个项目需要了解Peloton tile-based架构几个关键数据结构：</p>
+<p><code>logical_tile</code>设计 [backend/executor/logical_tile] </p>
+<p>其中</p>
+<ul>
+<li><code>position_lists_</code>为<code>vector&lt;vector&lt;oid_t&gt;&gt;</code> 用来描述tiles/colums, 例(1,2,3),(1,1,1)</li>
+<li><code>schema_</code>为<code>vector&lt;LogicalTile::ColumnInfo&gt;</code> 用来描述logical tile的表字段组合, 会存在<code>position_list_idx</code>与position list对应, 例(Tile A-1 ATTR1, Tile A-1 ATTR2), (Tile A-1 ATTR3, Tile A-2 ATTR1)</li>
+<li><code>visible_rows_</code>为<code>vector&lt;bool&gt;</code>用来描述position lists中每一行的可见性</li>
+</ul>
+<p><code>ColumnInfo</code>设计 [backend/executor/logical_tile]</p>
+<p>在logical tile中用来描述一组表字段信息, 例如(Tile A-1 ATTR1, Tile A-1 ATTR2), 其中</p>
+<ul>
+<li><code>position_list_idx</code> 指回Position Lists中对应编号</li>
+<li><code>base_tile</code>为<code>shared_ptr&lt;storage::Tile&gt;</code>指向存储Tile，直接使用指针而不是oid</li>
+<li><code>origin_column_id</code> 存储Tile中选择的表字段编号</li>
+</ul>
+<p><code>ContainerTuple</code>设计 [backend/expression/container_tuple]</p>
+<p>用于包装logical tile中元组, 传入LogicalTile指针与元组行id(logical_tile, row_idx)</p>
+<p><code>HashMapType</code> 设计 [backend/executor/hash_executor]</p>
+<p>用于定义hash表结构<code>unordered_map&lt;expression::ContainerTuple&lt;LogicalTile&gt;, unordered_set&lt;pair&lt;size_t, oid_t&gt;, boost::hash&lt;pair&lt;size_t, oid_t&gt;&gt;&gt;, expression::ContainerTupleHasher&lt;LogicalTile&gt;, expression::ContainerTupleComparator&lt;LogicalTile&gt;&gt;</code><br>其中pair<size_t, oid_t=""> 表示 <size_t tile_idx,="" oid_t="" row_idx=""></size_t></size_t,></p>
+<p>使用类型为<code>vector&lt;unique_ptr&lt;executor::LogicalTile&gt;&gt;</code>的<code>left_result_tiles_</code>与<code>right_result_tiles_</code>缓存<br>最终hash操作返回结果为<code>vector&lt;LogicalTile *&gt; result</code>使用<code>BuildOutputLogicalTile</code>方法(主要调用<code>BuildSchema</code>方法得到表字段组合)返回得到<code>unique_ptr&lt;LogicalTile&gt;</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2016/02/17/db-from-cmu-2016-first-project/" data-id="cjap5ltu4003ab8rlxp8n0o92" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2016/02/17/db-from-cmu-2016-first-project/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/索引/">索引</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/archives/2016/page/2/">2</a><a class="extend next" rel="next" href="/archives/2016/page/2/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/WordPress开发/">WordPress开发</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品设计/">产品设计</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端语言/">后端语言</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/新技术跟踪/">新技术跟踪</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/">系统架构</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/项目经历/">项目经历</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统经验/">系统经验</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/课程总结/">课程总结</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融/">金融</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试总结/">面试总结</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目经历/">项目经历</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InnoDB/">InnoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS模板/">JS模板</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux设置/">Linux设置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVCC/">MVCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP主题/">WP主题</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP实现/">WP实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP插件/">WP插件</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP设置/">WP设置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/">WebGL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache-coherence/">cache coherence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history/">history</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios应用/">ios应用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptv/">iptv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/">join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kv存储/">kv存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutex/">mutex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/">paxos</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raft/">raft</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url重定向/">url重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web2-0/">web2.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文汉化/">中文汉化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/互联网企业/">互联网企业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/债券/">债券</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内核/">内核</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式锁/">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/华为/">华为</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基金/">基金</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外设/">外设</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源项目/">开源项目</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无锁并发/">无锁并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/期货/">期货</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栅格系统/">栅格系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/科研/">科研</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/股票/">股票</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本加载/">脚本加载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/腾讯/">腾讯</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/苹果/">苹果</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法/">语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读写锁/">读写锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调度/">调度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金山/">金山</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隔离级别/">隔离级别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目管理/">项目管理</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/InnoDB/" style="font-size: 10px;">InnoDB</a> <a href="/tags/JS模板/" style="font-size: 11.67px;">JS模板</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Linux设置/" style="font-size: 10px;">Linux设置</a> <a href="/tags/MVCC/" style="font-size: 10px;">MVCC</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WP主题/" style="font-size: 16.67px;">WP主题</a> <a href="/tags/WP实现/" style="font-size: 10px;">WP实现</a> <a href="/tags/WP插件/" style="font-size: 16.67px;">WP插件</a> <a href="/tags/WP设置/" style="font-size: 11.67px;">WP设置</a> <a href="/tags/WebGL/" style="font-size: 11.67px;">WebGL</a> <a href="/tags/Zookeeper/" style="font-size: 10px;">Zookeeper</a> <a href="/tags/cache-coherence/" style="font-size: 10px;">cache coherence</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/fabric/" style="font-size: 11.67px;">fabric</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/google/" style="font-size: 11.67px;">google</a> <a href="/tags/history/" style="font-size: 10px;">history</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/ios应用/" style="font-size: 10px;">ios应用</a> <a href="/tags/iptv/" style="font-size: 10px;">iptv</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/kv存储/" style="font-size: 10px;">kv存储</a> <a href="/tags/memory/" style="font-size: 10px;">memory</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/paxos/" style="font-size: 11.67px;">paxos</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raft/" style="font-size: 10px;">raft</a> <a href="/tags/url重定向/" style="font-size: 10px;">url重定向</a> <a href="/tags/web2-0/" style="font-size: 10px;">web2.0</a> <a href="/tags/zookeeper/" style="font-size: 11.67px;">zookeeper</a> <a href="/tags/中文汉化/" style="font-size: 11.67px;">中文汉化</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/互联网企业/" style="font-size: 11.67px;">互联网企业</a> <a href="/tags/债券/" style="font-size: 11.67px;">债券</a> <a href="/tags/内核/" style="font-size: 11.67px;">内核</a> <a href="/tags/分布式锁/" style="font-size: 10px;">分布式锁</a> <a href="/tags/区块链/" style="font-size: 13.33px;">区块链</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/基金/" style="font-size: 11.67px;">基金</a> <a href="/tags/外设/" style="font-size: 10px;">外设</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/实习/" style="font-size: 15px;">实习</a> <a href="/tags/开源项目/" style="font-size: 10px;">开源项目</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/数据库/" style="font-size: 18.33px;">数据库</a> <a href="/tags/无锁并发/" style="font-size: 10px;">无锁并发</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/期货/" style="font-size: 11.67px;">期货</a> <a href="/tags/栅格系统/" style="font-size: 10px;">栅格系统</a> <a href="/tags/科研/" style="font-size: 10px;">科研</a> <a href="/tags/算法/" style="font-size: 18.33px;">算法</a> <a href="/tags/索引/" style="font-size: 11.67px;">索引</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/股票/" style="font-size: 11.67px;">股票</a> <a href="/tags/脚本加载/" style="font-size: 10px;">脚本加载</a> <a href="/tags/腾讯/" style="font-size: 15px;">腾讯</a> <a href="/tags/苹果/" style="font-size: 10px;">苹果</a> <a href="/tags/语法/" style="font-size: 11.67px;">语法</a> <a href="/tags/读写锁/" style="font-size: 10px;">读写锁</a> <a href="/tags/调度/" style="font-size: 10px;">调度</a> <a href="/tags/金山/" style="font-size: 10px;">金山</a> <a href="/tags/锁/" style="font-size: 10px;">锁</a> <a href="/tags/键盘/" style="font-size: 10px;">键盘</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试/" style="font-size: 20px;">面试</a> <a href="/tags/项目管理/" style="font-size: 11.67px;">项目管理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/03/">March 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/02/Qconf-summary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/08/blockchain-tech-summary/">区块链技术总结与架构实战</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/fabric-ca-design/">Hyperledger Fabric CA设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/05/sicp-charpter-two/">SICP第二章总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chao Zheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  </footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/php-development-env-setup-in-win7-x64.html" class="mobile-nav-link">PHP-WIN</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'chaozh';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

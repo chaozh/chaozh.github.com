@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives: 2017 | chaozh.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="系统架构,移动开发,独立游戏">
+<meta property="og:type" content="website">
+<meta property="og:title" content="chaozh.com">
+<meta property="og:url" content="http://chaozh.github.com/archives/2017/index.html">
+<meta property="og:site_name" content="chaozh.com">
+<meta property="og:description" content="系统架构,移动开发,独立游戏">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chaozh.com">
+<meta name="twitter:description" content="系统架构,移动开发,独立游戏">
+  
+    <link rel="alternative" href="/atom.xml" title="chaozh.com" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">chaozh.com</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">超然台上仙的知识库|系统架构,移动开发,独立游戏</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/php-development-env-setup-in-win7-x64.html">PHP-WIN</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chaozh.github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Qconf-summary" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/02/Qconf-summary/" class="article-date">
+  <time datetime="2017-12-02T09:46:23.907Z" itemprop="datePublished">2017-12-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="2016-Qcon北京"><a href="#2016-Qcon北京" class="headerlink" title="2016 Qcon北京"></a>2016 Qcon北京</h1><h2 id="1-1-七周七并发"><a href="#1-1-七周七并发" class="headerlink" title="1.1 七周七并发"></a>1.1 七周七并发</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> n: numbers)</span><br><span class="line">	sum += n;</span><br></pre></td></tr></table></figure>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">defn</span></span> sum [numbers]</span><br><span class="line">	(<span class="name"><span class="builtin-name">reduce</span></span> + numbers))</span><br><span class="line"></span><br><span class="line">(<span class="name"><span class="builtin-name">defn</span></span> count-words [pages]</span><br><span class="line">	(<span class="name">frequencies</span> (<span class="name"><span class="builtin-name">mapcat</span></span> get-words pages)))</span><br><span class="line"></span><br><span class="line">(<span class="name"><span class="builtin-name">defn</span></span> count-words [pages] </span><br><span class="line">	())</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-JVM-G1"><a href="#1-2-JVM-G1" class="headerlink" title="1.2 JVM G1"></a>1.2 JVM G1</h2><p>performance tuning: throughput/ response time/ footprint/ availability / capacity</p>
+<ul>
+<li>analyzing log</li>
+<li>monitoring<ul>
+<li>lock stats, utilizations[cpu,mem]</li>
+</ul>
+</li>
+<li>profiling</li>
+</ul>
+<p>JVM (class loader + gc + runtime + JIT compiler)</p>
+<ul>
+<li>JVM monitoring</li>
+<li>app profiling</li>
+<li>process &amp; plot GC logs</li>
+<li>online&amp; offline GC monitoring</li>
+</ul>
+<p>GC </p>
+<ul>
+<li>NOT eliminate your memory leaks!(GC heap dump)</li>
+<li>throughput &amp; latency(no footprint) two main drivers<ul>
+<li>throughput max (generational + parallel work </li>
+<li>latency (pause + concurrent mark/sweep)</li>
+</ul>
+</li>
+<li>All GC in OpenJDK HotSpot are generational<ul>
+<li>fast path alloc == thread local alloc buffer == lockfree alloc [epoch 机制！]</li>
+<li>young gc == reclamation via scavenging(eden -&gt; survivor)</li>
+<li>old gc(different algothm!) reclamation via parallel mark-swept  compact/ multi-threaded</li>
+</ul>
+</li>
+<li>All non/partial compacting GC fallbak to full gc [like g1?]</li>
+</ul>
+<p>G1</p>
+<ul>
+<li>young collection(partial) -&gt; initial mark(less pause) -&gt; remark(big pause) -&gt; cleanup(little pause) -&gt; mixed collection(partial)</li>
+<li>collect most region(mixed collection)</li>
+<li>heap configuration</li>
+</ul>
+<p>Tuning GC</p>
+<ul>
+<li>elapsed time<ul>
+<li>copying costs(in compact!)</li>
+</ul>
+</li>
+<li>overhead(more possible)<ul>
+<li>alloc rate &amp; promotion rate</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>size generations(faster filled sonner gc trigger)</li>
+<li>size appropiate (more copy more pause)</li>
+</ol>
+<p>adaptive alogithm for gen size(do steps - find in “print”)<br>java performance tuning? monica@codekaram.com (left oracle)<br>openJDK hotspot vs jeorocket</p>
+<h1 id="sp"><a href="#sp" class="headerlink" title="sp"></a>sp</h1><p>kubernet 1000node限制 封装+100ms延迟<br>华为王宇冬提问：扩展存储问题（有状态就使用ceph，性能下降问题[无解？]）</p>
+<h2 id="1-3-网易蜂巢容器云"><a href="#1-3-网易蜂巢容器云" class="headerlink" title="1.3 网易蜂巢容器云"></a>1.3 网易蜂巢容器云</h2><p>docker 开发人员与sa关系（改变部署、协作方式)</p>
+<pre><code>- 运维定义仅镜像-》自动化容器云平台
+- 成熟度 Docker（网络、存储坑）/ kubernetes（多租户、有状态坑）/ OpenStack（公有云运用坑多） 
+</code></pre><p>容器网络: 容器互联<br>复杂情况：<br>    NAT</p>
+<pre><code>- 长连接问题、IP注册服务发现问题、迁移复杂
+端口映射
+- 运维复杂度、端口冲突、内外IP
+层级网络
+- 不利于故障恢复、IP变化（控制IP分配）
+</code></pre><ul>
+<li>VxLAN网络(Openstack Neutron) <ul>
+<li>每个租户独立私有、外网网卡直接挂载、私有网络&gt;容器网络</li>
+</ul>
+</li>
+<li>基础服务 暴露为统一url</li>
+<li>编排（选择kubernetes）<ul>
+<li>多租户 node、存储、网络隔离</li>
+<li>性能问题：所有操作都在任务队列串行执行、LB聚合多个etcd集群（超过1千节点）、调度器以租户调度(?)</li>
+</ul>
+</li>
+<li>诊断工具<ul>
+<li>统一日志 调用链！rsyslog收集</li>
+<li>基础服务 监控定制化(慢查询、死锁、复制等)</li>
+</ul>
+</li>
+<li>容器运行<ul>
+<li>保持状态：网络、存储（远程盘、实现reload命令）<br>数据库docker化？ ceph或高IO块</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-4-Startup大数据平台架构-AppAnnie"><a href="#1-4-Startup大数据平台架构-AppAnnie" class="headerlink" title="1.4 Startup大数据平台架构 AppAnnie"></a>1.4 Startup大数据平台架构 AppAnnie</h2><p>王佳 ramon@appannie.com 应用商店分析和市场数据<br>Startup与大数据(人员成本、运维成本)<br>架构平台设计原则（每天20TB压缩数据、6+集群、500+数据处理任务、100~200服务器）</p>
+<ul>
+<li>数据驱动（引入data schema中间层）</li>
+<li>使用工作流引擎管理（数据节点复用，通过executer来封装底层执行引擎）<ul>
+<li>自实现 Dagre-D3(js, UI) + Engine(Python RQ，取工作流，找task丢到Redis) + Redis</li>
+<li>oozie, Azkaban, luigi（内部大数据）<br>Pig 构建数据管道，HIVE 临时查询与分析，Python 实现各种ETL、算法模型、Pig的UDF函数</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-5-OS导致非典型GC停顿（zhenyun）"><a href="#1-5-OS导致非典型GC停顿（zhenyun）" class="headerlink" title="1.5 OS导致非典型GC停顿（zhenyun）"></a>1.5 OS导致非典型GC停顿（zhenyun）</h2><p>bg: java(HotSpot JVM) + linux (paging[huge page] + swapping + page cache[writeback] )<br>理论来自IEEE Cloud 2014<br>三种场景：</p>
+<ul>
+<li>startup state</li>
+<li>steady state with memory pressure</li>
+<li>steady state with heavy io</li>
+</ul>
+<p>workload:</p>
+<ul>
+<li>java app alloc/de objects</li>
+<li>bg app taking mem or disk ios</li>
+</ul>
+<ol>
+<li>Startup State</li>
+</ol>
+<p>Q: java heap（resident size查看）逐渐增大-&gt; 导致OS启动direct page scanning(cpu飙升) -&gt; OS启动swapping<br>A：”-XX:AlwaysPreTouch”初始化 + 设置Swappiness = 1 + cgroup具体设置 </p>
+<ol>
+<li>Steady State (mem)</li>
+</ol>
+<p>Q: 以为是heap被swap out导致(55 s时间太大，sys/usr/real time中为55/0不应该cpu这么高) -&gt; linux默认特性THP导致(加速寻址,malloc超过2M自动启动)<br>A: mem压力时不用THP，没有再开</p>
+<ol>
+<li>Steady State (IO)</li>
+</ol>
+<p>Q: sys/usr/real(0.01/0.18/11.45) disk io比较高 -&gt; gc之后1.5s停顿(要小写gclog文件导致，但是异步花这么长时间return?) -&gt; stable page write(pdflush启动) / journal commit导致(包括需要alloc新block时启动)<br>A：gclog写能否异步？否！</p>
+<p>mission control</p>
+<ul>
+<li>先看usr/sys/real </li>
+<li>小心linux新的特性</li>
+<li>注意各层的问题</li>
+</ul>
+<p>QA：CMS容易full gc-&gt; mem leak-&gt;静态变量太多 / object size比较大?</p>
+<h2 id="1-6-百万量级-细粒度查询意图识别"><a href="#1-6-百万量级-细粒度查询意图识别" class="headerlink" title="1.6 (百万量级)细粒度查询意图识别"></a>1.6 (百万量级)细粒度查询意图识别</h2><p>搜索广告-基于关键字匹配</p>
+<ul>
+<li>查询短、特征稀疏、歧义强</li>
+<li>广告缺乏相关性</li>
+</ul>
+<p>目标：从日志挖掘查询意图，处理高频与长尾查询<br>现有方法：Google Rephil系统(Bayesian网络推断)使用在adsense<br>识别意图3类方法(短文本聚类[长尾无法覆盖，缺失推断能力]、Topic Modeling[不同topic难对应，精确度不足]、查询分类[粒度较粗])<br>方法：查询聚类(聚类算法抗噪、图挖掘中社团发现算法-&gt;MMO算法)<br>网络构造：2年点击日志-&gt; 抽取query-url关系<br>问题：过大不纯类、太多细粒度 -&gt; 质量评估（纯度、文本相关性）<br>意图推断：候选分类发现、拒绝项<br>应用：广告召回、广告质量保证</p>
+<h2 id="2-1-Twitter-message-queue"><a href="#2-1-Twitter-message-queue" class="headerlink" title="2.1 Twitter message queue"></a>2.1 Twitter message queue</h2><p>2012年每个不同基础服务对应一个message<br>database – Bookeeper</p>
+<ul>
+<li><p>kestrel (simple, Fan-out queue, Reliable reads, cross DC rep)<br>问题：</p>
+<ul>
+<li>each queue is a file(持久化性能问题)</li>
+<li></li>
+<li>读旧数据性能(mem cache设计问题)</li>
+</ul>
+</li>
+<li><p>Kafka (小规模订阅的顺序io性能非常好)</p>
+<ul>
+<li>依赖OS的page cache(文件多导致random io)<br>更大问题：各个软件组件维护问题(client, upgrade, hardware)</li>
+</ul>
+</li>
+</ul>
+<p>消息总线目标：1.unified stack; 2. Durable writes(intra-cluster, geo-repli); 3. 多租户; 4. scale resources independent; 5. 易于维护</p>
+<p>仍然采用日志追加模型 entry(DLSN, Sequence ID, tid)</p>
+<pre><code>- 没有实现partition
+- 存储层Bookeeper
+- 核心层writer, reader 读写分离
+- 无状态服务层 write proxy(ownership tracker)/read proxy(routing service)
+- 方便服务层(container去做)与存储层扩展    
+- 冷数据存储 HDFS
+</code></pre><p>注意：write proxy写是2PC的(Bookeeper实现or自己逻辑实现？BK使用的是Paxos)<br>最终一致性实现：LastAddConfirmed(读) &amp; Fencing(写，争强问题？hash)：owner tracking(不需要严格选举，lease机制即可，zk就能提供，failure detect: TickTime=500ms Session Timeout=1000ms)<br>Geo-repli要求zk多机房部署一个集群<br>总结：底层保证、不要相信文件系统(page cache)<br>guosijie_</p>
+<h2 id="2-2-intel-Spark-优化"><a href="#2-2-intel-Spark-优化" class="headerlink" title="2.2 intel Spark 优化"></a>2.2 intel Spark 优化</h2><p>10%~15%内存给OS做cache(dcache, page cahce)</p>
+<ul>
+<li>memory per node * (85~90)% / executors per node</li>
+<li>2~5GB per core: * spark.executor.cores</li>
+</ul>
+<p>memoryOverhead参数：默认太小，防止offheap mem size导致被yarn kill<br>serializer参数：kryo序列化 15~20%提升<br>partition选择：太大(磁盘压力、轮数太多)，先设大值再慢慢降(GC问题)<br>IO调整：</p>
+<ul>
+<li>storage level </li>
+<li>compression 默认rdd不压,shuffle压<br>dynamicAllocation: 在Spark SQL好使<br>GC：WebUI(GC Time 大部分GC严重开始调)，尝试减少并行度<br>blktrace 分析io，顺序(大IO,延迟小,磁道数连续)/随机(小IO,延迟大,磁道)分类(通过lba地址时间线判断) -&gt; shuffle read是随机的，易于造成io瓶颈</li>
+</ul>
+<p>QA：除非内存超大，全在OS page cache中shuffle，但是提升相比也不多，因为瓶颈主要体现在CPU了</p>
+<h2 id="2-3-百度分布式计算调度"><a href="#2-3-百度分布式计算调度" class="headerlink" title="2.3 百度分布式计算调度"></a>2.3 百度分布式计算调度</h2><p>资源调度+资源管理mesos<br>Omega论文图片说明历史 Yarn -&gt; mesos(双层) -&gt; Brog/Omega(乐观锁)<br>作业无法区分 -&gt; 资源利用率 -&gt; 异构系统 (60% CPU利用)<br>实现：</p>
+<ul>
+<li>虚拟化交付，资源审计</li>
+<li>自研RPC</li>
+<li>丰富调度算法</li>
+<li>物理队列、逻辑队列、优先级抢占等</li>
+<li>lib raft</li>
+</ul>
+<h2 id="2-4-服务治理"><a href="#2-4-服务治理" class="headerlink" title="2.4 服务治理"></a>2.4 服务治理</h2><p>qlang语言 GO语言的TPL 从富媒体存储开始起步<br>服务端程序员特殊职责：on call<br>服务治理：更高可用性、业务开发更简单<br>服务发现与负载均衡、调度、配置变更。。。<br>微服务：变多，治理压力更大 -&gt; 业务化组织</p>
+<ul>
+<li>服务发现：服务的扩容缩容、调度，同时有负载均衡的问题；实现为客户端（性能更好）或负载均衡器（API gateway，治理能力更好）Kubernetes方案就不错，可以参考</li>
+<li>过载保护：自动扩容可能因为异常导致问题更严重，建议区分好坏请求，扩容增加上限，拒绝部分请求(N*2 高于报警线)</li>
+<li>服务降级：为重要请求保证资源</li>
+<li>故障定位：找root cause（首先可以进行集群拓扑发现，根据服务请求链条找根源，预案处理），xushiwei（注：七牛求才）<br>QA：如何区分资源问题和机器硬件问题（比如慢盘问题，upstream检测）<br>QA：拓扑发现如何做？</li>
+</ul>
+<h2 id="2-5-Elastic-Stack数据分析"><a href="#2-5-Elastic-Stack数据分析" class="headerlink" title="2.5 Elastic Stack数据分析"></a>2.5 Elastic Stack数据分析</h2><p>曾勇Medci Elastic于2012年成立<br>ELK -》Bees<br>ElasticSearch：搜索与聚合、数据分析(运维日志)、支持超过1700多节点1.3PB数据<br>Ingest：Logstash（多数据源收集中间件）、Beats（golang，简单收集行为数据，包括三类：网络、系统状态、日志）<br>Kibana：可视化</p>
+<h2 id="2-5-分布式存储"><a href="#2-5-分布式存储" class="headerlink" title="2.5 分布式存储"></a>2.5 分布式存储</h2><p>设计考虑</p>
+<ul>
+<li>本地海量小文件 例：Swift </li>
+<li>聚合存储 g:方便迁移，EC恢复; b:垃圾回收比较复杂 例：Heystack</li>
+</ul>
+<p>美团云设计：</p>
+<ul>
+<li>s3模型 底层对象存储，用户建立域名</li>
+<li>Mangix系统 StoreServ（c语言、并发网络框架） ProxyServ（Golang、http访问入口）SchedServ（Golang 监控 恢复 调度 小文件垃圾回收） MetaDB（Oceanbase，中心化元数据存储）</li>
+</ul>
+<ul>
+<li>存储设计 [partition] 迁移复制最小单位，对应一个文件256MB，三副本 [record] 2MB落盘，流式写入 [Record Index]Record ID -&gt; File Position</li>
+<li>恢复时间与可靠性 LRC算法</li>
+<li>元数据设计 多版本、数据去重(sha-1)、对象覆盖写？</li>
+<li>sharding表如何设计方便EC RecordID(ServerIP+DiskID+timestamp)</li>
+<li>垃圾回收 标记删除、孤儿数据</li>
+<li>MetaDB 万亿级数据、读多写少：LSM Tree实现就行 </li>
+<li>进程独占机器 StoreServ/ProxyServ</li>
+<li>测试：glibc钩，不间断压力测试</li>
+</ul>
+<p>consistent hash问题：扩容、数据迁移代价</p>
+<h2 id="2-6-MVVM与FRP"><a href="#2-6-MVVM与FRP" class="headerlink" title="2.6 MVVM与FRP"></a>2.6 MVVM与FRP</h2><p>美团变为平台+业务，挑战：代码复用率低、团队分工 -》分层+组件化</p>
+<h2 id="2-6-Apache-Eagle-ebay"><a href="#2-6-Apache-Eagle-ebay" class="headerlink" title="2.6 Apache Eagle ebay"></a>2.6 Apache Eagle ebay</h2><p>分布式策略引擎</p>
+<ul>
+<li>SQL on Streaming</li>
+<li>实时流处理 Storm+Kalfka</li>
+</ul>
+<h2 id="3-1-大数据技术演进"><a href="#3-1-大数据技术演进" class="headerlink" title="3.1 大数据技术演进"></a>3.1 大数据技术演进</h2><p>Delivery(Kafka/RabbitMQ/Flume[push-based]) -&gt; Processing(spark streaming[batches]/storm/samza/flink[stream]/spark/hadoop[batch]) vs Querying(SQL-on-Hadoop[using both hadoop &amp; db]/Impala/Hive[SQL like]/HBase[KV,pre-comput,range scans]/Druid[column store &amp; query,even BI])[output smaller] -&gt; Storage(HDFS/ALLUXIO[mem]/Kafka)</p>
+<p>reaching saturation point<br>Delivery(Kafka) -&gt; Stream Processing(spark) -&gt; Querying<br>BI ??? -&gt; TensorFlow DL4J -&gt; AI ???</p>
+<p>druid join问题: 只是还没实现好<br>data mining &amp; trend predict问题：问题仍没有很好解决方案<br>传统BI与Query Engine区别问题：开源，支持stream data，性能，功能目前无法比但很快会赶上</p>
+<h2 id="3-2-大数据、人工智能——京东VP"><a href="#3-2-大数据、人工智能——京东VP" class="headerlink" title="3.2 大数据、人工智能——京东VP"></a>3.2 大数据、人工智能——京东VP</h2><p>Hadoop核心思想 -&gt; Partition data(key思路来源于search中倒排索引的token) + Coordinate &amp; Schedule</p>
+<p>Hadoop优化（主要集中于DiskIO）：Column存储、利用内存(Spark特别在数据挖掘)</p>
+<p>如何开始build，有哪些坑：</p>
+<ul>
+<li>大数据安全性（更多）</li>
+<li>BI应用（传统数据库已经研究很长时间）data model与Schema设计非常重要（减小数据复制，支持业务）</li>
+<li>任务调度（10K+ 节点）</li>
+<li>高性能与吞吐（每天100K+，除了平台，自身业务也要优化） </li>
+<li>low lantency（实时搜索）</li>
+</ul>
+<p>如何挖掘数据价值：</p>
+<ul>
+<li>Deep learning 数据量增大，对多媒体数据分析，SL RL</li>
+<li>Baysian program learning 不需要大数据，必须对问题有深刻了解，LDA</li>
+</ul>
+<p>SL</p>
+<ul>
+<li>feature engineering 很常用，人工提供数据，实际上找特征比较难 Regression/GBDT/CRF</li>
+<li>Supervised Deeping Learning nero-network算法降维，自学习隐藏特性</li>
+</ul>
+<p>Search ranking/personal recom/customer attrition/product price</p>
+<ul>
+<li>大数据不一定覆盖重要特征，可能导致model失效</li>
+<li>feature engineering 比模型更重要</li>
+<li>real-time数据使用应该用在最后一步</li>
+</ul>
+<p>Thinking Tech 未来big data</p>
+<p>AlphaGo</p>
+<ul>
+<li>combine 多个 SL deep learning models &amp; RL models</li>
+<li>Reinforcement learning[NEW!] </li>
+</ul>
+<p>产销决策 jd采用RL策略<br>Elon Musk’s Open AI<br>data scientist与业务domain之间的gap解决：应该管理来解决（培训）</p>
+<h2 id="3-3-JS选型-Dylan-Schieman-dojo-sitepen"><a href="#3-3-JS选型-Dylan-Schieman-dojo-sitepen" class="headerlink" title="3.3 JS选型 - Dylan Schieman@dojo, sitepen"></a>3.3 JS选型 - Dylan Schieman@dojo, sitepen</h2><p>挑战：Browser release；new platforms(even watches &amp; VR)；<br>优势：Ubiquitous；Easy；Zero install；<br>挑战：各种标准的冲突；缺少长期稳定一致；</p>
+<ol>
+<li>模块化 （包括HTTP2支持） </li>
+<li>测试</li>
+<li>独立性</li>
+</ol>
+<p>typescript帮助代码健壮(特别是动态属性)，interface帮助选择<br>A limited Test Drive问题<br>fat-controller &amp; bi-directional slow -&gt; virtual dom(maquette) &amp; Redux<br>templating vs JSX vs HyperScript(dojo2)</p>
+<h2 id="3-4-数据库高可用——网易"><a href="#3-4-数据库高可用——网易" class="headerlink" title="3.4 数据库高可用——网易"></a>3.4 数据库高可用——网易</h2><p>同步方案：<br>DRBD性能 SAN价格 BINLOG MMM一致性问题 MHA都在用，主机硬盘问题<br>Semi-Replication事务提交顺序 Galera锁冲突比较多 NDB新存储引擎，使用人少</p>
+<p>优化：</p>
+<ul>
+<li>异步复制-&gt;同步复制？ 5.5.20-v3 =&gt; 5.7.2吸收</li>
+<li>组提交：Binary log Group Commit 5.5.20-v3 =&gt; 5.6.6吸收</li>
+<li>实时切换：从机并行回放（组里） =&gt; 5.6不同db进行；5.7完全吸收</li>
+<li>可用域和存储池</li>
+</ul>
+<p>切换成本问题（应用断连接）SQL响应时间长 80%切换可用避免（可以提前预知）</p>
+<p>数据库健康检查：</p>
+<ol>
+<li>索引设计 主键索引(无主键[复制性能差、多表插入性能]或主键非自增) 冗余索引或无效索引(影响插入性能) 低效索引(索引区分度[information.cardinality/tables] 低于0.1则有问题)</li>
+<li>容量规划 cpu利用率、buffer_pool命中率(判断mem设置)、带宽、iops等</li>
+<li>参数配置 Binlog(expire_logs_days/sync_binlog[不开不一致]/binlog_format[raw]) Redo(Innodb_file_log_size过小造成SSD下间歇hang住/Innodb_flush_log_at_trx_commit=1) 内存(pre-thread buffers * max_connections + 其他共享内存 &lt; 物理内存)</li>
+<li>服务安全 </li>
+<li>用户访问 死锁(error log中判断) 慢查询(按照SQL类型归并)</li>
+</ol>
+<h2 id="3-5-Druid介绍-imply"><a href="#3-5-Druid介绍-imply" class="headerlink" title="3.5 Druid介绍 @imply"></a>3.5 Druid介绍 @imply</h2><p>开源分布式数据库(2011) 应用场景是billion~trillion的数量级</p>
+<ol>
+<li>History &amp; Motivation: scalable/Multi-tenancy/Real-time<br>power for BI/OLAP</li>
+</ol>
+<p>traditional data warehouse - star schema -&gt; Aggregates tables/query caches (very slow!)<br>KV stores - Hbase etc. pre-compute slow as data grows<br>Column stores - Druid! after fail with postgre &amp; HBase</p>
+<ol>
+<li>Design</li>
+</ol>
+<p>supports custom column format -&gt; summarization(agre on index -&gt; shard on time[segment]) -&gt; Multi-tenancy(deal with segment each)</p>
+<ol>
+<li>Arch</li>
+</ol>
+<p>data-&gt;Hadoop–&gt; Historical Node[segments] &lt;–Broker Node&lt;-query<br>streaming data -&gt; Real-time Nodes(改为reverse index Nodes) –&gt; Historical Node &lt;–Broker Node&lt;-query<br>Real-time Nodes: convert write optimized(hash map) -&gt; read optimized(segments)<br>UI: Pivot/Grafama/Panoramix …<br>shard保证数据字典变得太大 random hash<br>summary rollup会丢失秒级数据<br>为何选择time做hash 可以很容易filter<br>传统数据库导入：first export raw data format<br>cache也是根据时间(segments为单位)<br>grafana UI 新指标添加比较慢<br>tableu在大数据表现不好[crash data]</p>
+<h2 id="3-6-数据访问层-ele-me"><a href="#3-6-数据访问层-ele-me" class="headerlink" title="3.6 数据访问层 ele.me"></a>3.6 数据访问层 ele.me</h2><p>Netty.io 踩的坑<br>ele.me 纯python平台 -&gt; 引入java生态<br>限流削峰、连接复用、用户隔离、分表、熔断、读写分离</p>
+<ul>
+<li>指标：单价1万QPS(极限4.8万、日志trace都关了-&gt;2万)、延迟0.6ms、1.5万降为1千</li>
+<li>DAL功能引入演进：小功能2周左右<br>限流削峰 -&gt; 主从分离 -&gt; 二维分表(用户、商家的订单在一张表，拆分同时映射) 先用户再商户 显式commit -&gt; 一维分表<br>DAL架构选型（康威定律）2015/04 -&gt; 独立进程服务（非库服务，多语言，mysql协议进程通信）-&gt; 业务可以回滚接入前<br>HAProxy -&gt; Netty NIO -&gt; MySQL解码 -&gt; 限流队列(痛点！) -&gt; 事件驱动SQL状态机 -&gt; Netty NIO -&gt; MySQL<br>非核心功能可以在线关闭 网络层/jdbc<br>同步（看起来是顺序的）-&gt; 客户端/服务端超时 Netty IO异步 -&gt; 清理资源不能释放两次 -&gt; 加锁（标志）加好多！-&gt; 去掉并发 SQL事件线程排队<br>切换工具长时间能否工作 -&gt; 系统升级与容灾切换一起做 -&gt; 注意事务没有commit的情况<br>CMS垃圾收集 170ms停顿-&gt;G1 20ms停顿 指定目标工作时间即可<br>客户端至少1s超时，因此GC不会太影响<br>Netty线程性限制 解决流量 减小CPU压力<br>读写数据一致性，从库10ms延迟，应用读从库需要忍受秒级延迟 </li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2017/12/02/Qconf-summary/" data-id="cjap5lttd0024b8rlgghq4jqh" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2017/12/02/Qconf-summary/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Introduction-to-Basic-Fixed-Income-Securities" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/" class="article-date">
+  <time datetime="2017-12-02T09:46:23.903Z" itemprop="datePublished">2017-12-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Introduction-to-Basic-Fixed-Income-Securities"><a href="#Introduction-to-Basic-Fixed-Income-Securities" class="headerlink" title="Introduction to Basic Fixed Income Securities"></a>Introduction to Basic Fixed Income Securities</h1><ol>
+<li><p>Lottery payments</p>
+<p> A major lottery advertises that it pays the winner \$ 10 million. However this prize money is paid at the rate of \$ 500,000 each year (with the first payment being immediate) for a total of 20 payments. What is the present value of this prize at 10% interest compounded annually?</p>
+<p> $PV = \sum^N_{k=0}\frac{c<em>k}{(1+r)^k} = \sum^{20}</em>{k=0}\frac{500000}{(1+10\%)^k} = 4.2567818598792826 $ 4.68?</p>
+</li>
+<li><p>Sunk Costs (Exercise 2.6 in Luenberger)</p>
+<p> A young couple has made a deposit of the first month’s rent (equal to \$ 1,000) on a 6-month apartment lease. The deposit is refundable at the end of six months if they stay until the end of the lease. The next day they find a different apartment that they like just as well,<br> but its monthly rent is only \$ 900. And they would again have to put a deposit of \$ 900 refundable at the end of 6 months. They plan to be in the apartment only 6 months. Should they switch to the new apartment? Assume an (admittedly unrealistic!) interest rate of 12% per month compounded monthly.</p>
+<p> $ NPV1 = -\sum^5<em>{i=0}\frac{1000}{1.12^i} + \frac{1000}{1.12^6}$<br> $ NPV2 = -1000-\sum^5</em>{i=0}\frac{900}{1.12^i} + \frac{900}{1.12^6}$</p>
+</li>
+<li><p>Relation between spot and discount rates</p>
+<p> Suppose the spot rates for 1 and 2 years are s1=6.3% and s2=6.9% with annual compounding. Recall that in this course interest rates are always quoted on an annual basis unless otherwise specified. What is the discount rate d(0,2)?</p>
+<p> $ d(0,2) = \frac{1}{(1+s_2)^2} = 0.8750736155679097 $</p>
+</li>
+<li><p>Relation between spot and forward rates</p>
+<p> Suppose the spot rates for 1 and 2 years are s1=6.3% and s2=6.9% with annual compounding. Recall that in this course interest rates are always quoted on an annual basis unless otherwise specified. What is the forward rate, f1,2 assuming annual compounding?</p>
+<p> $ f(1,2) = (F_2 - F_0)d(2,2) - (F_1-F_0)d(1,2) = (1.069^2 / 1.063 - 1) = 7.503386641580434% $</p>
+</li>
+<li><p>Forward contract on a stock</p>
+<p> The current price of a stock is \$400 per share and it pays no dividends. Assuming a constant interest rate of 8% per year compounded quarterly, what is the stock’s theoretical forward price for delivery in 9 months?</p>
+<p> $ F = \frac{S}{d(0, T)} = 400*(1+0.02)^3 = 424.48320000000007 $</p>
+</li>
+<li><p>Bounds using different lending and borrowing rate</p>
+<p> Suppose the borrowing rate rB=10% compounded annually. However, the lending rate (or equivalently, the interest rate on deposits) is only 8% compounded annually. Compute the difference between the upper and lower bounds on the price of an perpetuity that pays A=10,000\$ per year.</p>
+<p> $ PV = \sum^N_{k=0}\frac{c_k}{(1+r)^k} = 168.3501683501676$ 25000?</p>
+</li>
+<li><p>Value of a Forward contract at an intermediate time</p>
+<p> Suppose we hold a forward contract on a stock with expiration 6 months from now. We entered into this contract 6 months ago so that when we entered into the contract, the expiration was T=1 year. The stock price \$ 6 months ago was S0=100, the current stock price is 125 and the current interest rate is r=10% compounded semi-annually. (This is the same rate that prevailed 6 months ago.) What is the current value of our forward contract?</p>
+<p> $ f = S_t - F_0 <em> e ^{-r </em> t} = 125 - 100/(e^(-10%<em>1)) </em> e^(-10% * 2) = 43.12692469220181 $</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/" data-id="cjap5lttb0023b8rlmbh8wmg0" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-blockchain-tech-summary" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/08/blockchain-tech-summary/" class="article-date">
+  <time datetime="2017-04-08T10:13:14.000Z" itemprop="datePublished">2017-04-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/新技术跟踪/">新技术跟踪</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/08/blockchain-tech-summary/">区块链技术总结与架构实战</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>周围所有想了解区块链的人一上来都会问我们这样的问题：什么是区块链？和比特币是什么关系？到如今，稍微了解区块链技术的人应该可以很容易地回答第二个问题：区块链是比特币的底层账本技术的衍生技术，比特币是目前区块链最成熟的一个应用。但是第一个问题至今仍然很难说清楚。接下来就让我们脱离所有区块链的经济属性，纯粹从技术来探讨看看目前的区块链技术，思考一下区块链技术本质特征，个人也推测一下未来可能的发展情况。</p>
+<p>我们知道区块链本身是一个技术系，而非一种具体技术或产品，名词状况有点像云计算或NoSQL，当我们问“什么是云计算”或“什么是NoSQL”时，我们也无法简单的概括出来，我们会首先尝试开始描述这类技术系的特征，因此我们不妨也从区块链的技术特征描述入手。</p>
+<h2 id="一、技术特征"><a href="#一、技术特征" class="headerlink" title="一、技术特征"></a>一、技术特征</h2><p>区块链衍生于比特币的底层机制，目前涌现的产品包括：以太坊、Fabric、Corda、Ripple等，这些系统总体表现为分布式P2P通信结构，每个节点拥有运算或存储能力，所有节点共同维护一个账本。</p>
+<p>系统的明显技术特征表现为：</p>
+<ol>
+<li>存储信息难篡改</li>
+<li>每个节点都拥有完整历史信息</li>
+<li>拜占庭容错一致性 </li>
+<li>系统可靠性极高</li>
+<li>系统拥有执行运算能力</li>
+<li>安全的账号体系</li>
+</ol>
+<p>想更好理解这些目前表现出的技术特征，我们需要牢记从技术本源出发做思考，否则很容易被各种产品不同设计和宣传的不同特性弄糊涂。区块链技术创造的初衷就是要解决分布式环境下存储可靠性的问题，这里的可靠既指系统的服务时间不能因为节点数的减少而暂停，更重要是指存储信息的真实性。因此，存储信息不能被节点私自篡改，传输拜占庭容错且系统整体一致性都是最基本的要求。</p>
+<p>试想下攻破区块链有哪几种方法，然后结合区块链上述六个特性进行对比思考，就能对区块链功能设计有更深刻的理解：</p>
+<ol>
+<li><p>利用分叉处理弱点直接修改节点系统存储信息（比如伪造某个节点的ip加入然后宣称刚刚出现网络分割现象，应该同步自己的这些信息），由特性1、2防范</p>
+</li>
+<li><p>部分节点被停电或关停，由特性2、4防范</p>
+</li>
+<li><p>造成区块链网络故障或拦截并伪造信息，由特性3防范</p>
+</li>
+<li><p>在区块链上执行恶意逻辑或同步类似病毒信息，由特性1、特性5防范</p>
+</li>
+<li><p>攻破区块链的账号体系，直接变成合法修改内部状态，由特性6防范</p>
+</li>
+</ol>
+<p>智能合约一定要在区块链技术之上实现吗？当然不是，传统中心化数据库也可以存储实现智能合约逻辑。但是在分布式环境下，合约有很高的被篡改之类道德风险，抑或被黑客攻击的技术风险，因此才需要使用区块链来存储智能合约，保证逻辑的可靠性，因此合约代码本身发布后也是难篡改的。需要注意这里跟数据一样，难篡改不等于不能修改，只是存储的历史记录不会篡改而已。</p>
+<h2 id="二、技术实质"><a href="#二、技术实质" class="headerlink" title="二、技术实质"></a>二、技术实质</h2><p>区块链通过设计链式存储结构，每次新信息产生实际需要使用系统中所有历史信息产生的摘要，这样其他节点就可以对新信息的真实性进行验证。</p>
+<ul>
+<li>比特币和以太坊依靠椭圆曲线非对称算法完成难篡改特性和拜占庭容错一致性，基本思路是增加作恶代价，保证节点产生新信息困难但是验证简单</li>
+<li>Fabric则依靠？？？（谁知道可以回答一下Fabric怎么保证历史信息不被篡改，完成合法性验证）实现难篡改特性，利用PBFT算法保证拜占庭容错一致。</li>
+</ul>
+<p>根据上面总结的六个区块链特性，大家可以发现区块链也并没有什么特别的，完全可以把区块链视为一个由多方共同来使用运维的分布式数据库，智能合约类似触发器和存储过程，区别在于：</p>
+<ol>
+<li>区块链不一定要是关系型数据库，现阶段产品更类似一个NoSQL数据库</li>
+<li>这里的分布式仅用于加强系统可用性，每个节点都是完整备份节点，并不用于水平扩展，因此系统存在存储极限，需要其他技术配套解决这个问题而非区块链本身</li>
+<li>系统默认保证节点间的网络通信安全，可以支持类似跨境的互联网环境</li>
+<li>因为多方参与维护运维且节点拥有全量数据，因此账号权限划分需要内置提供相关机制（这点最需要加强，但相信会有解决方案出现）</li>
+</ol>
+<p>因此，目前工程使用时可以将区块链视为一个分布式部署的NoSQL数据库解决方案，该方案要求公网通信环境即可，未来运维需要多方参与。</p>
+<p>留存疑惑：各种产品如何保证通信信道安全，又如何保证存储历史信息安全，PBFT只能保证通信安全情况下，节点之间接收交易请求顺序一致且内容未在其他节点上被篡改或伪造。</p>
+<h2 id="三、如何使用"><a href="#三、如何使用" class="headerlink" title="三、如何使用"></a>三、如何使用</h2><p>注意区块链使用的基本：</p>
+<ol>
+<li>区块链和智能合约能实现的，现在IT系统都能实现；</li>
+<li>区块链不保证提升系统性能而是系统架构模式的改变；</li>
+<li>只有链内信息保证信任，外部信息不能保证；</li>
+<li>区块链应用不一定非要数字货币参与</li>
+</ol>
+<p>正如上面分析的，目前使用区块链产品就跟使用数据库一样：首先是要设计建立表格，对应区块链就是设计智能合约中的数据结构，确定哪些数据需要记录到区块链上；接着是设计权限和逻辑，对应智能合约中的业务逻辑，保证记录到区块链上数据的正确性与合法性；最后是确定智能合约的访问接口。</p>
+<p>作为一名区块链应用架构设计师，可以从下面几个维度去设计架构：</p>
+<p>1）区块链或分布式账本技术：根据业务特性，在需要增加“信任”的场景下，选择区块链或分布式账本技术解决方案。</p>
+<p>2）身份管理：构建一个弱中心的认证中心，补充目前区块链解决方案在权限和账号认证上面的不足。</p>
+<p>3）安全数据访问：存储的数据需要在区块链中全局共享，需考虑数据访问层对安全的要求。</p>
+<p>4）链上-链下数据访问：分布式应用程序需要与传统的链下系统进行互操作；在区块链高速发展期，不可避免需要与传统数据库应用系统进行交互。</p>
+<p>5）智能合约：通过设计出细粒度运作的独立子链（逻辑/物理），考虑通过多个智能合约满足不同的业务需求。</p>
+<p>7）编程接口：需要提供熟悉的API接口方便调用区块链上的智能合约程序。</p>
+<p>所以不同领域的区块链应用在智能合约的设计上会稍有不同，需要一些最基础的业务逻辑支撑，比如金融区块链中应该有几个基础合约来解决一些最基础的业务逻辑，包括验证、冻结、仲裁等，特别是仲裁逻辑，可以应用到包括合约升级、节点加入、审计发起、分叉解决等多个业务行为中。</p>
+<h2 id="四、未来技术走向"><a href="#四、未来技术走向" class="headerlink" title="四、未来技术走向"></a>四、未来技术走向</h2><p>对应数据库的技术走向，一定程度可以预测区块链技术的未来发展。下图是美国提交的区块链架构标准，拥有相当的参考学习价值。</p>
+<p><img src="/images/v2-35ea51e1503662e7470a8a3558d29732_b.png" alt="国际区块链架构参考标准"></p>
+<p>区块链节点保存全量数据，历史信息完全保存做到可追溯，这两个特性的初衷是为加强信息真实性，未来可能会出现部分产品舍弃这个特性。通过引入如RAID编码或erase code等技术来解决保存全量数据的问题，做到一定信息的物理隔离，并方便数据压缩。</p>
+<p>对于开发者，智能合约需要具备可移植性，尽可能支持多个不同的区块链平台，降低跨平台移植的工作量。对于合约开发平台，应该提供一个语法规范，让不同的区块链平台支持该开发语言。区块链上数据访问构筑肯定会增强，不排除未来直接暴露SQL支持，从底层到外部合约接口都可能支持SQL。</p>
+<p>未来可能会实现跨链服务，即不同区块链间的智能合约数据交互。这个服务使得区块链之间构建了互操作性，在复杂的业务场景下，可以设计出细粒度运作的独立子链（逻辑或物理上的），并通过母-子智能合约满足不同的业务需求，提升了全局“臃肿”账本的灵活度。</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ol>
+<li><a href="http://www.aixchina.net/Question/223043-1362503" target="_blank" rel="noopener">困挠我的几个fabric问题咨询</a></li>
+<li><a href="http://blog.csdn.net/landai2011/article/details/52650682" target="_blank" rel="noopener">hyperledger fabric PBFT算法简要解析</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/25119939" target="_blank" rel="noopener">Blockchain区块链架构设计之六：Fabric 1.0账本设计（1）</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/26245232" target="_blank" rel="noopener">关于美国区块链参考架构设计的思考</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2017/04/08/blockchain-tech-summary/" data-id="cjap5ltti002eb8rl83xnluu5" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2017/04/08/blockchain-tech-summary/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fabric/">fabric</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-fabric-ca-design" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/23/fabric-ca-design/" class="article-date">
+  <time datetime="2017-03-23T22:22:53.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/新技术跟踪/">新技术跟踪</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/fabric-ca-design/">Hyperledger Fabric CA设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-需求描述"><a href="#1-需求描述" class="headerlink" title="1. 需求描述"></a>1. 需求描述</h2><p>基于商业安全需求考虑进行设计，需要身份与角色管理相结合（身份管理将商业中的问责制更加明确）交易隐私表现为：交易匿名和交易不可关联。</p>
+<p>实现：</p>
+<ul>
+<li>向CA注册静态登记证书（ECerts，仅用于身份认证，包含公钥部分，使用方法A：所有人可访问；使用方法B：仅TCA和审计访问，对交易不可见）</li>
+<li>登记用户向交易CA获取伪匿名代表的交易证书（TCerts，用于配置交易可见性，可以选择性暴露身份）</li>
+</ul>
+<p>0.6简化Tcerts设计使用对称密钥加密来提供交易保密性。</p>
+<p>DB多用户及用户权限</p>
+<h2 id="0-6-设计"><a href="#0-6-设计" class="headerlink" title="0.6 设计"></a>0.6 设计</h2><p>memsrvc服务</p>
+<h2 id="1-0-设计"><a href="#1-0-设计" class="headerlink" title="1.0 设计"></a>1.0 设计</h2><p>configtx.yaml包含示例区块链网络内角色的定义；/crypto目录包含管理员证书，CA证书，每个角色的私钥和用于签名的证书</p>
+<p>部署合约时可以选择背书策略</p>
+<p>改名为fabric-ca服务</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2017/03/23/fabric-ca-design/" data-id="cjap5ltun004cb8rlx0ggw8i2" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2017/03/23/fabric-ca-design/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fabric/">fabric</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-sicp-charpter-two" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/05/sicp-charpter-two/" class="article-date">
+  <time datetime="2017-02-05T20:35:07.000Z" itemprop="datePublished">2017-02-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/05/sicp-charpter-two/">SICP第二章总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>## </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2017/02/05/sicp-charpter-two/" data-id="cjap5ltvu006ub8rlioqzat15" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2017/02/05/sicp-charpter-two/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译器/">编译器</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/WordPress开发/">WordPress开发</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品设计/">产品设计</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端语言/">后端语言</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/新技术跟踪/">新技术跟踪</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/">系统架构</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/项目经历/">项目经历</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统经验/">系统经验</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/课程总结/">课程总结</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融/">金融</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试总结/">面试总结</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目经历/">项目经历</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InnoDB/">InnoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS模板/">JS模板</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux设置/">Linux设置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVCC/">MVCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP主题/">WP主题</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP实现/">WP实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP插件/">WP插件</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP设置/">WP设置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/">WebGL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache-coherence/">cache coherence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history/">history</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios应用/">ios应用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptv/">iptv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/">join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kv存储/">kv存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutex/">mutex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/">paxos</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raft/">raft</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url重定向/">url重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web2-0/">web2.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文汉化/">中文汉化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/互联网企业/">互联网企业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/债券/">债券</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内核/">内核</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式锁/">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/华为/">华为</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基金/">基金</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外设/">外设</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源项目/">开源项目</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无锁并发/">无锁并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/期货/">期货</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栅格系统/">栅格系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/科研/">科研</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/股票/">股票</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本加载/">脚本加载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/腾讯/">腾讯</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/苹果/">苹果</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法/">语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读写锁/">读写锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调度/">调度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金山/">金山</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隔离级别/">隔离级别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目管理/">项目管理</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/InnoDB/" style="font-size: 10px;">InnoDB</a> <a href="/tags/JS模板/" style="font-size: 11.67px;">JS模板</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Linux设置/" style="font-size: 10px;">Linux设置</a> <a href="/tags/MVCC/" style="font-size: 10px;">MVCC</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WP主题/" style="font-size: 16.67px;">WP主题</a> <a href="/tags/WP实现/" style="font-size: 10px;">WP实现</a> <a href="/tags/WP插件/" style="font-size: 16.67px;">WP插件</a> <a href="/tags/WP设置/" style="font-size: 11.67px;">WP设置</a> <a href="/tags/WebGL/" style="font-size: 11.67px;">WebGL</a> <a href="/tags/Zookeeper/" style="font-size: 10px;">Zookeeper</a> <a href="/tags/cache-coherence/" style="font-size: 10px;">cache coherence</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/fabric/" style="font-size: 11.67px;">fabric</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/google/" style="font-size: 11.67px;">google</a> <a href="/tags/history/" style="font-size: 10px;">history</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/ios应用/" style="font-size: 10px;">ios应用</a> <a href="/tags/iptv/" style="font-size: 10px;">iptv</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/kv存储/" style="font-size: 10px;">kv存储</a> <a href="/tags/memory/" style="font-size: 10px;">memory</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/paxos/" style="font-size: 11.67px;">paxos</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raft/" style="font-size: 10px;">raft</a> <a href="/tags/url重定向/" style="font-size: 10px;">url重定向</a> <a href="/tags/web2-0/" style="font-size: 10px;">web2.0</a> <a href="/tags/zookeeper/" style="font-size: 11.67px;">zookeeper</a> <a href="/tags/中文汉化/" style="font-size: 11.67px;">中文汉化</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/互联网企业/" style="font-size: 11.67px;">互联网企业</a> <a href="/tags/债券/" style="font-size: 11.67px;">债券</a> <a href="/tags/内核/" style="font-size: 11.67px;">内核</a> <a href="/tags/分布式锁/" style="font-size: 10px;">分布式锁</a> <a href="/tags/区块链/" style="font-size: 13.33px;">区块链</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/基金/" style="font-size: 11.67px;">基金</a> <a href="/tags/外设/" style="font-size: 10px;">外设</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/实习/" style="font-size: 15px;">实习</a> <a href="/tags/开源项目/" style="font-size: 10px;">开源项目</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/数据库/" style="font-size: 18.33px;">数据库</a> <a href="/tags/无锁并发/" style="font-size: 10px;">无锁并发</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/期货/" style="font-size: 11.67px;">期货</a> <a href="/tags/栅格系统/" style="font-size: 10px;">栅格系统</a> <a href="/tags/科研/" style="font-size: 10px;">科研</a> <a href="/tags/算法/" style="font-size: 18.33px;">算法</a> <a href="/tags/索引/" style="font-size: 11.67px;">索引</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/股票/" style="font-size: 11.67px;">股票</a> <a href="/tags/脚本加载/" style="font-size: 10px;">脚本加载</a> <a href="/tags/腾讯/" style="font-size: 15px;">腾讯</a> <a href="/tags/苹果/" style="font-size: 10px;">苹果</a> <a href="/tags/语法/" style="font-size: 11.67px;">语法</a> <a href="/tags/读写锁/" style="font-size: 10px;">读写锁</a> <a href="/tags/调度/" style="font-size: 10px;">调度</a> <a href="/tags/金山/" style="font-size: 10px;">金山</a> <a href="/tags/锁/" style="font-size: 10px;">锁</a> <a href="/tags/键盘/" style="font-size: 10px;">键盘</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试/" style="font-size: 20px;">面试</a> <a href="/tags/项目管理/" style="font-size: 11.67px;">项目管理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/03/">March 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/02/Qconf-summary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/08/blockchain-tech-summary/">区块链技术总结与架构实战</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/fabric-ca-design/">Hyperledger Fabric CA设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/05/sicp-charpter-two/">SICP第二章总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chao Zheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  </footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/php-development-env-setup-in-win7-x64.html" class="mobile-nav-link">PHP-WIN</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'chaozh';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>chaozh.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="系统架构,移动开发,独立游戏">
+<meta property="og:type" content="website">
+<meta property="og:title" content="chaozh.com">
+<meta property="og:url" content="http://chaozh.github.com/page/8/index.html">
+<meta property="og:site_name" content="chaozh.com">
+<meta property="og:description" content="系统架构,移动开发,独立游戏">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chaozh.com">
+<meta name="twitter:description" content="系统架构,移动开发,独立游戏">
+  
+    <link rel="alternative" href="/atom.xml" title="chaozh.com" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">chaozh.com</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">超然台上仙的知识库|系统架构,移动开发,独立游戏</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/php-development-env-setup-in-win7-x64.html">PHP-WIN</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chaozh.github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-wordpress-make-mo-file-to-be-localization" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/02/18/wordpress-make-mo-file-to-be-localization/" class="article-date">
+  <time datetime="2012-02-18T12:36:24.000Z" itemprop="datePublished">2012-02-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WordPress开发/">WordPress开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/02/18/wordpress-make-mo-file-to-be-localization/">WordPress中文本地化方法总结与相关问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>终于基本完成本站主题的中文汉化工作，不得不佩服WordPress系统为本地化工作设计的API，尽管不算尽善尽美，但是使用起来还是比较方便的。以及所谓.po和.mo的本地化文件的使用，不知是哪个人发起的主意，确实简化了本地化的工作。废话就不多说，总结下chaozh主题汉化过程中学到的技巧及遇到的相关问题。这些问题都是典型新手会碰到问题，而且尚未完全解决，如果哪位高人看到，可以说出更好的解决方案，本人十分之欢迎！</p>
+<p>如果你只想快速了解如何进行WordPress汉化，那么可以参考这篇文章《<a href="http://simonleung.me/archives/10400" target="_blank" rel="noopener">poEdit制作WordPress主题汉化,插件汉化攻略</a>》，是本人看到最完整清晰的中文本地化攻略。如果仍有问题，请继续耐心看完下面的内容。</p>
+<p><strong> 补充</strong>：（这些补充出自此<a href="http://simonleung.me/archives/10400" target="_blank" rel="noopener">链接</a>，该文章也大致说了下中文汉化的方法。）</p>
+<p>—如果只有.mo文件的话,则需要编译成.po文件处理，可以使用GetText来反编译。</p>
+<p>下载地址为：<a href="http://www.gnu.org/software/gettext/" target="_blank" rel="noopener">http://www.gnu.org/software/gettext/</a>。</p>
+<p>—翻译中注意保留变量的原有形态 例如：阅读所有 %s 的文章<br>—HTML语句中的内容不要翻译<br>—保存出来的MO文件名是区分大小写的，正确的命名如： zh_CN.mo，可对照language目录其他语言的命名方式。</p>
+<h2 id="1-WordPress本地化API"><a href="#1-WordPress本地化API" class="headerlink" title="1.WordPress本地化API"></a>1.WordPress本地化API</h2><p>那么首先说说WordPress系统为本地化工作设计的API。在开发过程中可以对需要翻译的部分使用多种函数进行标记，以方便后面的翻译工作，可以使用的函数大致有<strong>()，_e()，_x()以及_ex()，还有_n()等。前面的那些比较常用，_n()主要用于区分单复数，所以中文就不太用得着，而且也可以使用其他方法来规避改函数的使用。使用最多的头两个函数接受两个参数，第一个是要显示（翻译）的字符串，第二个是使用的命名空间。这两个函数的区别在于</strong>()返回翻译后的文字字符串，而_e()直接把字符串打印出来，而且相信你已经看出_x()和_ex()这对也是类似的区别。命名空间的使用可以用来区分主题，一般主题中function.php文件中有这样的代码来完成本地化文件的读取：</p>
+<p><pre>load_theme_textdomain(‘chaozh’, TEMPLATEPATH . ‘/languages’);<br>$locale = get_locale();<br>$locale_file = TEMPLATEPATH. “/languages/$locale.php”;<br>if (is_readable($locale_file))<br>require_once ($locale_file);</pre><br>其中，load_theme_textdomain函数就是用来设置命名空间的，经过本人实验如果在这里设置了命名空间”chaozh”，而后面直接写<code>__(&#39;Page&#39;)</code>而不加上相应的命名空间参数，会导致该信息没有被翻译显示。所以应该写为<code>__(&#39;Page&#39;，&#39;chaozh&#39;)</code>来获得翻译内容。</p>
+<p>再来说说_x()系列，该函数使用频率其实也不小。该函数接受三个参数，还有一个参数来表明上下文（context），主要用于英文内容相同但希望译文不同的情况。经典例子是管理员菜单中文章目录及页面目录下相同的“Add New”的翻译：如果还使用__()函数会导致同样的英文内容只能采取相同的翻译方式，这样就无法对添加post和page的按钮进行区分，所以要加入上下文环境来帮助翻译。添加文章的信息可以写为<code>_x(&#39;Add New&#39;,&#39;for adding post&#39;,‘chaozh’)</code>而添加页面的信息可以写为<code>_x(&#39;Add New&#39;,‘for adding page’,&#39;chaozh&#39;)</code>,这样就可以区分了。</p>
+<p><a href="http://www.chaozh.com/wp-content/uploads/2012/02/post_add.png" target="_blank" rel="noopener"><img src="http://www.chaozh.com/wp-content/uploads/2012/02/post_add.png" alt="添加post翻译效果" title="post_add"></a><a href="http://www.chaozh.com/wp-content/uploads/2012/02/page_add.png" target="_blank" rel="noopener"><img src="http://www.chaozh.com/wp-content/uploads/2012/02/page_add.png" alt="添加page翻译效果" title="page_add"></a></p>
+<p>参考<a href="http://codex.wordpress.org/Function_Reference/_x" target="_blank" rel="noopener">官方介绍</a></p>
+<h2 id="2-Poedit软件使用遇到的问题"><a href="#2-Poedit软件使用遇到的问题" class="headerlink" title="2.Poedit软件使用遇到的问题"></a>2.Poedit软件使用遇到的问题</h2><p>具体用法可以一步步参考前面的文章，这里主要说说需要注意的问题。一个是更新代码后记得点击软件的同步按钮，以把新修改的内容加入到翻译队列中。另一个是改造过程中，本来wp主题文件都是utf-8编码，但是Poedit软件默认的是ansi编码，所以有需要的话要在项目设置上填上，否则会导致文件需要翻译的内容无法同步。</p>
+<p>但Poedit软件最大的一个问题是，即使在项目设置的关键字加入_x，该软件还是会无视上下文参数，无法区别显示需要翻译的内容。并且即使把相应地点进行翻译，生成的mo文件最后还是无法显示翻译后的内容。由于本人目前只会使用这个软件来进行汉化工作，所以直接导致目前这个主题里都无法使用_x()函数，目前还不知道如何来解决。</p>
+<p><span style="color: #ff0000;">这个问题已经找到一个可行的解决方案，即项目设置的关键字加入时使用_n:1,2；_x:1,2c；_ex:1,2c；这里:1,2说明有两个参数，而c则说明第二个参数是comment类型 具体可以参见<a href="http://wp.tutsplus.com/tutorials/theme-development/translating-your-theme/" target="_blank" rel="noopener"><span style="color: #ff0000;">这篇文章</span></a>  于2012-03-31 最新修改！</span></p>
+<h2 id="3-主题开发中碰到的问题"><a href="#3-主题开发中碰到的问题" class="headerlink" title="3.主题开发中碰到的问题"></a>3.主题开发中碰到的问题</h2><p>目前还碰到一个更诡异的问题，本人使用theme-options.php文件来生成主题设置界面，其中有段代码：</p>
+<p><pre>$controls = array(<br>array(“name” =&gt; <strong>(‘Blog Promotion Options’,’chaozh’), “type” =&gt; “heading”),<br>array(‘name’ =&gt; </strong>(‘Display Custom Sharing Widget?’,’chaozh’),<br>“desc” =&gt; __(‘Check here to &lt;b&gt;display&lt;/b&gt;.’,’chaozh’)…</pre><br>但不知何故里面的部分就是无法显示翻译后的信息，默认主题中也有类似的代码：</p>
+<p><pre>$layout_options = array(<br>‘content-sidebar’ =&gt; array(<br>‘value’ =&gt; ‘content-sidebar’,<br>‘label’ =&gt; <strong>( ‘Content on left’, ‘twentyeleven’ )…</strong></pre><br>而显然该主题就没有什么问题。显示方法都是调用echo函数，而且本主题还是有返回原英文信息，这说明()函数还是运行了的，但是为什么会没返回翻译内容呢？这点很是诡异。期待以后能把这个问题解决吧。</p>
+<h2 id="4-插件汉化问题-new！"><a href="#4-插件汉化问题-new！" class="headerlink" title="4.插件汉化问题 new！"></a>4.插件汉化问题 <span style="color: #ff0000;">new！</span></h2><p>进行插件汉化的过程中，又遇到新的问题，也是无论怎么命名，都无法显示翻译后的内容。相关插件汉化方法，其实与前文所诉一致，就是多了对load_plugin_textdomain函数的使用。而插件汉化的问题基本都是出在这个函数上面，该函数接受多个参数，第一个自然是domain，即命名空间，关键是这个可选的第二个参数。本人汉化的插件名为breadcrumb<em>trail，但是文件夹无法使用’</em>‘来命名，于是插件文件夹默认名就变为’breadcrumb-trail’，这就导致使用原有的下面的代码无法定位翻译文件：（详情可以参考<a href="http://lichao.net/weblog/web-development/blogging/41.html" target="_blank" rel="noopener">这篇文章</a>，里面有分析）</p>
+<p><code>load_plugin_textdomain( &#39;breadcrumb_trail&#39;);</code></p>
+<p>因为这默认告诉wp来找名为breadcrumb_trail文件夹下的breadcrumb_trail-zh_CN.mo文件，显然没有这个文件夹，所以必须改为：</p>
+<p><code>load_plugin_textdomain( &#39;breadcrumb_trail&#39;,&#39;/wp-content/plugins/breadcrumb-trail/&#39;);</code></p>
+<p>即加入指定路径方可成功显示翻译信息。所以这也告诉我们，插件的命名空间命名最好不要使用’_’来进行分隔，或者不要图省事使用第一种代码，而应该加入第二个参数，不给别人本地化工作带来麻烦。</p>
+<p><span style="color: #ff0000;">第二个参数可以这样添加：<code>PLUGINDIR . &#39;/&#39; . dirname(plugin_basename (__FILE__))</code>，这样就不需要根据目录名来调整参数代码了。但是第一个参数即插件的命名空间一定要与翻译文件名称相同   于2012-03-18 最新修改！</span></p>
+<p><span style="color: #ff0000;">目前第二个参数已经被废弃了，但是依旧保留，实际上官方推荐使用第三个参数，该参数只要给出.mo文件相对于插件根目录的相对路径即可：dirname(plugin_basename (<strong>FILE</strong>)) . ‘/languages’。这样设计科学多了，毕竟绝对路径很没必要，谁会没事干瞎改插件根目录  </span><span style="color: #ff0000;">于2012-10-26 最新修改！</span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2012/02/18/wordpress-make-mo-file-to-be-localization/" data-id="cjap5ltx4009ib8rlq67cw2g5" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2012/02/18/wordpress-make-mo-file-to-be-localization/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WP主题/">WP主题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中文汉化/">中文汉化</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-culture-of-working-overtime-in-it-industry-and-new-requirements-in-storage-field" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/09/14/culture-of-working-overtime-in-it-industry-and-new-requirements-in-storage-field/" class="article-date">
+  <time datetime="2011-09-14T22:52:59.000Z" itemprop="datePublished">2011-09-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/项目经历/">项目经历</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/09/14/culture-of-working-overtime-in-it-industry-and-new-requirements-in-storage-field/">腾讯的加班文化与新存储技术需求  </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在腾讯的日子，每天都会加班，为的是那顿免费宵夜。但据观察，很多正式员工都会加班，甚至组长happy也是每天基本上晚上8点钟以后才离开公司。可见加班已经形成一种腾讯的企业文化，造成这种文化的原因就是工作一般都得再加上两个半小时的班弄到晚上8点左右才能完成，于是公司才把免费宵夜的时间定为晚上8:10开始。</p>
+<p>根据在百度实习同学的说法以及刚从百度回来的实验室师姐的说法，百度加班似乎更严重，一般都弄到9点左右。在腾讯，周六也会有不少人加班。加班产生的原因倒不是员工开发效率低，而更多的是部门交涉导致的资源延迟，而项目工期时间已定，只能加班把等待的时间补上，可见大公司交流成本确实才是最大的问题。但是公司做法也是在鼓励加班，比如百度绩效考核，不考察完成项目数目而以工作时间来计算。腾讯虽然总说不提倡加班，但仍有大把人在加班。</p>
+<p><span style="color: #ff0000;">现在腾讯更改了规定，只要加班到晚上8点就可以得到一张宵夜券，第二天在晚饭时间就可以使用。这么一来就不需要为了那餐宵夜而饿肚子加班了，算是有点人性化的改进吧。(2012-12-14 最新修改 new！)</span></p>
+<p>然后说说大公司新存储技术需求，在存储方面，都开始使用大SSD加小硬盘的模式，所以如何使用SSD来优化存储架构是一大需求。腾讯很早就弄出了TFMS和TTC两个存储系统，都有用到SSD作大Cache，前者也需要研究kernal中的调度算法。百度自然也存在同样的需求，同时百度希望把存储设备的cpu充分利用起来，这就要求虚拟化的研发。百度内部采用两套自己封装的传输协议，一个基于RPC，一个基于TCP/IP，在传输包大小与协议栈层次的平衡上也存在可以优化的部分。同时百度新成立了研发内存文件系统的部门，可见这是以后的技术需求方向。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2011/09/14/culture-of-working-overtime-in-it-industry-and-new-requirements-in-storage-field/" data-id="cjap5ltu10035b8rli4kqtxqm" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2011/09/14/culture-of-working-overtime-in-it-industry-and-new-requirements-in-storage-field/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实习/">实习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/腾讯/">腾讯</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-internalship-in-tencent-part-two" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/09/06/internalship-in-tencent-part-two/" class="article-date">
+  <time datetime="2011-09-06T14:42:37.000Z" itemprop="datePublished">2011-09-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/项目经历/">项目经历</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/09/06/internalship-in-tencent-part-two/">腾讯暑期实习--认识腾讯</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本来的提测时间由于后端与无线业务协调的关系一拖再拖，这时才体会到饭席上主管们的话：大公司的成本在于沟通。终于后端与测试号码在最后期限当天搞定，而前端几个重大问题却在这时反馈过来。特别是和内部几个人和主管开会后，才知道一堆规矩，啥wording不按设计稿而是按需求文档来，啥好友克隆不用做了，又得重新改。到了提测当天，下午组里要出去活动，而第二天又是大运会开幕放假，总之是草草的写完提测邮件，自己都发现一堆错误没弄完。</p>
+<p>但没管那么多，下午直接去活动，又是打羽毛球又是吃巴西烧烤。第二天背着个书包，直接奔赴香港。到了香港和关东汇合，已经是12点半了，找到房间吃完饭就去转商场。各种粤语听不懂，还好和关东交流没啥障碍。关东反复提及香港没啥玩的，就是来买东西的，可怜本人工资才发10天的，加上路费，没啥闲钱，倒是对不住香港同胞了。而且本人除了吃外，就只有动漫的爱好了，无奈动漫啥的无国界，似乎也不用特地跑香港去买，于是决定买些有趣的零食。香港三日游开始，第一日尽管只有一个下午却最充实。首先是超级牛逼的购物中心，然后是香港历史博物馆，这是一个决定错误，应该去旁边的科技馆估计有趣些。。。再是星光大道，晚上又跑去看维港，最后跑回旺角，各种汉正街的夜市，挂眼科都很爽。第二天跑去坐船，到香港岛上看建筑，然后爬山去看整个香港的风光，时间没安排好，但是让关东破费不少。第三天，跑到电脑城乱逛，接着去又一个便宜的购物中心，买了不少吃的，再次不好意思的让关东破费。欠一屁股人情债才回到深圳，感觉自己光着双手过去又没带足钱，真是失败到极点啊。还好关东铁哥们，以后慢慢补偿吧。关东一家真是够意思啦，对比下来，本人简直就是冷血动物啊。这次是真正感到人间还有温情在的，本人欠缺的就是这种社会知识！</p>
+<p>回到腾讯，还得面临技术知识的不足，提测自然一堆问题，这种体验测试自然都体现在前端出问题，啥ie7样式兼容，按钮失效，错误反馈不正确，还好wording没有出错。最后决定把这次提测归类为产品体验。于是再次修改，啥样式，wording，当然还要客户端支持，无线短信下发，im消息同步，各个环节。这时才第一次发现本人加入的真不是个小项目，尽管需要本人制作的，只是个小页面。brad又反映说函数库使用错了，还有有问题要积极与产品反映。反正是各种批评，还好后端也是问题一堆，倒不影响大局。</p>
+<p>总结教训后，得出几个经验</p>
+<ol>
+<li>得多用ie hack，写js也不要太在意代码味道，更关键是完成需求；能不能完成需求才是真理，代码味道只是加快开发效率，要是为此思考反而得不尝失；代码结构不好，重构就是啦。</li>
+<li>多和产品交互沟通，有些东西就无法实现，或是实现了效果也不好，这些都得提前说提前打好预防针。类似登陆问题，或是错误wording的问题，都得和产品与交互沟通。开始不知道交互谁负责，所以也存在交流不到位的现象，但关键是本人不够主动。</li>
+<li>多为产品与交互思考。她们思考都比较感性化，很缺少逻辑细节，什么错误提示，跳转样式，等等都没有考虑，这些需要你自己主动提出问题。万不可自做主张，否则出错就得你背黑锅了。也得学会为产品拿主意，你提出意见了，她也就不会又提出新思路新需求啦。</li>
+<li>开发效率较低，特别不能多线开发，这个有待提高。这个项目如此简单，应该可以和其他项目并行推进。在没有工作的时候应该学会去沟通要求，接些好活做。也无需每次有反馈就修改，可以等积累一点工作量后再修改，节约时间精力。<br>总之是完成需求为第一要务，接着是学会讨价还价，找准最好的实现方式。这就要求不仅从技术方面考虑，还得从用户从产品从交互方面考虑，及时反馈，学会为自己要资源。</li>
+</ol>
+<p>腾讯的这种开发模式感觉是仍然小作坊式的，与原来不同的在于交互，产品，测试有专人负责，虽然开发起来舒服，但效率有影响，测试覆盖率与正确性也很难保证。所以才有了多次迭代，这也就解释了腾讯这种开发模式却很少出错的原因，因为每次迭代后都有测试，出错后再修改再提测，用次数来保证质量。但是啥小步改进多次迭代，还称之为敏捷，感觉有点无语。。。倒是后端一些测试平台比较有敏捷的样子。<br>之后集中精力和产品确认流程wording，与交互确认样式，修改样式。好不容易全部弄完之后，考虑到重绑流程，又有流程修改的问题。还发现交互也有规范需要遵守，啥投影效果，啥弹窗出现的样式都得遵守。于是再次重新修改。组长一直强调本人沟通不主动，他总会关心是否有问题没有解决，无论什么问题，只要提出，他都会去安排解决。这点比实验室的环境就好太多了，研究生实验室导师从来不闻不问，提出问题也只有空头陈诺，有时甚至解决不如不解决。可能公司就是讲究效率吧。</p>
+<p>香港回来后，公司又安排出去旅游，还是三日游。回来后第一天，体力都有点透支，但是很开心，可以说在腾讯实习的这个暑假是本人一生目前为止最快乐充实的一个暑假。腾讯的这些人性化服务让本人忘掉了实验室的一堆不愉快，让人确实感到腾讯确实是很有诚意的一个公司。</p>
+<p>部门的前端方向还在发展中，目前没有什么大项目可以孵化，如果能把Q+弄到手，那自然会有很大的发展，但根据定位估计比较困难。个人觉得这个组在3-5年内很难有大的变化，组内也没啥沉淀，故而觉得还是实验室能学到更多东西，只希望实验室能对待本人好点，不过研究生就是得过苦逼的生活啊。</p>
+<p>技术能突飞猛进，关键还是看导师。散伙饭上高管劝本人留下来别去读啥研究生啦，但是本人在公司的技术方向上没有导师没有好的项目，结果估计也够呛，但是人生的发展也不是光靠技术。进入公司的时间与机遇也是很重要的，腾讯的三年肯定能遇上很多项目，这三年内如果能碰上好的项目，在事业上或是技术上，那肯定比读研要有利的多。这就是一场博弈啊。</p>
+<p>最终还是选择离职去读研，只是考虑这样会有更多选择的机会。离职前，提测了注册的页面，页面问题上没出啥问题了，倒是测试人员在用户体验细节上提出了些要求，什么选择框默认显示的条目项数，什么选择框出现的方向，确实让人印象深刻。腾讯对用户体验的要求是怎么深入到员工的工作中去的，以致产品，交互，测试都在思考用户体验的问题，这也确实是个有趣的值得学习的问题。</p>
+<p>如何回答测试人员也是有讲究的，本人是直接回答“选择框默认显示的条目项数啥的是浏览器实现的，本人无法实现“；后来想来这种回答太直接，也抹杀测试人员的积极性，倒是后台同事一句”如果我们是乔布斯就能解决这些问题啦“，产品的一句”QQ浏览器可以考虑实现一下“比较幽默，既回答了问题又不得罪人。这些说话的技巧，永远是本人需要学习的。</p>
+<p>离职前后，一直思考读研，工作还有出国，本人到底选什么，到底追求什么，有没有机会成功。整个思考的过程也希望以后能记录下来。最后一天，由于测试号码的问题，没有提测重绑功能；下午离开公司去火车站，tomas出了好主意，又帮了大忙弄行李，也让本人感触良多。结论是做人才是本人最应该学习的，学会做人前先学会主动交流。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2011/09/06/internalship-in-tencent-part-two/" data-id="cjap5ltv4005ab8rl4789ymf8" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2011/09/06/internalship-in-tencent-part-two/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实习/">实习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/腾讯/">腾讯</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-internship-in-tencent-first-part" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/09/01/internship-in-tencent-first-part/" class="article-date">
+  <time datetime="2011-09-01T22:49:24.000Z" itemprop="datePublished">2011-09-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/项目经历/">项目经历</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/09/01/internship-in-tencent-first-part/">腾讯暑期实习--初进腾讯  </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>8月31日，预定下午四点离职，但内心却有些舍不得，这是本人很少会有的感情。老天也很给面子的下了10分钟的漂泊大雨，专等本人离开腾讯大厦，前脚踏出就开始哗啦的乱下，直至本人到达深大地铁站。比较喜欢深圳这座城市，周围都是类似移民过来找寻梦想的人，没有在北京皇城那种二等公民的感觉，而且作为一个吃货，粤式点心大爱啊。</p>
+<p>腾讯实习的机会争取是一波三折，最后居然没有经过人事面就直接发offer了，到了深圳才知道一面的面试官就是我的组长happy，二面是同部门的另一位大牛组长，确实都是做后台的。可能本人简历中后台项目较主要，又选择深圳，故而就分到了即时通信部的web开发组，自然只能接受后台方向的面试。不过其实腾讯面试，智力题与专业题目各占一半，所以倒也还好。</p>
+<p>到达深圳后，办理实习入职手续，领机器，接着就是一顿欢迎宴，接着入住；第二天，领工牌，网上学习腾讯企业文化，公司运作流程，找同事要了份组内的前端开发规范学习。学习结果就是组里没规范。这让我比较诧异，一个大公司，没有规范的开发，怎么能保证不出问题呢。这个问题在头一个星期都没有找到答案。组里有个happy坚持的好习惯，就是每天写报告，内容不用虚，就是记录今天做了哪些事情，进度如何；明天准备做哪些事情，还有哪些疑惑没有解决。本人就写了不熟悉腾讯的开发流程，于是立马第三天就吩咐给本人的任务得是能走开发到发布全程的任务。第三天正式项目开始，做了一天，发现进度和以前一样太慢。于是当天的问题就是如何加快开发进度，brad晚上就手把手教我dw，发现cs5版开发布局还是很给力，无奈没有zen coding，不太习惯。而js开发本人更是习惯了notepad++。第四天见了产品经理以及后台开发人员，算是项目正式启动，brad也给了我放号注册2.0的代码，收获良多。这时页面样式基本制作完毕，接下来是交互动作的实现。问brad我们组有啥前端库没有，果然答案是没有，逛oa的时候发现拍拍网前端既有规范又有库，后来又发现Qzone组才是腾讯前端库的首推组，很明显，我们组的前端还处于草创初级阶段，毕竟连组长都不是搞前端的，肯定在资源上跟不上。但是组里还是有个工具函数文件的，看里面的代码也很有意思。<br>周末肯定不能在旅馆闲着，几个广州的爽约没来，只好个人跑去找发哥耍耍。后来那个悔啊，原来当天深圳有动漫展，而且本人还路过，这样的机会都放弃了！当然和发哥谈谈也挺愉快，周日跑去找房子，在世界之窗那乱转，才知道深圳的城中村和武汉一样脏乱差。</p>
+<p>第二周继续开发，开始思考库的组织方式，于是下了moontools，jquery以及towf对比研究，当然主要精力还是放在项目上，此时还不知道fiddler有啥用处。项目交互也没啥难度，只有一个tooltips效果和modalbox效果，前者很容易就实现了，后者也实现过，加上不需要动画效果，自然也没啥问题。但是我们组里没有规范，而modalbox是很讲规范的特效，问了bleany姐和brad，都说实现就行，brad说最好采用直接写在html的方法，我一听这种方法，每个页面都添加还不累死我，干脆用js生成好了，于是自作主张的做了。第二周周三，部门大佬们又请实习生吃饭，开车去了n远n高档的粤式饭馆，点了些便宜菜。本人EQ约等于0，不知道他们有多大佬，交谈起来无压力，只知道他们都是来公司5·6年，而且多从华为跳槽，很维护公司，强烈鄙视360，也透露些恐怖的360内幕及ponyma为啥要做一个艰难的决定。谈得很开心，也挺有乐趣，感觉他们就和本人一样，一样单纯，一样不善言谈，一样不怎么懂人情世故。尽管本人是真不懂，他们是在我们面前装不懂。 周四交互基本开发完毕，开始写向后端发出ajax请求。无奈后台人员也是cgi新手，都不知道分get和post方法，全是get方法，而在本人提醒之下又全改为post方法。反正随便他改，本人这边都是调用函数，但第一面的逻辑理顺就花了一天，很多问题以前都没有做过，写200行这么多js代码也是头一回。</p>
+<p>周五例会是组里很有趣的时候，因为可以把组里所有人认一遍。开始每个人说说本周工作进度与下周工作计划，啥Q+人海ptlogin blablabla，一堆项目没听懂，于是又一个疑问诞生。接着是前端方面的讲座分享，brad讲解正则式，学了个以前没接触过的？=以及？：，算是小收获。后来就是后端代码review找茬，本人就不用参与了，倒是觉得这种方式不错，前端与实验室应该借鉴都一下。</p>
+<p>周末跑到火车站那转了下，犹豫是否该一下跨境去香港转转。现在又是后悔，当时又正在举办动漫展，哎，错过两次大型漫展，无语啊。后来又跑到会展中心转了下，高楼林立，置身其中，确实感觉不同。周围各种气派无比的大门，豪华奢侈的酒店，又一次加深了本人奋斗的欲望。再下周就得搬出酒店找房子。还好找到一个华科人挺好，同意他找到房子后一起合租，于是放心大胆的到处玩耍。</p>
+<p>搬到新房子后，本人还跑过海上世界，见过各种外国人，跑到东部华侨城，因特拉根小镇，见门票太贵就在外面转了下，各种豪宅酒店，再次受刺激。</p>
+<p>工作当然也有条不紊的推进，离提测的日子越来越近，但后台总是出问题，只好学习用fiddler调试，结果一发不可收拾，发现这个真是好东西！学会用这个软件就是暑假最大的收获之一。其他收获也包括到香港的旅游和与产品交互的交流，这些留待下回再说。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2011/09/01/internship-in-tencent-first-part/" data-id="cjap5ltv7005fb8rl5dxarss1" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2011/09/01/internship-in-tencent-first-part/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实习/">实习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/腾讯/">腾讯</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-summary-of-tecent-interview" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/05/11/summary-of-tecent-interview/" class="article-date">
+  <time datetime="2011-05-11T23:05:38.000Z" itemprop="datePublished">2011-05-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试总结/">面试总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/05/11/summary-of-tecent-interview/">腾讯面试总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在腾讯终于突破了一面进入二面，本来很期待二面能多问下项目方面或是前端方面的知识。哪知天不我与，碰到个无语的面试官（也可能是故意这么安排）继续问基础，于是莫名奇妙的溃败。</p>
+<p>一面也表现不算很好，但是估计考官人比较好，每次都会问本人的思路，顺便进行引导，也会给些小hint，然后本人不负众望的答对，可能这种快速学习的能力给考官比较好的印象吧，一下面了本人近两个半小时，最后也放本人过关。虽然其实最后本人已经透支，完全没啥信心了。</p>
+<p>但缺少hint，本人就是废材一个啊。于是受不了二面“三无”的考官，但是溃败的过程还是莫名奇妙。</p>
+<p>一面的问题：</p>
+<p>开始要求计算一篇英文文章中出现的字符个数，本人每次说出一个答案，面试官都很不满意。开始内心里还有点埋怨，后来自己想清楚后才明白面试官真是用心良苦啊，给了本人这么多次机会。中间面试官不耐烦的问“到底什么叫字符？！”，差点都被问懵了，幸好本人没有认输，最后终于发现问题所在，直接用asc码匹配就解决了，记住数字也是字符的一种啊！要求计算需要的内存，忘了asc码表大小，很无语。</p>
+<p>后来要求写大整数加法，结果本人忽略了循环时候的顺序问题（位数对齐得反着来），面试官一再提示。最后终于发现。这个细节挺多的。还有个题要求写二分搜索，其实也是个细节挺多的题，幸好在编程珠玑上看过。</p>
+<p>然后一部分是二进制表示计算内存：</p>
+<p>1.1000个苹果如何装入10个箱子里，然后给出任意数字都可以用箱子中的苹果组成。</p>
+<p>联系2进制，就想出答案了。</p>
+<p>2.10个瓶子中有一个有毒药，毒药在10分钟内任意时刻会发作，至少需要多少小白鼠能在10分钟内判断哪个瓶子有毒。</p>
+<p>没想出来</p>
+<p><span style="color: #ff0000;">（终于找到原题与答案啦，<a href="http://blog.csdn.net/xywlpo/article/details/6450670" title="老鼠与毒药的问题" target="_blank" rel="noopener">老鼠与毒药的问题</a> 于2012-12-19 最新修改 new！）</span></p>
+<p>3.4都是编程珠玑第一章的排序问题，幸亏本人就看了这一章。要求计算需要多少内存，当时脑子里一片浆糊，不过本人计算方面本来就很弱，小学算术有问题。</p>
+<p>而且多少有些与前端相关的内容：</p>
+<p>1.将列表倒排</p>
+<p>2.cookie的定义，使用，如将过期时间设为0</p>
+<p>3.ajax定义与使用</p>
+<p>4.闭包定义与常用方法</p>
+<p>后来看了看本人的网站，被套词，说出自己js方面不如css，这个还是没自信的体现，心理承受力不足。但好歹通过了。</p>
+<p>进入二面继续基础：</p>
+<p>首先是-2的二进制表示。忘了</p>
+<p>char型能表示的最大数。本人答案是2^8</p>
+<p>然后是求两个排序数组的交集，本人总是分不清交集并集，很无语。接着求时间复杂度，本人说是O（m+n）</p>
+<p>接着是tcp与udp的区别，说得越多越细越好。这个本人没说全。</p>
+<p>堆和栈的区别，也是越多越好，有点忘，但是说对了。</p>
+<p>然后是int a=123；printf（“%s”，a）；是什么意思。本人也没试过。</p>
+<p>接着是计算题，没啥可说的，应该是对的，但不知为何面试到此为止。</p>
+<p>难道之前错太多，还是说他把我的答案听错了。</p>
+<p>但不管如何接着就是附赠的提问时间，本人没把握好，还在回忆之前的问题。</p>
+<p>哎，就这么失败了。</p>
+<p>其实有点不甘心，因为二面形式和一面完全相同，甚至连前端方面的问题都没有，这些问题与c语言相关也太多了点吧。虽说基础很重要，但这是二面啊，总得和一面有点不同吧。反正是白突破的一面，啥前端新玩意都没见识到，郁闷。</p>
+<p>最新消息是本人突然进入了hr面，彻底无语，这都怎么一回事啊！难道二面就这样过了？至今难以相信。但很期待这个全新形式的hr面。</p>
+<p>最新消息更让人郁闷，自己居然把hr面的时间记错了。天啊，你这是在玩我吧！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2011/05/11/summary-of-tecent-interview/" data-id="cjap5ltwe007nb8rlrwynxdn9" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2011/05/11/summary-of-tecent-interview/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/腾讯/">腾讯</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-summary-of-interview-kings-soft-network" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/04/25/summary-of-interview-kings-soft-network/" class="article-date">
+  <time datetime="2011-04-25T21:50:30.000Z" itemprop="datePublished">2011-04-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试总结/">面试总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/04/25/summary-of-interview-kings-soft-network/">金山网络面试总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>金山网络算是本人第一个面试对口方向的公司，无奈再次失败，失败的主要原因不是技术上而是人士方向上。没有从公司方向思考是这次面试失败最主要的原因。</p>
+<p>1.金山网络属于再创业公司，尽管宣称招暑期实习生，但实质仍是为快速发展的公司招人。所以面试侧重点都在询问面试者能为公司做些什么，结果本人面试过程完全没有察觉这一点，应该说自己还没有从淘宝实习面试的思维中脱离出来。自己说出自己已经保研的事实就是失败的开始。保研意味着你留不住，那公司要你做甚。当然，如果下一个问题回答说得对也可以反败为胜，但是干嘛要自毁长城。</p>
+<p>2.接着问为何要来实习时，本人回答又很幼稚，什么学习实践啊，团队合作啊，融入社会啊。问题是这种回答和公司发展有毛关系，而且显得本人完全就没从学生转变为社会员工。正确答案当然是加入金山网络就是本人的梦想，或是希望借助金山的平台实践自己的梦想啥的。反正要把自己的想法与金山公司的发展结合起来，否则留不住的人公司也不会要，没有强烈愿望加入的人自然也一样。</p>
+<p>3.当问到自己的兴趣时，自己又很傻比的回答了喜欢做表现层方面。好吧，一个喜欢做表现层的干嘛来聘php后台，虽然表现层有很多种解释，facebook也用php做表现层，但是金山需要的是纯服务端人才，本人的回答再次撞在枪口上。</p>
+<p>4.最后是技术方面的失败点。面试的过程就是把考官往你擅长方面引的过程。有部分本人引的比较成功，比如nfs，但失败的是没有把它和金山快盘的关系说出来，这个很关键。后来问mfs，也没有表述清楚，说不定金山后台用的就是这些系统，嗯，很有可能。与mysql相关的就引的比较失败，真不该把这些放简历上。如mysql索引是什么数据结构，明明答案是对的，但不敢确定，结果浪费了机会；但话又说回来了，不明白考官问我那么多数据库底层的问题干啥，我面php的啊，你问点php底层的行不。还有asp.net与php的技术区别，如果冷静下来本人当然不成问题，但临时回答起来，没啥章法，还是信心不足的表现。还有问过第二次的设计模式，虽然这回答对了不少，依然没答全，还是没章法造成的，分类悉数肯定不会少的。</p>
+<p>当然没有表现出自己的水平也和金山面试安排有关系，但还是自己面试表现不出真实水平来。希望之后面腾讯，又是自己喜欢的前端，能够表现得更好。</p>
+<p>公司，梦想，激情，这些很重要。其次是技术总结。最后是不要过早暴露自己。暴露了也要表现得很想去对方公司。否则像这次一样话一出口直接毙，就很伤感情了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2011/04/25/summary-of-interview-kings-soft-network/" data-id="cjap5ltw6007fb8rl84rgjllp" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2011/04/25/summary-of-interview-kings-soft-network/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/金山/">金山</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-summary-of-project-in-undergraduate" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/04/14/summary-of-project-in-undergraduate/" class="article-date">
+  <time datetime="2011-04-14T11:47:36.000Z" itemprop="datePublished">2011-04-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/项目经历/">项目经历</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/04/14/summary-of-project-in-undergraduate/">本科科研项目与数模大赛总结  </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本科科研项目题为web2.0社区服务的注册与分发。web2.0社区即形如豆瓣社区模式的社区，其与普通社区论坛不同之处在于加强了社交性与个人相关功能，如博客，状态等。而所有这些社区提供的功能我们都可以认为是一种社区系统提供的服务。项目正是基于这样一种社区系统，同时这个社区系统有其独有的衍化功能，即社区可以分割，组合以及继承产生子社区。我们的项目主要研究第三方服务如何在社区中集成并以友好的方式展现以供用户使用以及如何向用户推荐最符合用户兴趣需要的服务。</p>
+<p>首先的任务就是探索服务如何在社区中展现，而在解决这个问题前首先就必须定义社区服务。已经提到的概念是所有社区提供的功能都是社区服务，但是社区本身提供的功能有限，这时需要第三方服务商提供他们的服务集成到社区中以供用户使用，所以问题关键是第三方服务商到底能够提供哪些类型的服务。这里的类型指的是服务的实现方式，我们的考虑是可以支持多种实现方式的服务，目前主要考虑web application和web service后者包括两种模式，一种基于soap，一种基于restful。我们需要提供一种通用接口，包括服务商注册服务的接口以及用户使用的接口，重点在于用户使用的接口，用户不应该也不需要察觉自己在使用一个web应用还是被封装了的web服务。通过解析web服务的wsdl获得操作及所需参数，系统调用相应服务将信息以友好的方式返回给用户。这一阶段我们主要工作在于完成了服务商注册时参数与社区信息的对接以及反馈信息的形式，即一个较通用的web服务的应用生成器。</p>
+<p>其次任务就是探索服务如何分发到正确的用户。我们可以认为加入某个类型社区的用户拥有与社区关键字相同的兴趣。因此问题的关键在于将服务在正确的社区中推荐给用户。服务商可以指定社区注册服务也可以只注册到社区系统。针对前者，需要考虑社区中注册的服务如何分发到正确的子社区；而后者则需要选择正确的社区展示这些服务。同时我们需要考虑可能服务商将服务错误的归类，以及如何界定一个服务是适合这个社区用户的，这就是一个推荐引擎的设计问题。我们首先的考虑是基于内容的推荐，即使用关键字匹配，即用服务描述信息的关键字匹配社区的关键字，实现采用wordnet过滤出服务描述中的名词再采用km算法匹配社区关键字。这样基本可以保证服务的正确归类，但正确度以及符合度仍然是个问题。于是我们又引入了服务Qos测算以及用户反馈的基于协同过滤的推荐机制。Qos由于时间关系先主要集中在服务连接的时间和吞吐量上面，根据tmin/t<em>b+n/nmax</em>(1-b)来计算这个值。同时需要考虑即便一个服务质量再好，如果与社区主题不符也不能算优质服务，于是结合Qos的值与关键字匹配相似度一起算最后的结果即s<em>p+（1-p）</em>v，这里面的p不能简单的设定，因为你不知道用户是更关注准确性还是服务质量，因此必须提供一个用户反馈的渠道并让系统做出相应调整，这里p正是与这个反馈结果挂钩。用户反馈用打分系统实现，打分结果经过统计反映到p中。</p>
+<p>数模大赛题目是找出论坛中的言论领袖，话题用户以及活跃用户，采用2/8原则与贝叶斯判定。用户在某一论坛的精华帖与置顶帖数目来判断言论影响力，用户在某一话题的发帖数与跟帖数来确定话题感兴趣程度，用户在论坛中的发帖与跟帖总数衡量用户活跃度。根据2/8原则（用户是言论领袖）即先验概率可定为20%，不产生为80%；言论模型：影响力即函数总和。函数等于帖子楼高除以最高楼高，置顶时间除以最长时间，精华帖比例的和除以到目前为止的时间，用这个函数值除以最大函数值即（言论领袖产生这些行为概率？似乎有问题）之后采用贝叶斯公式得出产生这些行为的用户是言论领袖的概率。其他类似。。。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2011/04/14/summary-of-project-in-undergraduate/" data-id="cjap5ltw8007ib8rloe6ghb7t" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2011/04/14/summary-of-project-in-undergraduate/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web2-0/">web2.0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/科研/">科研</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-tips-from-book-agility-software-development" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/03/29/tips-from-book-agility-software-development/" class="article-date">
+  <time datetime="2010-03-29T14:28:36.000Z" itemprop="datePublished">2010-03-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/项目经历/">项目经历</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2010/03/29/tips-from-book-agility-software-development/">创造和沟通的合作博弈——《敏捷软件开发》书摘</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近读完敏捷著作中的经典《敏捷软件开发》，原名是Agile Software Development，感觉和以前看的有关软件工程的书都有些不同。这本书充分体现作者真正将软件开发过程管理视为一种可工程化的技术，书中的严谨与幽默，与国内要么千篇一律没有个人思考，要么完全是个人感悟无法形成理论依据，有质的区别。作者的认真严谨确实给我留下挺深的印象。这已不仅仅是思考，而是不断的完善，是一种希望最终形成体系的努力。</p>
+<p>这里摘出整本书中个人感觉有道理的段落，也做些个人感悟，留待以后观用。</p>
+<p>第0章<br>沟通的成功依赖于发送者和接受者有可以引用的共享体验（shared experience）<br>项目的任务不是努力达到完全的沟通，而是管理我们沟通的不完全性<br>三个层次——following，detaching，fluent<br>：书中最有趣的部分就是：那么，明天我做什么</p>
+<p>第1章 创造和沟通的合作博弈<br>1.1 软件与诗歌：很贴切的比喻<br>想象一下，把50个人聚在一起，在有限的成本与时间内编写2万行的叙事诗<br>1.2软件是创造和沟通的合作博弈。<br>沟通的效果比沟通的形式更重要<br>模型就像任何一种沟通一样，只要它能使下一个人继续他的工作，这个模型就足够了。<br>应当对团队的工作产品进行度量的是它们在向目标组传达信息方面的充足性。<br>1.3<br>合作博弈的原则<br>软件开发是一个（有资源限制的）创造和沟通的合作博弈。博弈的首要目标是交付有用的，可工作的软件。次要目标，即博弈的沉淀，是为下一轮博弈做好准备。下一轮博弈可能更改或替换系统，也可能是创建一个相关的系统。<br>1.3.1<br>程序员只喜欢交流那些他们喜欢交流的事情。<br>在软件开发的课程表中，大学应该增加一些包含沟通密集（communication-intensive）课程。<br>1.3.3标志物与道具<br>中间工作产品成为我们用于反思的提醒物。他们提供了共享体验，以此来指向或者作为新想法的支持结构。<br>1.3.5<br>对于中间工作产品，需要进行的度量只有充分度（sufficiency）：它是否足以提醒相关的小组或足以激发相关小组的灵感。<br>1.4这对我意味着什么<br>观察：<br>设计团队的人如何构建他们的理论<br>进行最后调试或程序维护的人如何构建他们的理论<br>与前者相比较，后者的可用信息的不同<br>他们不同的理论如何在产生的程序中导致不同<br>你如何理解你的问题随着时间的变化而发生的变化，这些变化又是如何改变你对于所要构建的解决方案的理解的<br>察看你的项目，然后提问：<br>参与这一博弈的都有谁？<br>哪些人在进行有限的，追求目标的团队博弈<br>哪些人反而在进行他们自己的无限博弈<br>你的团队伙伴在什么时候一起创造，以及他们在什么时候留下一些踪迹好让其他人知道他们进行到了哪一步？连续五个工作日仔细观察这些事，注意他们如何一步一步进行。<br>把项目决策看作是博弈中的步骤。把它想象成一种不同的博弈，穿越沼泽：<br>回忆一下项目的准备活动，它们就像一个对沼泽发起进攻的初始计划一样。当出现了关于这片沼泽的特点和团队的能力的新信息时，计划就要改变。<br>观察每个人的贡献：探查更深或更安全的点，为了让其他人能穿越沼泽而制作地图或开辟道路。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2010/03/29/tips-from-book-agility-software-development/" data-id="cjap5ltwm0086b8rlo3bidcqu" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2010/03/29/tips-from-book-agility-software-development/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/敏捷开发/">敏捷开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/项目管理/">项目管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/WordPress开发/">WordPress开发</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品设计/">产品设计</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端语言/">后端语言</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/新技术跟踪/">新技术跟踪</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/">系统架构</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/项目经历/">项目经历</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统经验/">系统经验</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/课程总结/">课程总结</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融/">金融</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试总结/">面试总结</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目经历/">项目经历</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InnoDB/">InnoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS模板/">JS模板</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux设置/">Linux设置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVCC/">MVCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP主题/">WP主题</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP实现/">WP实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP插件/">WP插件</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP设置/">WP设置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/">WebGL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache-coherence/">cache coherence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history/">history</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios应用/">ios应用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptv/">iptv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/">join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kv存储/">kv存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutex/">mutex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/">paxos</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raft/">raft</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url重定向/">url重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web2-0/">web2.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文汉化/">中文汉化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/互联网企业/">互联网企业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/债券/">债券</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内核/">内核</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式锁/">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/华为/">华为</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基金/">基金</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外设/">外设</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源项目/">开源项目</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无锁并发/">无锁并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/期货/">期货</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栅格系统/">栅格系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/科研/">科研</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/股票/">股票</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本加载/">脚本加载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/腾讯/">腾讯</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/苹果/">苹果</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法/">语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读写锁/">读写锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调度/">调度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金山/">金山</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隔离级别/">隔离级别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目管理/">项目管理</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/InnoDB/" style="font-size: 10px;">InnoDB</a> <a href="/tags/JS模板/" style="font-size: 11.67px;">JS模板</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Linux设置/" style="font-size: 10px;">Linux设置</a> <a href="/tags/MVCC/" style="font-size: 10px;">MVCC</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WP主题/" style="font-size: 16.67px;">WP主题</a> <a href="/tags/WP实现/" style="font-size: 10px;">WP实现</a> <a href="/tags/WP插件/" style="font-size: 16.67px;">WP插件</a> <a href="/tags/WP设置/" style="font-size: 11.67px;">WP设置</a> <a href="/tags/WebGL/" style="font-size: 11.67px;">WebGL</a> <a href="/tags/Zookeeper/" style="font-size: 10px;">Zookeeper</a> <a href="/tags/cache-coherence/" style="font-size: 10px;">cache coherence</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/fabric/" style="font-size: 11.67px;">fabric</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/google/" style="font-size: 11.67px;">google</a> <a href="/tags/history/" style="font-size: 10px;">history</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/ios应用/" style="font-size: 10px;">ios应用</a> <a href="/tags/iptv/" style="font-size: 10px;">iptv</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/kv存储/" style="font-size: 10px;">kv存储</a> <a href="/tags/memory/" style="font-size: 10px;">memory</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/paxos/" style="font-size: 11.67px;">paxos</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raft/" style="font-size: 10px;">raft</a> <a href="/tags/url重定向/" style="font-size: 10px;">url重定向</a> <a href="/tags/web2-0/" style="font-size: 10px;">web2.0</a> <a href="/tags/zookeeper/" style="font-size: 11.67px;">zookeeper</a> <a href="/tags/中文汉化/" style="font-size: 11.67px;">中文汉化</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/互联网企业/" style="font-size: 11.67px;">互联网企业</a> <a href="/tags/债券/" style="font-size: 11.67px;">债券</a> <a href="/tags/内核/" style="font-size: 11.67px;">内核</a> <a href="/tags/分布式锁/" style="font-size: 10px;">分布式锁</a> <a href="/tags/区块链/" style="font-size: 13.33px;">区块链</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/基金/" style="font-size: 11.67px;">基金</a> <a href="/tags/外设/" style="font-size: 10px;">外设</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/实习/" style="font-size: 15px;">实习</a> <a href="/tags/开源项目/" style="font-size: 10px;">开源项目</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/数据库/" style="font-size: 18.33px;">数据库</a> <a href="/tags/无锁并发/" style="font-size: 10px;">无锁并发</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/期货/" style="font-size: 11.67px;">期货</a> <a href="/tags/栅格系统/" style="font-size: 10px;">栅格系统</a> <a href="/tags/科研/" style="font-size: 10px;">科研</a> <a href="/tags/算法/" style="font-size: 18.33px;">算法</a> <a href="/tags/索引/" style="font-size: 11.67px;">索引</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/股票/" style="font-size: 11.67px;">股票</a> <a href="/tags/脚本加载/" style="font-size: 10px;">脚本加载</a> <a href="/tags/腾讯/" style="font-size: 15px;">腾讯</a> <a href="/tags/苹果/" style="font-size: 10px;">苹果</a> <a href="/tags/语法/" style="font-size: 11.67px;">语法</a> <a href="/tags/读写锁/" style="font-size: 10px;">读写锁</a> <a href="/tags/调度/" style="font-size: 10px;">调度</a> <a href="/tags/金山/" style="font-size: 10px;">金山</a> <a href="/tags/锁/" style="font-size: 10px;">锁</a> <a href="/tags/键盘/" style="font-size: 10px;">键盘</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试/" style="font-size: 20px;">面试</a> <a href="/tags/项目管理/" style="font-size: 11.67px;">项目管理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/03/">March 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/02/Qconf-summary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/08/blockchain-tech-summary/">区块链技术总结与架构实战</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/fabric-ca-design/">Hyperledger Fabric CA设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/05/sicp-charpter-two/">SICP第二章总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chao Zheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  </footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/php-development-env-setup-in-win7-x64.html" class="mobile-nav-link">PHP-WIN</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'chaozh';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Category: 面试总结 | chaozh.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="系统架构,移动开发,独立游戏">
+<meta property="og:type" content="website">
+<meta property="og:title" content="chaozh.com">
+<meta property="og:url" content="http://chaozh.github.com/categories/面试总结/index.html">
+<meta property="og:site_name" content="chaozh.com">
+<meta property="og:description" content="系统架构,移动开发,独立游戏">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chaozh.com">
+<meta name="twitter:description" content="系统架构,移动开发,独立游戏">
+  
+    <link rel="alternative" href="/atom.xml" title="chaozh.com" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">chaozh.com</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">超然台上仙的知识库|系统架构,移动开发,独立游戏</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/php-development-env-setup-in-win7-x64.html">PHP-WIN</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chaozh.github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-java-related-question" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/08/java-related-question/" class="article-date">
+  <time datetime="2016-03-08T10:03:34.000Z" itemprop="datePublished">2016-03-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试总结/">面试总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/08/java-related-question/">Java架构师问题总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="常见面试流程"><a href="#常见面试流程" class="headerlink" title="常见面试流程"></a>常见面试流程</h2><ol>
+<li><p>技术相关</p>
+<ul>
+<li>java语言（基本、容器、多线程、异常处理、JVM）</li>
+<li>设计模式</li>
+<li>Spring</li>
+<li>MySQL、Redis等（JDBC）</li>
+<li>前端相关</li>
+<li>Shell相关</li>
+<li>算法题</li>
+</ul>
+</li>
+<li><p>项目相关 </p>
+</li>
+</ol>
+<h2 id="Java语言基础"><a href="#Java语言基础" class="headerlink" title="Java语言基础"></a>Java语言基础</h2><h3 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h3><ol>
+<li>绝对不能在构造函数中调用会被Override的函数</li>
+<li>QA：builder模式与Config类(InstanceSpec)取舍? builder需要创建静态类</li>
+<li>QA：构造函数什么时候可以抛异常?</li>
+<li>Q：init私有方法什么时候使用? A:构造方法里面禁止加入任何业务逻辑，如果有初始化逻辑，请放在<code>init</code>方法中</li>
+</ol>
+<h3 id="String使用"><a href="#String使用" class="headerlink" title="String使用"></a>String使用</h3><ol>
+<li>判断是否相等<strong>绝对</strong>不能直接使用”==”进行，可以使用<code>equals</code>方法</li>
+<li>判断是否为空: <code>StringUtils.isBlank()</code>，<code>Str.isEmpty()</code>，<code>Str.length()==0</code></li>
+<li>循环体内，字符串的联接方式，使用 StringBuilder的<code>append</code>方法进行扩展</li>
+</ol>
+<h3 id="集合使用"><a href="#集合使用" class="headerlink" title="集合使用"></a>集合使用</h3><ol>
+<li>Array初始化<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new ArrayList&lt;Element&gt;(<span class="name">Arrays</span>.asList(<span class="name">array</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>使用工具类<code>Arrays.asList()</code>把数组转换成集合时，不能使用其修改集合相关的方法，它的add/remove/clear方法会抛出 UnsupportedOperationException异常。</p>
+<ol>
+<li><p>使用集合转数组的方法，必须使用集合的<code>toArray(T[] array)</code>，传入的是类型完全一样的数组，大小就是<code>list.size()</code>。</p>
+</li>
+<li><p>ArrayList的subList结果不可强转成ArrayList，否则会抛出ClassCastException</p>
+</li>
+<li><p>QA：集合接口的区别 list collection hashmap</p>
+</li>
+<li><p>不要在foreach循环里进行元素的remove/add操作。remove元素请使用Iterator方式，如果并发操作，需要对Iterator对象加锁</p>
+</li>
+<li><p>高度注意Map类集合 K/V 能不能存储 <code>null</code> 值的情况</p>
+<p>| 集合类               | Key       | Value     | Super       | 说明    |<br>| —————– | ——— | ——— | ———– | —– |<br>| Hashtable         | 不允许为 null | 不允许为 null | Dictionary  | 线程安全  |<br>| ConcurrentHashMap | 不允许为 null | 不允许为 null | AbstractMap | 分段锁技术 |<br>| TreeMap           | 不允许为 null | 允许为 null  | AbstractMap | 线程不安全 |<br>| HashMap           | 允许为 null  | 允许为 null  | AbstractMap | 线程不安全 |</p>
+</li>
+<li><p>利用 Set 元素唯一的特性，可以快速对一个集合进行去重操作</p>
+</li>
+</ol>
+<h3 id="Exception处理"><a href="#Exception处理" class="headerlink" title="Exception处理"></a>Exception处理</h3><ol>
+<li>标准Exception分为两种expcetion，一种继承自RunTimeException，不需要方法捕捉，比如NullPointerException，IllegalStateException；另一种必须catch或throws，比如InterruptedException</li>
+<li>推荐使用Preconditions.checkNotNull等工具</li>
+<li>catch后的代码仍然会执行，返回值与抛出异常都需要满足匹配，try中抛出的异常就会被对应catch捕获，上一个catch中抛出也会被下一个catch捕获，如果分支继续抛异常来结束那么该分支可以忽略返回值<br>处理方法：1. 异常转义；2. 异常链接getCause</li>
+<li>单元测试函数应该抛出任何异常</li>
+<li><p>利用jdk7新语法自动关闭文件流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(InputStream is = <span class="keyword">new</span> FileInputStream)&#123;</span><br><span class="line">	<span class="comment">//文件操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对No such method error处理：打印出具体绑定类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Object&gt;.class.getProtectionDomain();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="注释处理"><a href="#注释处理" class="headerlink" title="注释处理"></a>注释处理</h3><ol>
+<li>Bean注入<br>@Autowired<br>ApplicationContext ac;<br>lockAnnotation = (LockAnnotation)ac.getBean(“LockAnnotation”)</li>
+<li>@Service与@Resouce可以配合使用<br><a href="http://bit1129.iteye.com/blog/2114126" target="_blank" rel="noopener">http://bit1129.iteye.com/blog/2114126</a></li>
+<li>AOP<br><a href="http://www.xdemo.org/springmvc-aop-annotation/" target="_blank" rel="noopener">http://www.xdemo.org/springmvc-aop-annotation/</a></li>
+</ol>
+<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><ol>
+<li><p>后台定时任务</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//start</span></span><br><span class="line">ScheduledExecutorService excutor = 	Excutor.<span class="keyword">new</span><span class="type">SingleThreadScheduledExecutor</span>();</span><br><span class="line">excutor.scheduleWithFixedDelay(runnable, time);</span><br><span class="line"><span class="comment">//end</span></span><br><span class="line">excutor.shutdown(); <span class="comment">//excutor.shutdownNow();</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>线程池</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Future&lt;<span class="keyword">Object</span>&gt;&gt; threads = Lists.newArrayList(); </span><br><span class="line">ExcutorService excutor = 	Excutors.newCachedThreadPool();</span><br><span class="line">Future&lt;<span class="keyword">Object</span>&gt; t = executor.submit(<span class="keyword">new</span> 	Callable&lt;<span class="keyword">Object</span>&gt;() &#123;</span><br><span class="line">	@Override</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">Object</span> call() <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		<span class="comment">//do sth here!</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line">threads.<span class="built_in">add</span>(t);</span><br><span class="line"><span class="keyword">for</span>(Future&lt;<span class="keyword">Object</span>&gt; t: threads)</span><br><span class="line">	t.<span class="built_in">get</span>();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>CountDownLatch与Semaphore使用</p>
+<p>CountDownLatch设置初始值，调用<code>wait()</code>方法会阻塞直到被<code>notify()</code>方法唤醒；调用<code>countDown()</code>来减少值；创建时不会阻塞，需要调用<code>await()</code>阻塞直至计数值为0；该机制被设计为只会触发一次，因此不会有方法来还原初始值。</p>
+<p>Semaphore设置初始值，调用<code>acquire()</code>方法减少该值否则阻塞直至计数值大于0，调用<code>release(num)</code>来增加值，调用<code>availablePermits()</code>判断是否阻塞</p>
+</li>
+<li><p>单例模式注意使用double check方法</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Helper <span class="title">getHelper</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (helper == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (helper == <span class="keyword">null</span>) &#123;</span><br><span class="line">                helper = <span class="keyword">new</span> Helper();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> helper;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Q：该模式有失效的可能？ A：可参考 The “Double-Checked Locking is Broken” Declaration,推荐问题<br>解决方案中较为简单一种(适用于 JDK5 及以上版本)，将目标属性声明为 volatile 型。</p>
+<ol>
+<li><p>executor 重要的三个参数含义<br>corePoolSize, maxmumPoolSize, [keepAliveTime], BlockingQueue<runable></runable></p>
+</li>
+<li><p>多线程的方法</p>
+</li>
+</ol>
+<h3 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h3><ol>
+<li>有哪些垃圾回收器 优缺点 </li>
+<li>四种导致full gc场景</li>
+<li>持久代满了，gc不成功则out of memory</li>
+<li>旧生代满了</li>
+<li>新生代向S0和S1转移数据，S0和S1向旧生代转移数据，两边内存都设置较小，持续进行导致</li>
+<li>直接system.gc</li>
+<li>Q: 原子变量实现? 设置unsafe 内存交换</li>
+<li>给 JVM 设置-XX:+HeapDumpOnOutOfMemoryError 参数，让 JVM 碰到 OOM 场景时输出 dump 信息。</li>
+</ol>
+<h3 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h3><ol>
+<li>Q: 何时使用乐观锁 悲观锁 出现场景，jdbc事务提交使用哪种锁（一般使用DB的悲观锁）</li>
+</ol>
+<h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><p>调优：tcp窗口，事务大小</p>
+<ol>
+<li>常用模块<br>aop, aspects, beans, core, context, expression, orm, jdbc, jms, tx, test, web, webmvc </li>
+<li><p>主要接口</p>
+</li>
+<li><p>五种事务传播性Propagation<br>required, supports, mandatory, requires_new, not_supported, never, nested </p>
+</li>
+</ol>
+<h2 id="netty"><a href="#netty" class="headerlink" title="netty"></a>netty</h2><p>结构 lf缺陷</p>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><ol>
+<li>设置AUTO_INCREMENT<br><a href="http://www.searchdatabase.com.cn/showcontent_38510.htm" target="_blank" rel="noopener">http://www.searchdatabase.com.cn/showcontent_38510.htm</a></li>
+<li><p>使用datetime或timestamp类型，查询范围写法：send_time &lt;= ‘2015-09-24 15:24:16’</p>
+<blockquote>
+<p>区别：首先 DATETIM和TIMESTAMP类型所占的存储空间不同，前者8个字节，后者4个字节，这样造成的后果是两者能表示的时间范围不同。前者范围为1000-01-01 00:00:00 ~ 9999-12-31 23:59:59，后者范围为1970-01-01 08:00:01到2038-01-19 11:14:07。所以可以看到TIMESTAMP支持的范围比DATATIME要小,容易出现超出的情况.<br>其次，TIMESTAMP类型在默认情况下，insert、update 数据时，TIMESTAMP列会自动以当前时间（CURRENT_TIMESTAMP）填充/更新。<br>第三，TIMESTAMP比较受时区timezone的影响以及MYSQL版本和服务器的SQL MODE的影响<br>所以一般来说，我比较倾向选择DATETIME，至于你说到索引的问题，选择DATETIME作为索引，如果碰到大量数据查询慢的情况，也可以分区表解决。<br><strong>最佳实践：</strong> 只要用int类型存格林时间的unix timestamp值就好了，使用TIMESTAMP主要是为了方便记current_timestamp</p>
+</blockquote>
+</li>
+<li><p>使用txt类型取代nvarchar<br>SQLserver 中使用nvarchar存储变长unicode字符串</p>
+</li>
+<li>使用tinyint(8)或bool(1)取代bit类型, int(32), bigint(64)</li>
+<li>DEFAULT 为0，则可以查询’’（空字符串）；DEFAULT为NULL，则查询’’（空字符串）不匹配</li>
+<li>业务ID自增设计<br><code>insert msgId into [table] value(select max(msgId) from [table] + 1)</code><br>这里max函数会导致锁表<br>解决方法：单记一个max version表，利用行锁进行多线程同步</li>
+<li>当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重启数据库，这样业务就有几秒钟的中断。<br>还有一个hack的方法，用过gdb直接修改mysqld内存中max_connections的值，具体做法如下：<br><code>gdb -ex &quot;set max_connections=5000&quot; -batch -p &#39;pgrep -x mysqld&#39;</code></li>
+<li>小数类型为 decimal，禁止使用 float 和 double。如果存储的数据范围超过 decimal 的范围，建议将数据拆成整数和小数分开存储。</li>
+<li>表必备三字段:id, gmt_create, gmt_modified。</li>
+<li>不得使用外键与级联，一切外键概念必须在应用层解决。更禁止使用存储过程。</li>
+</ol>
+<h2 id="JBOSS"><a href="#JBOSS" class="headerlink" title="JBOSS"></a>JBOSS</h2><p>调优方法</p>
+<ol>
+<li>connector 改为Nio</li>
+<li>使用G1回收器，+UseG1GC 提供一种计算方法预期最大停止时间</li>
+<li>调整内存使用</li>
+</ol>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p>运用功能 模块实现 核心组件 upstream配置        </p>
+<ol>
+<li>高并发服务器建议调小 TCP 协议的 time_wait 超时时间，变更/etc/sysctl.conf 文件：net.ipv4.tcp_fin_timeout = 30</li>
+</ol>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><ol>
+<li>连接数</li>
+<li>集群设置 集群算法</li>
+</ol>
+<h2 id="Curator"><a href="#Curator" class="headerlink" title="Curator"></a>Curator</h2><ol>
+<li>使用InterProcessMutex中的RevocationListener因为在另一个专用线程因此没法直接调用release释放，Revoke唤醒需要使用对应的lock节点而不是目录<br>QA：这个设计很奇怪，按常理revoke应该调用在lock的path上然后自动通知当前获得锁的lock结构，并且应该有方法允许释放【可能状态比较难统一】</li>
+<li>2.9版本之后可以自动清理锁目录，需要设置container.checkIntervalMs</li>
+<li>共享锁实现<br><a href="http://www.tuicool.com/articles/yQBVfeA" target="_blank" rel="noopener">http://www.tuicool.com/articles/yQBVfeA</a></li>
+<li>start方法只能在初始化后调用一次，close调用后只能销毁</li>
+</ol>
+<h2 id="Dubbo"><a href="#Dubbo" class="headerlink" title="Dubbo"></a>Dubbo</h2><ol>
+<li>使用transient关键字保证成员不被串行化</li>
+</ol>
+<p>实现思路</p>
+<h3 id="1-WS服务转RPC"><a href="#1-WS服务转RPC" class="headerlink" title="1. WS服务转RPC"></a>1. WS服务转RPC</h3><p>分为两个难点：wsdl信息提取，RPC服务端的API生成<br>wsdl信息提取：例如从BPM提取出ReceiveMsg方法与参数<br>RPC服务端API生成：<br><a href="http://dubbo.io/User+Guide-zh.htm#UserGuide-zh-API%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener">http://dubbo.io/User+Guide-zh.htm#UserGuide-zh-API%E9%85%8D%E7%BD%AE</a><br>API方法所依赖的接口service与实现serviceImpl可以使用通用的泛化实现接口与实现<br><a href="http://dubbo.io/Generic+Implementation-zh.htm" target="_blank" rel="noopener">http://dubbo.io/Generic+Implementation-zh.htm</a></p>
+<h3 id="2-RPC服务转WS"><a href="#2-RPC服务转WS" class="headerlink" title="2. RPC服务转WS"></a>2. RPC服务转WS</h3><p>分为两个难点：参考Dubbo客户端实现RPC客户端自动生成，WS服务端API生成<br>RPC信息提取：<br>WS服务端API生成：</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2016/03/08/java-related-question/" data-id="cjap5ltvc005qb8rldyvo7jyg" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2016/03/08/java-related-question/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/事务/">事务</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-tech-problems-programer-should-know" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/21/tech-problems-programer-should-know/" class="article-date">
+  <time datetime="2014-09-21T22:08:52.000Z" itemprop="datePublished">2014-09-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试总结/">面试总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/21/tech-problems-programer-should-know/">程序员应该掌握的技术常识问题[持续更新]</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-SAN与NAS的不同，有哪些存储开源社区"><a href="#1-SAN与NAS的不同，有哪些存储开源社区" class="headerlink" title="1. SAN与NAS的不同，有哪些存储开源社区"></a>1. SAN与NAS的不同，有哪些存储开源社区</h2><p>san是存储区域网络，使用FC将存储设备连接起来形成的一个网络架构，以基于块的方式存储数据。</p>
+<p>nas是网络附属存储，是一种网络存储服务器，以基于文件的方式存储数据。</p>
+<p>存储方面的社区有ceph, freenas, openstack, suse, redhat，基本上一个开源产品对应一个开源社区。</p>
+<h2 id="2-LINUX内核开发需要注意的问题"><a href="#2-LINUX内核开发需要注意的问题" class="headerlink" title="2. LINUX内核开发需要注意的问题"></a>2. LINUX内核开发需要注意的问题</h2><p>内核开发需要注意：使用GNU C而非标准C语法（前者允许零长度数组，允许特殊属性声明<code>__attribute__((aligned(4)));</code>），慎用内核栈，没有用户态c标准库，注意同步和并发中断，不要轻易使用浮点数。</p>
+<h2 id="3-内核中使用链表结构与用户态链表有什么不同"><a href="#3-内核中使用链表结构与用户态链表有什么不同" class="headerlink" title="3. 内核中使用链表结构与用户态链表有什么不同"></a>3. 内核中使用链表结构与用户态链表有什么不同</h2><p>内核链表结构不含数据域，使用时作为成员嵌入到对应结构中；用户态链表实现通常直接使用结构指针，STL实现也是将结构包含在链表节点结构中。</p>
+<h2 id="4-内核中红黑树的使用，特别是文件系统中的使用；基树又是怎么使用的"><a href="#4-内核中红黑树的使用，特别是文件系统中的使用；基树又是怎么使用的" class="headerlink" title="4. 内核中红黑树的使用，特别是文件系统中的使用；基树又是怎么使用的"></a>4. 内核中红黑树的使用，特别是文件系统中的使用；基树又是怎么使用的</h2><p>内核在进程地址空间的线性区管理(vm_area_struct)中使用了红黑树，新版的进程调度也使用了红黑树。</p>
+<p>在linux 2.4时，可执行状态的进程被挂在一个链表中。每次调度，调度程序需要扫描整个链表，以找出最优的那个进程来运行。复杂度为O(n)；在linux 2.6早期，可执行状态的进程被挂在N(N=140)个链表中，每一个链表代表一个优先级，系统中支持多少个优先级就有多少个链表。每次调度，调度程序只需要从第一个不为空的链表中取出位于链表头的进程即可。这样就大大提高了调度程序的效率，复杂度为O(1)；在linux 2.6近期的版本中，可执行状态的进程按照优先级顺序被挂在一个红黑树（可以想象成平衡二叉树）中。每次调度，调度程序需要从树中找出优先级最高的进程。复杂度为O(logN)。</p>
+<p>在18内核中文件系统方面仅有ocfs2，jffs2及ext3在使用红黑树，ext3在创建reservation window时使用了红黑树结构进行管理，主要是考虑文件增长会导致无法线性分配，所以先预留了一些空间(8块)，具体原因可以<a href="http://blog.chinaunix.net/uid-20417916-id-3054702.html" target="_blank" rel="noopener">参看此文</a>及<a href="http://blog.chinaunix.net/uid-20417916-id-3054703.html" target="_blank" rel="noopener">此文</a>，这颗红黑树的建立是为方便搜索其他预留窗口。</p>
+<p>在32内核中连ext2也开始使用分配预留机制所以也使用红黑树，ext3及ext4在启用目录索引(磁盘上是B+树组织)时会在file的private_data中存放了dir_private_info结构，用来将一个打开目录文件的全部目录项组织成红黑树，其 root 字段指向 rbtree 的根 , rbtree 的节点由各 struct fname 结构（包含磁盘目录项的信息）的 rb_hash 字段形成，这颗红黑树的建立是为方便大目录的readdir操作多次进行。</p>
+<p>nfs使用红黑树管理Access mode cache即acl元数据信息缓存，btrfs大量使用红黑树。</p>
+<p>基树仅在Page cache中使用，将文件逻辑层的数据以页的形式映射到页高速缓存中，这些文件可能来自文件系统（文件数据或目录）也可能是块设备抽象。</p>
+<h2 id="5-B树和HASH方法的时间复杂度以及在系统中的表现，文件上散列又有何问题"><a href="#5-B树和HASH方法的时间复杂度以及在系统中的表现，文件上散列又有何问题" class="headerlink" title="5. B树和HASH方法的时间复杂度以及在系统中的表现，文件上散列又有何问题"></a>5. B树和HASH方法的时间复杂度以及在系统中的表现，文件上散列又有何问题</h2><p>B树访问是O(lgn)（树高度）复杂度，hash是O(1)复杂度。但是B树可扩展性更好，对于B+树来说在磁盘上对范围访问有很好的支持，相对hash表方法不易扩展且磁盘上范围访问性能不佳。顺序写文件并使用hash在顺序文件上做索引的方法，仍然受hash表大小限制不易扩展，且当索引表无法全部加载到内存时，hash随机访问特性无法在硬盘上发挥。</p>
+<h2 id="6-LINUX下线程与进程描述与区别"><a href="#6-LINUX下线程与进程描述与区别" class="headerlink" title="6.LINUX下线程与进程描述与区别"></a>6.LINUX下线程与进程描述与区别</h2><p>Linux下线程就是轻量级的进程，其进程描述符task_struct中tgid字段即为线程所属进程的pid，real_parent字段会指向所属进程的real_parent字段，thread_group链表字段会串起所有的线程。同时线程的地址空间mm、打开文件files、文件系统信息fs及信号处理sighand都会共用进程的。线程又分为用户态线程和内核态线程，用户态的线程栈是使用mmap在进程的堆空间分配的。内核线程使用clone系统调用创建时置CLONE_VM标志导致copy_mm()中将active_mm与mm赋值与父进程（所有内核线程的父进程都是kthreadd内核线程，而该内核线程又由swap内核线程创建，故而mm都是NULL）相同，避免复制页表。因为内核线程不会使用用户态地址，故而在运行时mm为NULL，active_mm指向上一个运行进程的active_mm。</p>
+<h2 id="7-大致描述PAXOS过程及偶数台机器的处理"><a href="#7-大致描述PAXOS过程及偶数台机器的处理" class="headerlink" title="7. 大致描述PAXOS过程及偶数台机器的处理"></a>7. 大致描述PAXOS过程及偶数台机器的处理</h2><p>标准Paxos过程涉及三种角色proposer、accpetor以及learner，整个过程分为两大阶段：第一个阶段是选值，第二个阶段是同步，第一阶段中proposer提出编号为n的提案；accepetor在确认自己没有见过高于编号n的提案后回复对应proposer，否则将返回对应提案的值v，当proposer收到大多数的accepetor的确认信息后进入第二阶段；第二阶段中proposer如果收到大多数accepetor的提案值则只能选择该值，否则可以自由选值，并将该值同步到大多数accepetor，此时learner也将从大多数accepetor中学习到该值。paxos利用大多数原则保证一致性。</p>
+<p>当因为偶数台出现无法选举成功时，可以先移除一台完成选举并检查网络问题。</p>
+<h2 id="8-WORDPRESS大致流程，其中URL固定链接如何实现的"><a href="#8-WORDPRESS大致流程，其中URL固定链接如何实现的" class="headerlink" title="8. WORDPRESS大致流程，其中URL固定链接如何实现的"></a>8. WORDPRESS大致流程，其中URL固定链接如何实现的</h2><p>分为admin与user两种大致逻辑。user起点是index.php并进入wp-blog-loader.php装载模型与视图而admin起点为wp-admin.php，之后进入wp-load.php加载wp-config.php初始化wp及wp-settings.php包括所有启用的plugins和主题的functions.php完成模型，之后uer使用template-loader.php完成视图，admin使用固定文件完成对应视图。</p>
+<p>首先需要web服务器开启rewrite功能，将url统一定位到index.php，其后由WP接管负责处理url。整个过程如下：</p>
+<p>a. wp初始化过程；b.在wp-setting.php中建立全局变量，特别是$wp和$wp_rewrite；c. 在classes.php中调用$wp的parse_request方法解析URL，该方法会处理$_SERVER[&#39;REUEST_URI&#39;]或$_SERVER[&#39;PATH_INFO&#39;]从而建立变量$request，然后使用$wp_rewrite的wp_rewrite_rules方法获取rewrite规则并逐条对$request进行匹配(preg_match)，如果找到一个匹配, 则建立相关的变量$perma_query_vars并最后保存在 $wp-&gt;query_vars里；其中rewrite规则会保存在数据库的option表中。主要参考<a href="http://www.onexin.net/wordpress-rewrite-permalink-internal-process-analysis/" target="_blank" rel="noopener">这篇文章</a>。</p>
+<h2 id="9-VFS大致构成介绍，其中-DENTRY结构如何形成，-INODE结构如何形成"><a href="#9-VFS大致构成介绍，其中-DENTRY结构如何形成，-INODE结构如何形成" class="headerlink" title="9. VFS大致构成介绍，其中 DENTRY结构如何形成， INODE结构如何形成"></a>9. VFS大致构成介绍，其中 DENTRY结构如何形成， INODE结构如何形成</h2><p>VFS为同一个目录结构下可能挂载的不同文件系统提供了统一接口，VFS提供了通用文件模型的多种对象内存结构包括file_system_type, super_block，inode，file，dentry以及进程相关结构包括files_struct及fs_struct，还有通用的页高速缓存page cache。</p>
+<p>其中dentry结构在lookup操作发现dentry缓存中没有对应目录项时会从磁盘上读取目录内容找到对应目录项的内容（该操作为底层操作系统的lookup操作）并建立对应的dentry内存结构。</p>
+<p>inode结构有三种形成方式，第一种是超级块载入时会将对应的inode读入并生成内存结构；第二种是mknod或create系统调用创建新的inode结构并标记为脏同步磁盘；第三种是lookup操作时目录项不在缓存中，完成dentry创建后还可能需要完成对应inode内存结构的创建并进行绑定。</p>
+<h2 id="10-JBD大致介绍及产生原因"><a href="#10-JBD大致介绍及产生原因" class="headerlink" title="10. JBD大致介绍及产生原因"></a>10. JBD大致介绍及产生原因</h2><p>JBD是一个日志子系统为ext系列文件系统提供一个独立的日志化系统，利用数据库中的日志技术实现WAL协议以加速e2fsck对系统一致性检查及系统一致性恢复的速度。JBD提供原子操作和事务两种抽象接口，前者保证多个低级操作构成的一个高级操作可以原子性的更新到文件系统，后者保证多个原子操作会原子性的提交到日志。JBD提供三种模式：journal模式会将数据及元数据都记入日志；ordered模式是默认模式会在元数据提交到日志前保证将对应数据写到磁盘对应位置；writeback模式只记录元数据到日志无视数据。</p>
+<h2 id="11-什么是高端内存，在64G内存下又是什么情况"><a href="#11-什么是高端内存，在64G内存下又是什么情况" class="headerlink" title="11. 什么是高端内存，在64G内存下又是什么情况"></a>11. 什么是高端内存，在64G内存下又是什么情况</h2><p>在32位系统中，线性地址空间是4G，其中内核规定3~4G的范围是内核空间，它映射到了物理地址的0~1G上.。然而 实际上没有映射1G，只映射了896M。大于896M的物理地址即高端内存，是没有写死的页表来对应的，内核必须要建立映射才能访问它们。该机制可以满足1G的内核线性空间寻址大于1G的物理空间的要求，比如应付PAE下对64G物理空间的寻址。</p>
+<p>如果机器内存不足896M，就不存在高端内存。如果是64位机器，因为可用地址空间很大，也不存在高端内存，其中属于内核的线性空间默认为2G，具体规划<a href="http://www.ibm.com/developerworks/cn/linux/kernel/l-ia64/" target="_blank" rel="noopener">可见此文</a>。</p>
+<h2 id="12-VM何时会产生，新建进程时已经刷新过页表之前为何还要分配VM"><a href="#12-VM何时会产生，新建进程时已经刷新过页表之前为何还要分配VM" class="headerlink" title="12. VM何时会产生，新建进程时已经刷新过页表之前为何还要分配VM"></a>12. VM何时会产生，新建进程时已经刷新过页表之前为何还要分配VM</h2><p>父进程通过fork创建子进程时使用copy_mm时会复制父进程的所有线性区（dup_mmap会遍历链表并进行复制），之后根据线性区情况填充对应子进程的页表。当可执行映象映射到进程的虚拟地址空间时，通过exec调用do_mmap也可能产生新的线性区。</p>
+<p>进程建立vm_area_struct结构后，只是说明进程可以访问这个虚存空间，但有可能还没有分配相应的物理页面并建立好页面映射。在这种情况下，若是进程执行中有指令需要访问该虚存空间中的内存，便会产生一次缺页异常。这时候，就需要通过vm_area_struct结构里面的vm_ops-&gt;nopage所指向的函数来将产生缺页异常的地址对应的文件数据读取出来。</p>
+<p>首先子进程需要继承父进程的地址空间，其次对于以后会调用exec的子进程也需要所有线性地址并标记为只读以确保能触发COW机制。</p>
+<h2 id="13-如何实现线程安全"><a href="#13-如何实现线程安全" class="headerlink" title="13. 如何实现线程安全"></a>13. 如何实现线程安全</h2><p>实现线程安全可以采用不共享状态变量，使用原子操作，或使用同步手段。</p>
+<h2 id="14-大致描述下LIRS算法的过程"><a href="#14-大致描述下LIRS算法的过程" class="headerlink" title="14.大致描述下LIRS算法的过程"></a>14.大致描述下LIRS算法的过程</h2><p>所有缓存被分为冷区及热区，热区占用大部分缓存，另外准备一个空间用于存储最近被访问的块。当空间中一个块被命中时就会调至顶部，并通过操作移除空间底部的所有冷块直至底部是热块（这保证底部一定是热块且当该热块被移除后上面的冷块是没机会变成热块的）；当空间中冷块被访问到就会转换为热块，同时空间底部的热块就会变为冷块并移至冷区缓存顶部，注意此时该冷块不一定出现在冷区中；当冷区中的冷块命中而空间中没有命中时，只要将其移到到冷区顶部；当未命中时，就必须替换冷区缓存底部的块。注意在空间中的块不一定在缓存中。</p>
+<h2 id="15-进程同步的方法，各有什么优缺点"><a href="#15-进程同步的方法，各有什么优缺点" class="headerlink" title="15. 进程同步的方法，各有什么优缺点"></a>15. 进程同步的方法，各有什么优缺点</h2><p>很容易与进程间通信(IPC)混淆，进程间通信有以下多种：管道，socket，消息队列，信号，信号量，共享内存</p>
+<p>而同步方法有：文件锁，信号量，管道+select等，socket+select等</p>
+<p>IPC的各种方法中消息队列不需要同步控制，但需要两次拷贝且需要处理上次的残余消息。共享内存需要同步控制，通常和信号量共同使用。管道和socket使用了内核锁进行同步控制。</p>
+<p>文件锁效率不如信号量，但文件锁使用简单且会在进程退出时自动释放。</p>
+<h2 id="16-STATIC变量与全局变量区别，DLL共享了哪些信息"><a href="#16-STATIC变量与全局变量区别，DLL共享了哪些信息" class="headerlink" title="16. STATIC变量与全局变量区别，DLL共享了哪些信息"></a>16. STATIC变量与全局变量区别，DLL共享了哪些信息</h2><p>声明了static的变量或函数就失去了全局可见性仅能在声明文件内被访问；全局变量和static变量都在所谓的“静态存储区”，会在开始运行时即完成初始化，默认为0；所以主要区别还是访问域的。</p>
+<h2 id="17-一个星期秒数的宏定义写法"><a href="#17-一个星期秒数的宏定义写法" class="headerlink" title="17.一个星期秒数的宏定义写法"></a>17.一个星期秒数的宏定义写法</h2><p><code>#define WEEK_SEC (7*24*3600UL)</code>，注意整形常量默认声明为int类型尽管32位下够用但声明为L兼容性更好，而秒数不可能为负数且可能由星期宏定义扩展为月或年故声明为UL更好</p>
+<h2 id="18-MYSQL有哪些存储引擎，MYISAM与INNODB有什么不同"><a href="#18-MYSQL有哪些存储引擎，MYISAM与INNODB有什么不同" class="headerlink" title="18. MYSQL有哪些存储引擎，MYISAM与INNODB有什么不同"></a>18. MYSQL有哪些存储引擎，MYISAM与INNODB有什么不同</h2><p>MySQL有MyISAM，InnoDB，HEAP(内存)，BDB，CSV等</p>
+<h2 id="19-GFS的元数据控制与数据控制流"><a href="#19-GFS的元数据控制与数据控制流" class="headerlink" title="19. GFS的元数据控制与数据控制流"></a>19. GFS的元数据控制与数据控制流</h2><h2 id="20-什么是僵死进程，什么是孤儿进程，进程退出会自动释放哪些资源"><a href="#20-什么是僵死进程，什么是孤儿进程，进程退出会自动释放哪些资源" class="headerlink" title="20. 什么是僵死进程，什么是孤儿进程，进程退出会自动释放哪些资源"></a>20. 什么是僵死进程，什么是孤儿进程，进程退出会自动释放哪些资源</h2><p>由于允许父进程调用wait系统调用检查子进程退出情况，因此子进程运行结束后需要继续等待，此时通知父进程并进入EXIT_ZOMBIE状态；而如果父进程先于子进程退出，则会将孤儿子进程交由init进程管理，这样init进程可以使用wait系统调用检查子进程终止然后删除EXIT_ZOMBIE状态进程；所以僵死进程一定是父进程没有退出且没有调用wait进行处理的子进程，而孤儿进程是父进程先于子进程退出的进程且一定会被init妥善管理，所以前者多了会消耗资源而后者不会。</p>
+<p>进程退出会向所有线程发出退出信号，自动关闭文件描述符，释放socket连接，存储映射区也会自动解除（关闭文件描述符并不能解除存储映射），释放文件上的锁，信号量仅在设置undo标志时才会自动回收。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2014/09/21/tech-problems-programer-should-know/" data-id="cjap5ltwg007qb8rl2ouoac1g" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2014/09/21/tech-problems-programer-should-know/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/InnoDB/">InnoDB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WP实现/">WP实现</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/url重定向/">url重定向</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内核/">内核</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-code-interview-sub-array-sum-questions" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/09/03/code-interview-sub-array-sum-questions/" class="article-date">
+  <time datetime="2013-09-03T14:42:06.000Z" itemprop="datePublished">2013-09-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试总结/">面试总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/09/03/code-interview-sub-array-sum-questions/">面试题总结：子数组问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>公用题干为一个包含正数及负数的数组k</p>
+<h3 id="1-找到连续的子数组和最大，最小，最接近m（比如0）"><a href="#1-找到连续的子数组和最大，最小，最接近m（比如0）" class="headerlink" title="1.找到连续的子数组和最大，最小，最接近m（比如0）"></a>1.找到连续的子数组和最大，最小，最接近m（比如0）</h3><p>最大的dp方程为dp[i]=max{dp[i-1]+k[i], k[i]}，最小情况完全类似</p>
+<pre>def submax(k[]):
+    smax=MIN, cmax=0
+    for i in range(0,len(k)-1):
+        cmax=max(cmax+k[i], k[i])
+        smax=max(smax, cmax)
+    return smax</pre>
+最接近m的处理方法，首先考虑特殊的m比如0，此时处理办法：首先用数组sum[0]=0, sum[i+1]=a[0]+a[1]+...+a[i]即包含第一个元素的元素和（这些元素相减可以构成子数组和）进行排序，然后遍历该数组并找到绝对值最小的两个相邻元素。所以对于m也可以采取同样的办法，遍历寻找与m值差绝对值最小的两个相邻元素即可。时间复杂度为O(nlgn)，空间复杂度为O(n)
+<pre>def subsum(k[], m):
+    sums = []
+    sums[0]=0
+    for i in range(0, len(k)):
+        sums[i+1] = sums[i]+k[i]
+    sums.sort()
+    smin=m, cmin=0
+    for i in range(1,len(k)+1):
+        cmin=abs(sums[i]-sums[i-1]-m)
+        smin=min(smin, cmin)
+    return smin</pre>
+
+<h3 id="2-找到几个子数组和最大，最小，最接近m"><a href="#2-找到几个子数组和最大，最小，最接近m" class="headerlink" title="2.找到几个子数组和最大，最小，最接近m"></a>2.找到几个子数组和最大，最小，最接近m</h3><p>几个子数组和最大的dp方程为dp[i][j]=max{dp[i][j-1]+k[j], max{dp[i-1]<a href="0 &lt;p&lt;j">p</a>}+k[j]}，即考察k[j]是包含在第i组里面，还是再单独成组。最小情况完全类似。</p>
+<p>找到n个数的和最接近m，我们仅考虑小于m且这里不考虑存在负数的情况（因为需要遍历可能的和值），使用类似0-1背包的方法仅有的限制是背包重量不能超过m，时间复杂度为O(n^2*m)</p>
+<pre>def subsum(k[], m):
+#dp[j][p]代表是否找到j个数使得和等于p
+dp =[[0 for j in range(m+2)] for i in range(len(k)+1)]
+for i in range(1, len(k)+1):
+        for j in range(1, m):
+               dp[i][j]=max(dp[i-1][j], dp[i-1][j-k[j]]+k[j])
+return dp[len(k)][m+1]</pre>
+
+<h3 id="3-分割为两个子数组和最接近，添加正负号使结果最接近0"><a href="#3-分割为两个子数组和最接近，添加正负号使结果最接近0" class="headerlink" title="3.分割为两个子数组和最接近，添加正负号使结果最接近0"></a>3.分割为两个子数组和最接近，添加正负号使结果最接近0</h3><p>假设2n的正整数数组和为SUM，则问题变为找到n个数和最接近SUM/2，接近SUM/2就可能大于或小于SUM/2，我们仅考虑小于SUM/2且这里不考虑存在负数的情况（因为需要遍历可能的和值），使用类似0-1背包的方法有两个限制：一个是数目等于n，另一个是背包重量不能超过SUM/2，时间复杂度为O(n^2*m)</p>
+<p><pre>def subsum(k[], m):</pre></p>
+<p>#dp[2n][n][m/2]<br>dp =[[[0 for p in range(m/2+2)] for j in range(len(k)/2+1)] for i in range(len(k)+1)]<br>for i in range(1, len(k)+1):<br>    for j in range(1, min(i, len(k)/2)+1):<br>        for p in range(m/2+1, k[j]+1, -1):<br>            dp[i][j][p] = max(dp[i-1][j][p], dp[i-1][j-1][p-k[i]]+k[i])</p>
+<p>#进行回溯寻找对应元素<br>i=len(k),j=len(k)/2, p=m/2+1<br>for i in range(len(k), 0, -1):<br>    if(dp[i][j][p]==dp[i-1][j-1][p-k[j]]+k[j]):<br>        print k[i]<br>        –j, p-=k[i]<br>return dp[len(k)][len(k)/2][m/2+1]</p>
+<p>#简化算法，只能求出最接近的值<br>def subsum(k[], m):</p>
+<p>#ok[j][p]代表是否找到j个数使得和等于p，初始化为false<br>ok = [[false for col in range(m/2+1)] for row in range(len(k)/2+1)]<br>ok[0][0] = true<br>for i in range(1, len(k)+1):<br>    for j in range(1, min(i,len(k)/2)+1):<br>        for p in range(m/2+1, k[j]+1, -1):<br>            if ok[j-1][i-k[i]]:<br>               ok[j][p]=true</p>
+<p>#找到最接近的值<br>for i in range(m/2+1, -1, -1):<br>    if ok[len(k)/2)][i]:<br>       return i<br>如果存在负数，则找到最小的那个负数并将其绝对值加到每个元素上，然后重新求SUM/2</p>
+<h3 id="4-找到所有和等于m的两个数，三个数，n个数"><a href="#4-找到所有和等于m的两个数，三个数，n个数" class="headerlink" title="4.找到所有和等于m的两个数，三个数，n个数"></a>4.找到所有和等于m的两个数，三个数，n个数</h3><p>对于两个数的情况可以使用排序扫描的方法，或是排序再二分，或是使用hash表查找</p>
+<p>对于三个数的情况同样使用排序扫描的方法，扫描固定一个值，然后双扫描确定另外两个值，时间复杂度为O(n^2)</p>
+<p>n个数的情况和第2问中的最接近m方法相同，必须使用0-1背包</p>
+<h3 id="5-连续的子数组和最大扩展到二维，n维，循环数组等情况"><a href="#5-连续的子数组和最大扩展到二维，n维，循环数组等情况" class="headerlink" title="5.连续的子数组和最大扩展到二维，n维，循环数组等情况"></a>5.连续的子数组和最大扩展到二维，n维，循环数组等情况</h3><p>对于二维可以枚举另一维的子数组区域，时间复杂度为O(n^2)，而降维后只需O(m)即可得到答案，故而总时间复杂度为O(n^2*m)</p>
+<p>数组首尾相连可以分为原问题和数组跨界两种情况，后者可以采用数组所有元素总值减去最小子数组和的方法来解决。</p>
+<h3 id="6-在两个数组中找到两个数和等于m，三个数组中找三个数，n个数组的情况"><a href="#6-在两个数组中找到两个数和等于m，三个数组中找三个数，n个数组的情况" class="headerlink" title="6. 在两个数组中找到两个数和等于m，三个数组中找三个数，n个数组的情况"></a>6. 在两个数组中找到两个数和等于m，三个数组中找三个数，n个数组的情况</h3><p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/09/03/code-interview-sub-array-sum-questions/" data-id="cjap5lttj002gb8rlxhklfwyt" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/09/03/code-interview-sub-array-sum-questions/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-information-exange-for-war" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/06/05/information-exange-for-war/" class="article-date">
+  <time datetime="2013-06-05T07:15:05.000Z" itemprop="datePublished">2013-06-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试总结/">面试总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/06/05/information-exange-for-war/">阿里笔试题战士传信问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Q: 战报交流：战场上不同的位置有N个战士（n&gt;4），每个战士知道当前的一些战况，现在需要这n个战士通过通话交流，互相传达自己知道的战况信息，每次通话，可以让通话的双方知道对方的所有情报，设计算法，使用最少的通话次数，使得战场上的n个士兵知道所有的战况信息，不需要写程序代码，得出最少的通话次数。</p>
+<p>A:</p>
+<ol>
+<li>分成两组：1) 2个node，2) n-2个node ;</li>
+<li>2个node需要连接1次，使得2个node拥有2个节点信息；</li>
+<li>n-2个node至少需要n-3次连接，使得最后连接的2个node拥有这n-2个node的信息；</li>
+<li><strong>第一组的2个node与第n-2组的最后两个node（即获得该组全部信息的2个nodes）分别连接；</strong>于是4个节点得到全部信息，连接了2次。这里是为什么节约了一次连接的关键。</li>
+<li>剩下的n-4个node都没有获得全部信息，每个node至少需要一次连接。因此至少需要n-4次连接。用拥有全部信息的其中一个node与剩下的n-4个node连接。则只需要n-4次。</li>
+<li>得总过需要1+(n-3)+<strong>2</strong>+(n-4)= 2n-4.<br>需要注意的是：每次连接有且仅有两个node，即使分成很多组，最终还是归结为两组的形式。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/06/05/information-exange-for-war/" data-id="cjap5ltuz0052b8rldlscysta" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/06/05/information-exange-for-war/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实习/">实习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-conde-interview-brain-teasers-guess-rewards" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/04/09/conde-interview-brain-teasers-guess-rewards/" class="article-date">
+  <time datetime="2013-04-09T07:27:03.000Z" itemprop="datePublished">2013-04-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试总结/">面试总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/04/09/conde-interview-brain-teasers-guess-rewards/">面试题：猜奖品问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一个猜测游戏中，某一个瓶子中装有奖品。游戏者需要猜出奖品在哪个瓶子中，并且在m次结束游戏。（即m次猜中）<br>有n个黑色的瓶子（以至于游戏中看不到瓶中是否有东西）设从0到n-1编号，一字排开。每一次如果游戏者猜错了，那么奖品会各以50%的概率移动到左边或者右边的瓶子中。当奖品位于最左边或者最右边，游戏者猜错时，奖品必然右移或者左移。</p>
+<p>问题：请设计一个满足n和m的策略，帮助游戏者完成游戏。</p>
+<p>最多需要m=2n次 必能猜中<br>第一轮 先从0开始顺序往右猜，即0,1,…n-1,这样 如果奖品初始位于偶数位置处 必定能猜中<br>如果奖品初始是位于奇数处，则需要第二轮<br>如果n为偶数 则第一轮结束后奖品仍在奇数处<br>这样第二轮从1开始往右，即1,2,…,n-1 这样必中<br>如果n为奇数 则第一轮结束后奖品已经跳到偶数处<br>这样第二轮从0开始往右，即0,1,…,n-1 必中</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/04/09/conde-interview-brain-teasers-guess-rewards/" data-id="cjap5lttm002ib8rlmbzgqv8n" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/04/09/conde-interview-brain-teasers-guess-rewards/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-interesting-questions-about-binary" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/03/22/interesting-questions-about-binary/" class="article-date">
+  <time datetime="2013-03-22T03:52:52.000Z" itemprop="datePublished">2013-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试总结/">面试总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/03/22/interesting-questions-about-binary/">二进制相关智力问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目1：有 1000 个一模一样的瓶子，其中有 999 瓶是普通的水，有一瓶是毒药。任何喝下毒药的生物都会在一星期之后死亡。现在，你只有 10 只小白鼠和一星期的时间，如何检验出哪个瓶子里有毒药？</p>
+<p>个人解答：显然需要参考二进制的表示方法，但是腾讯面试当时纠结在时间只有一个星期，而喝下毒药死亡也需要一个星期，似乎只能验证一次。实际上，这个限制正说明我们确实只能利用这10只小白鼠验证一次。于是问题就简单了。将1000瓶水按照二进制编码的顺序给对应的小白鼠喝，比如编号3的水（二进制表示为11）就喂给编号1与编号2小白鼠喝。这样，一星期后看哪几只小白鼠死亡就可以判断哪个编号的水有毒。这个结论成立的前提是只有一瓶毒药，这样只有对应编号的小白鼠才会不幸死亡。</p>
+<p>进一步题目：如果你有两个星期的时间，为了从 1000 个瓶子中找出毒药，你最少需要几只老鼠？注意，在第一轮实验中死掉的老鼠，就无法继续参与第二次实验了。</p>
+<p>个人解答：有两个星期就可以进行两次实验，每个没死成的小白鼠就能再喝一次，也就是说一个小白鼠可以表示3个状态：第一周死，第二周死，最终也没死。显然就是参考三进制，于是需要3^7 &gt; 1000，即最少7只。方法与之前类似，先给三进制表示为2的位对应的小白鼠喝，再实验三进制表示为1的位对应的小白鼠即可。</p>
+<div> 结论：类似地，我们可以证明， n 只小白鼠 t 周的时间可以从 (t+1)^n 个瓶子中检验出毒药来。</div><br><div></div><br><div>题目2：100个开关控制100个灯，开关在一个房间灯在一个房间，最少走几趟能够确定他们的一一对应关系</div><br><div></div><br><div>个人解答：据说3的情况，只要一次即可（需要引入热这种状态。。。即存在亮，热，不亮三种状态）</div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/03/22/interesting-questions-about-binary/" data-id="cjap5ltv20057b8rlz1mq0d15" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/03/22/interesting-questions-about-binary/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-summary-of-tecent-interview" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/05/11/summary-of-tecent-interview/" class="article-date">
+  <time datetime="2011-05-11T23:05:38.000Z" itemprop="datePublished">2011-05-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试总结/">面试总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/05/11/summary-of-tecent-interview/">腾讯面试总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在腾讯终于突破了一面进入二面，本来很期待二面能多问下项目方面或是前端方面的知识。哪知天不我与，碰到个无语的面试官（也可能是故意这么安排）继续问基础，于是莫名奇妙的溃败。</p>
+<p>一面也表现不算很好，但是估计考官人比较好，每次都会问本人的思路，顺便进行引导，也会给些小hint，然后本人不负众望的答对，可能这种快速学习的能力给考官比较好的印象吧，一下面了本人近两个半小时，最后也放本人过关。虽然其实最后本人已经透支，完全没啥信心了。</p>
+<p>但缺少hint，本人就是废材一个啊。于是受不了二面“三无”的考官，但是溃败的过程还是莫名奇妙。</p>
+<p>一面的问题：</p>
+<p>开始要求计算一篇英文文章中出现的字符个数，本人每次说出一个答案，面试官都很不满意。开始内心里还有点埋怨，后来自己想清楚后才明白面试官真是用心良苦啊，给了本人这么多次机会。中间面试官不耐烦的问“到底什么叫字符？！”，差点都被问懵了，幸好本人没有认输，最后终于发现问题所在，直接用asc码匹配就解决了，记住数字也是字符的一种啊！要求计算需要的内存，忘了asc码表大小，很无语。</p>
+<p>后来要求写大整数加法，结果本人忽略了循环时候的顺序问题（位数对齐得反着来），面试官一再提示。最后终于发现。这个细节挺多的。还有个题要求写二分搜索，其实也是个细节挺多的题，幸好在编程珠玑上看过。</p>
+<p>然后一部分是二进制表示计算内存：</p>
+<p>1.1000个苹果如何装入10个箱子里，然后给出任意数字都可以用箱子中的苹果组成。</p>
+<p>联系2进制，就想出答案了。</p>
+<p>2.10个瓶子中有一个有毒药，毒药在10分钟内任意时刻会发作，至少需要多少小白鼠能在10分钟内判断哪个瓶子有毒。</p>
+<p>没想出来</p>
+<p><span style="color: #ff0000;">（终于找到原题与答案啦，<a href="http://blog.csdn.net/xywlpo/article/details/6450670" title="老鼠与毒药的问题" target="_blank" rel="noopener">老鼠与毒药的问题</a> 于2012-12-19 最新修改 new！）</span></p>
+<p>3.4都是编程珠玑第一章的排序问题，幸亏本人就看了这一章。要求计算需要多少内存，当时脑子里一片浆糊，不过本人计算方面本来就很弱，小学算术有问题。</p>
+<p>而且多少有些与前端相关的内容：</p>
+<p>1.将列表倒排</p>
+<p>2.cookie的定义，使用，如将过期时间设为0</p>
+<p>3.ajax定义与使用</p>
+<p>4.闭包定义与常用方法</p>
+<p>后来看了看本人的网站，被套词，说出自己js方面不如css，这个还是没自信的体现，心理承受力不足。但好歹通过了。</p>
+<p>进入二面继续基础：</p>
+<p>首先是-2的二进制表示。忘了</p>
+<p>char型能表示的最大数。本人答案是2^8</p>
+<p>然后是求两个排序数组的交集，本人总是分不清交集并集，很无语。接着求时间复杂度，本人说是O（m+n）</p>
+<p>接着是tcp与udp的区别，说得越多越细越好。这个本人没说全。</p>
+<p>堆和栈的区别，也是越多越好，有点忘，但是说对了。</p>
+<p>然后是int a=123；printf（“%s”，a）；是什么意思。本人也没试过。</p>
+<p>接着是计算题，没啥可说的，应该是对的，但不知为何面试到此为止。</p>
+<p>难道之前错太多，还是说他把我的答案听错了。</p>
+<p>但不管如何接着就是附赠的提问时间，本人没把握好，还在回忆之前的问题。</p>
+<p>哎，就这么失败了。</p>
+<p>其实有点不甘心，因为二面形式和一面完全相同，甚至连前端方面的问题都没有，这些问题与c语言相关也太多了点吧。虽说基础很重要，但这是二面啊，总得和一面有点不同吧。反正是白突破的一面，啥前端新玩意都没见识到，郁闷。</p>
+<p>最新消息是本人突然进入了hr面，彻底无语，这都怎么一回事啊！难道二面就这样过了？至今难以相信。但很期待这个全新形式的hr面。</p>
+<p>最新消息更让人郁闷，自己居然把hr面的时间记错了。天啊，你这是在玩我吧！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2011/05/11/summary-of-tecent-interview/" data-id="cjap5ltwe007nb8rlrwynxdn9" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2011/05/11/summary-of-tecent-interview/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/腾讯/">腾讯</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-summary-of-interview-kings-soft-network" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/04/25/summary-of-interview-kings-soft-network/" class="article-date">
+  <time datetime="2011-04-25T21:50:30.000Z" itemprop="datePublished">2011-04-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试总结/">面试总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/04/25/summary-of-interview-kings-soft-network/">金山网络面试总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>金山网络算是本人第一个面试对口方向的公司，无奈再次失败，失败的主要原因不是技术上而是人士方向上。没有从公司方向思考是这次面试失败最主要的原因。</p>
+<p>1.金山网络属于再创业公司，尽管宣称招暑期实习生，但实质仍是为快速发展的公司招人。所以面试侧重点都在询问面试者能为公司做些什么，结果本人面试过程完全没有察觉这一点，应该说自己还没有从淘宝实习面试的思维中脱离出来。自己说出自己已经保研的事实就是失败的开始。保研意味着你留不住，那公司要你做甚。当然，如果下一个问题回答说得对也可以反败为胜，但是干嘛要自毁长城。</p>
+<p>2.接着问为何要来实习时，本人回答又很幼稚，什么学习实践啊，团队合作啊，融入社会啊。问题是这种回答和公司发展有毛关系，而且显得本人完全就没从学生转变为社会员工。正确答案当然是加入金山网络就是本人的梦想，或是希望借助金山的平台实践自己的梦想啥的。反正要把自己的想法与金山公司的发展结合起来，否则留不住的人公司也不会要，没有强烈愿望加入的人自然也一样。</p>
+<p>3.当问到自己的兴趣时，自己又很傻比的回答了喜欢做表现层方面。好吧，一个喜欢做表现层的干嘛来聘php后台，虽然表现层有很多种解释，facebook也用php做表现层，但是金山需要的是纯服务端人才，本人的回答再次撞在枪口上。</p>
+<p>4.最后是技术方面的失败点。面试的过程就是把考官往你擅长方面引的过程。有部分本人引的比较成功，比如nfs，但失败的是没有把它和金山快盘的关系说出来，这个很关键。后来问mfs，也没有表述清楚，说不定金山后台用的就是这些系统，嗯，很有可能。与mysql相关的就引的比较失败，真不该把这些放简历上。如mysql索引是什么数据结构，明明答案是对的，但不敢确定，结果浪费了机会；但话又说回来了，不明白考官问我那么多数据库底层的问题干啥，我面php的啊，你问点php底层的行不。还有asp.net与php的技术区别，如果冷静下来本人当然不成问题，但临时回答起来，没啥章法，还是信心不足的表现。还有问过第二次的设计模式，虽然这回答对了不少，依然没答全，还是没章法造成的，分类悉数肯定不会少的。</p>
+<p>当然没有表现出自己的水平也和金山面试安排有关系，但还是自己面试表现不出真实水平来。希望之后面腾讯，又是自己喜欢的前端，能够表现得更好。</p>
+<p>公司，梦想，激情，这些很重要。其次是技术总结。最后是不要过早暴露自己。暴露了也要表现得很想去对方公司。否则像这次一样话一出口直接毙，就很伤感情了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2011/04/25/summary-of-interview-kings-soft-network/" data-id="cjap5ltw6007fb8rl84rgjllp" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2011/04/25/summary-of-interview-kings-soft-network/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/金山/">金山</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/WordPress开发/">WordPress开发</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品设计/">产品设计</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端语言/">后端语言</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/新技术跟踪/">新技术跟踪</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/">系统架构</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/项目经历/">项目经历</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统经验/">系统经验</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/课程总结/">课程总结</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融/">金融</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试总结/">面试总结</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目经历/">项目经历</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InnoDB/">InnoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS模板/">JS模板</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux设置/">Linux设置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVCC/">MVCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP主题/">WP主题</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP实现/">WP实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP插件/">WP插件</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP设置/">WP设置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/">WebGL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache-coherence/">cache coherence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history/">history</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios应用/">ios应用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptv/">iptv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/">join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kv存储/">kv存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutex/">mutex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/">paxos</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raft/">raft</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url重定向/">url重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web2-0/">web2.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文汉化/">中文汉化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/互联网企业/">互联网企业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/债券/">债券</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内核/">内核</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式锁/">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/华为/">华为</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基金/">基金</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外设/">外设</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源项目/">开源项目</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无锁并发/">无锁并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/期货/">期货</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栅格系统/">栅格系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/科研/">科研</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/股票/">股票</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本加载/">脚本加载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/腾讯/">腾讯</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/苹果/">苹果</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法/">语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读写锁/">读写锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调度/">调度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金山/">金山</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隔离级别/">隔离级别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目管理/">项目管理</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/InnoDB/" style="font-size: 10px;">InnoDB</a> <a href="/tags/JS模板/" style="font-size: 11.67px;">JS模板</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Linux设置/" style="font-size: 10px;">Linux设置</a> <a href="/tags/MVCC/" style="font-size: 10px;">MVCC</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WP主题/" style="font-size: 16.67px;">WP主题</a> <a href="/tags/WP实现/" style="font-size: 10px;">WP实现</a> <a href="/tags/WP插件/" style="font-size: 16.67px;">WP插件</a> <a href="/tags/WP设置/" style="font-size: 11.67px;">WP设置</a> <a href="/tags/WebGL/" style="font-size: 11.67px;">WebGL</a> <a href="/tags/Zookeeper/" style="font-size: 10px;">Zookeeper</a> <a href="/tags/cache-coherence/" style="font-size: 10px;">cache coherence</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/fabric/" style="font-size: 11.67px;">fabric</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/google/" style="font-size: 11.67px;">google</a> <a href="/tags/history/" style="font-size: 10px;">history</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/ios应用/" style="font-size: 10px;">ios应用</a> <a href="/tags/iptv/" style="font-size: 10px;">iptv</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/kv存储/" style="font-size: 10px;">kv存储</a> <a href="/tags/memory/" style="font-size: 10px;">memory</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/paxos/" style="font-size: 11.67px;">paxos</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raft/" style="font-size: 10px;">raft</a> <a href="/tags/url重定向/" style="font-size: 10px;">url重定向</a> <a href="/tags/web2-0/" style="font-size: 10px;">web2.0</a> <a href="/tags/zookeeper/" style="font-size: 11.67px;">zookeeper</a> <a href="/tags/中文汉化/" style="font-size: 11.67px;">中文汉化</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/互联网企业/" style="font-size: 11.67px;">互联网企业</a> <a href="/tags/债券/" style="font-size: 11.67px;">债券</a> <a href="/tags/内核/" style="font-size: 11.67px;">内核</a> <a href="/tags/分布式锁/" style="font-size: 10px;">分布式锁</a> <a href="/tags/区块链/" style="font-size: 13.33px;">区块链</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/基金/" style="font-size: 11.67px;">基金</a> <a href="/tags/外设/" style="font-size: 10px;">外设</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/实习/" style="font-size: 15px;">实习</a> <a href="/tags/开源项目/" style="font-size: 10px;">开源项目</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/数据库/" style="font-size: 18.33px;">数据库</a> <a href="/tags/无锁并发/" style="font-size: 10px;">无锁并发</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/期货/" style="font-size: 11.67px;">期货</a> <a href="/tags/栅格系统/" style="font-size: 10px;">栅格系统</a> <a href="/tags/科研/" style="font-size: 10px;">科研</a> <a href="/tags/算法/" style="font-size: 18.33px;">算法</a> <a href="/tags/索引/" style="font-size: 11.67px;">索引</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/股票/" style="font-size: 11.67px;">股票</a> <a href="/tags/脚本加载/" style="font-size: 10px;">脚本加载</a> <a href="/tags/腾讯/" style="font-size: 15px;">腾讯</a> <a href="/tags/苹果/" style="font-size: 10px;">苹果</a> <a href="/tags/语法/" style="font-size: 11.67px;">语法</a> <a href="/tags/读写锁/" style="font-size: 10px;">读写锁</a> <a href="/tags/调度/" style="font-size: 10px;">调度</a> <a href="/tags/金山/" style="font-size: 10px;">金山</a> <a href="/tags/锁/" style="font-size: 10px;">锁</a> <a href="/tags/键盘/" style="font-size: 10px;">键盘</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试/" style="font-size: 20px;">面试</a> <a href="/tags/项目管理/" style="font-size: 11.67px;">项目管理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/03/">March 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/02/Qconf-summary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/08/blockchain-tech-summary/">区块链技术总结与架构实战</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/fabric-ca-design/">Hyperledger Fabric CA设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/05/sicp-charpter-two/">SICP第二章总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chao Zheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  </footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/php-development-env-setup-in-win7-x64.html" class="mobile-nav-link">PHP-WIN</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'chaozh';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

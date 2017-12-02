@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Cracking the coding interview Q1-6 | chaozh.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 1 Implement an algorithm to determine if a string has all unique characters. What if you can not use additional data structures? It’s means to check if a str">
+<meta name="keywords" content="算法,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cracking the coding interview Q1-6">
+<meta property="og:url" content="http://chaozh.github.com/2013/08/12/cracking-the-coding-interview-q1-6/index.html">
+<meta property="og:site_name" content="chaozh.com">
+<meta property="og:description" content="1. 1 Implement an algorithm to determine if a string has all unique characters. What if you can not use additional data structures? It’s means to check if a string has repeated character or not. It ca">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-02T09:46:23.907Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cracking the coding interview Q1-6">
+<meta name="twitter:description" content="1. 1 Implement an algorithm to determine if a string has all unique characters. What if you can not use additional data structures? It’s means to check if a string has repeated character or not. It ca">
+  
+    <link rel="alternative" href="/atom.xml" title="chaozh.com" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">chaozh.com</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">超然台上仙的知识库|系统架构,移动开发,独立游戏</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/php-development-env-setup-in-win7-x64.html">PHP-WIN</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chaozh.github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-cracking-the-coding-interview-q1-6" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/12/cracking-the-coding-interview-q1-6/" class="article-date">
+  <time datetime="2013-08-12T03:09:17.000Z" itemprop="datePublished">2013-08-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/课程总结/">课程总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Cracking the coding interview Q1-6
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>1. 1 Implement an algorithm to determine if a string has all unique characters. What if you can not use additional data structures?</strong></p>
+<p>It’s means to check if a string has repeated character or not. It can be solved by using a bitmap and Assic table(128 for normal and 256 with special). key: using <code>n=(int)string[i]</code> to get Assic number and <code>(bitmap[n/32] &amp;amp; 1&amp;lt;&amp;lt;(n%32))</code> to check if repeated.</p>
+<p><strong>1.2 Write code to reverse a C-Style String (C-String means that “abcd” is represented as five characters, including the null character )?</strong></p>
+<p>Exchange characters between start index 0 and end index string length - 1, stop when two pointers meet.</p>
+<p><strong>1.3 Design an algorithm and write code to remove the duplicate characters in a string without using any additional buffer. NOTE: One or two additional variables are fine. An extra copy of the array is not. FOLLOW UP Write the test cases for this method ?</strong></p>
+<p>Not allowed to apply for new arrays. Compare each characters in the string and if duplicated just remove in place, key: using null character to replace duplicated  character. Test cases should include unique characters string, null string, string with only one character, common string with sequence  duplicate characters or with not.</p>
+<p><strong>1.4 Write a method to decide if two strings are anagrams or not ?</strong></p>
+<p>If new array is allowed to apply for, it can be solved by counting table in O(n) time. Actually sort two strings and compare each characters is enough to get the answer in O(nlgn) time.</p>
+<p><strong>1.5 Write a method to replace all spaces in a string with ‘%20’ .</strong></p>
+<p>Firstly count the ectra space needed by replacing, two chars’ space for each character. If  space is enough then just fill and move, otherwise you should realloc space and copy whole string, don’t forget the null character.</p>
+<p><strong>1.6  Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes, write a method to rotate the image by 90 degrees Can you do this in place ?</strong></p>
+<p>To rotate 90 degrees in clockwise just exange M[i][j] with M[j][N-i], implementation could firstly exange elms between diagonal and then exange columns i with N-i</p>
+<p><strong>1.7 Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column is set to 0.</strong></p>
+<p>Go through the matrix only to register  which column or row has zero and then go through the matrix again to set those rows or columns to zero which takes O(mn) time, key: only need array row[m] nd column[n]</p>
+<p><strong>1.8 Assume you have a method isSubstring which checks if one word is a substring of  another. Given two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only one call to isSubstring (i e , “waterbottle” is a rotation of “erbottlewat”)</strong></p>
+<p>To use isSubstring function we need string s1 is longer than s2, so just duplicate s1 by s1’ = s1 + s1 (s1’ contains all rotations of s1) then check if s2 is substring of s1’ to judge rotaion.</p>
+<p><strong>2.1 Write code to remove duplicates from an unsorted linked list FOLLOW UP How would you solve this problem if a temporary buffer is not allowed?</strong></p>
+<p>Using hash table could be the best way. If temporay buffer is not allowed then just using algorithm in 1.3 taking O(n^2) time.</p>
+<p><strong>2.2 Implement an algorithm to find the nth to last element of a singly linked list.</strong></p>
+<p>Using two pointers at a distance of n to solve. Another way is using recursion as stack.</p>
+<p><strong>2.3 Implement an algorithm to delete a node in the middle of a single linked list, given only access to that node</strong></p>
+<p><strong>EXAMPLE</strong><br><strong> Input: the node ‘c’ from the linked list a-&gt;b-&gt;c-&gt;d-&gt;e</strong><br><strong> Result: nothing is returned, but the new linked list looks like a-&gt;b-&gt;d-&gt;e</strong></p>
+<p>Just copy the data from next node and delete next node by pointing the next pointer field to the node after next node. Note that there would be a problem if the node is the last node in the list.</p>
+<p><strong>2.4 You have two numbers represented by a linked list, where each node contains a single digit The digits are stored in reverse order, such that the 1’s digit is at the head of the list. Write a function that adds the two numbers and returns the sum as a linked list</strong></p>
+<p><strong>EXAMPLE</strong><br><strong> Input: (3 -&gt; 1 -&gt; 5) + (5 -&gt; 9 -&gt; 2)</strong><br><strong> Output: 8 -&gt; 0 -&gt; 8</strong></p>
+<p>Just pay attention to null list and list in different length.</p>
+<p><strong>3.1 Describe how you could use a single array to implement three stacks</strong></p>
+<p>It’s easy to implement with three stack top pointers to seperate space.</p>
+<p><strong>3.2 How would you design a stack which, in addition to push and pop, also has a function min which returns the minimum element? Push, pop and min should all operate in O(1) time</strong></p>
+<p>It’s hard to deal with the pop when  min element was on the top of the stack. So extra space are needed to store those bigger elms. An extra stack could be used to store min elms. Every time you push a new elem, compare it with the top of extra stack and smaller one has to be pushed into extra stack. The same, when pop out a elem you should check if it equal to the top of extra stack and if so you have to pop it out from the extra stack.</p>
+<p><strong>3.3 Imagine a (literal) stack of plates. If the stack gets too high, it might topple. Therefore, in real life, we would likely start a new stack when the previous stack exceeds some threshold. Implement a data structure SetOfStacks that mimics this. SetOfStacks should be composed of several stacks, and should create a new stack once the previous one exceeds capacity. SetOfStacks push() and SetOfStacks pop() should behave identically to a single stack (that is, pop() should return the same values as it would if there were just a single stack) FOLLOW UP Implement a function popAt(int index) which performs a pop operation on a specific sub-stack</strong></p>
+<p>It’s worth implementing in C++</p>
+<p><strong>3.4 In the classic problem of the Towers of Hanoi, you have 3 rods and N disks of different sizes which can slide onto any tower The puzzle starts with disks sorted in ascending order of size from top to bottom (e g , each disk sits on top of an even larger one) You have the following constraints:</strong><br><strong> (A) Only one disk can be moved at a time</strong><br><strong> (B) A disk is slid off the top of one rod onto the next rod</strong><br><strong> (C) A disk can only be placed on top of a larger disk</strong><br><strong> Write a program to move the disks from the first rod to the last using Stacks</strong></p>
+<pre><code>void hanoi(int n, char src, char bri, char dst){
+    if(n==1){
+        cout&amp;lt;&amp;lt;&quot;Move disk &quot;&amp;lt;&amp;lt;n&amp;lt;&amp;lt;&quot; from &quot;&amp;lt;&amp;lt;src&amp;lt;&amp;lt;&quot; to &quot;&amp;lt;&amp;lt;dst&amp;lt;&amp;lt;endl;
+    }
+    else{
+        hanoi(n-1, src, dst, bri);
+        cout&amp;lt;&amp;lt;&quot;Move disk &quot;&amp;lt;&amp;lt;n&amp;lt;&amp;lt;&quot; from &quot;&amp;lt;&amp;lt;src&amp;lt;&amp;lt;&quot; to &quot;&amp;lt;&amp;lt;dst&amp;lt;&amp;lt;endl;
+        hanoi(n-1, bri, src, dst);
+    }
+}
+`&lt;/pre&gt;
+You should change it with using stack
+
+**3.5 Write a program to sort a stack in ascending order. You should not make any assumptions about how the stack is implemented. The following are the only functions that should be used to write this program: push | pop | peek | isEmpty.**
+
+If only stack could be used then an extra stack is needed to simulate insert sort
+
+**4.1 Implement a function to check if a tree is balanced. For the purposes of this question, a balanced tree is defined to be a tree such that no two leaf nodes differ in distance from the root by more than one**
+
+Just get every leaf node&apos;s depth by tree walk(time O(n)) and store them (space O(n/2)) then go through the array to judge if the tree is unbalanced or check the tree in a postorder that is recursively down and then judge.
+
+**4.2 Given a directed graph, design an algorithm to find out whether there is a route between two nodes**
+
+Using BFS to find.
+
+**4.3 Given a sorted (increasing order) array, write an algorithm to create a binary tree with minimal height **
+
+It&apos;s easy to use recursion way to build the tree with limited length. You can use binary search way to build binary search tree.
+
+**4.4 Given a binary search tree, design an algorithm which creates a linked list of all the nodes at each depth (ie , if you have a tree with depth D, you’ll have D linked lists) **
+
+Just walk though the tree and link those nodes to the linked lists based on the depth of the nodes. A better solution is using BFS way to walk though the tree.
+&lt;pre&gt;`void tree_level_walk(struct bt_tree* root, vector&amp;lt;list&amp;gt; &amp;amp;res){
+    list ltmp;
+    list::iterator it;
+    struct bt_tree* tmp;
+    int depth = 1;
+
+    ltmp.push_back(root);
+    res[depth].push_back(ltmp);
+
+    while(!res[depth].empty()){ // check every level
+        ltmp.clear();
+        for(it=res[depth].begin(); it!=res[depth].end(); ++it){ // using list as queue to store all next level nodes
+            tmp = *it;
+            if(tmp-&amp;gt;left) ltmp.push_back(tmp-&amp;gt;left);
+            if(tmp-&amp;gt;right) ltmp.push_back(tmp-&amp;gt;right);
+        }
+        ++depth;
+        res[depth].push_back(ltmp);
+    }
+}
+`&lt;/pre&gt;
+**4.5 Write an algorithm to find the ‘next’ node (ie , in-order successor) of a given node in a binary search tree where each node has a link to its parent**
+&lt;pre&gt;`def tree_successor(self, node):
+     if node.right != None:
+          return tree_min(node.right)
+     tmp = node.parent
+     while tmp != None and node == tmp.right:
+          node = tmp
+          tmp = node.parent
+     return tmp
+`&lt;/pre&gt;
+**4.6 Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This is not necessarily a binary search tree **
+
+If you want store all ancestor of one node to check then using hash table instead of simple array. But it requires every node has a link to its parent and additional space. Else you can start from root and using recursive way to find result and take over very time you find a closer one.
+&lt;pre&gt;`bool father(struct bt_tree* n1, struct bt_tree* n2){
+    if(n1 == NULL) return false;
+    else if(n1 == n2) return true;
+    else return father(n1-&amp;gt;lchild, n2) || father(n1-&amp;gt;rchild, n2);
+}
+
+void find_ancestor(struct bt_tree* head, struct bt_tree* n1, struct bt_tree* n2, struct bt_tree** res){
+    if(head == NULL) return;
+    if(head &amp;amp;&amp;amp; father(head, n1) &amp;amp;&amp;amp; father(head, n2)){
+        res = head; 
+        find_ancestor(head-&amp;gt;left, n1, n2, res);
+        find_ancestor(head-&amp;gt;right, n1, n2, res);
+    }
+}`&lt;/pre&gt;
+Here is a better solution to check less node
+&lt;pre&gt;`struct bt_tree* find_ancestor(struct bt_tree* head, struct bt_tree* n1, struct bt_tree *n2){
+     if(head == NULL) return NULL;
+     if(head == n1 || head == n2) return head; //check if ancestor
+     struct bt_tree* left = find_ancestor(head-&amp;gt;left, n1, n2);
+     struct bt_tree* right = find_ancestor(head-&amp;gt;right, n1, n2);
+     if(left &amp;amp;&amp;amp; right) return head;
+     return left?left:right;
+}`&lt;/pre&gt;
+**4.7 You have two very large binary trees: T1, with millions of nodes, and T2, with hundreds of nodes. Create an algorithm to decide if T2 is a subtree of T1**
+
+Using BFS way to go though T1 and compare with T2 if the node is equal with T2&apos;s root. Using string comparing technique is a better way for it&apos;s easier to store in disk file so just compare inorder and preoder sequence. It&apos;s a really hard to deal with such big data.
+
+**4.8 You are given a binary tree in which each node contains a value. Design an algorithm to print all paths which sum up to that value. Note that it can be any path in the tree it does not have to start at the root. **
+
+You can walk though the tree and backtrace every node if it has a link to parent to calculate the sum and judge.
+
+**5.1 You are given two 32-bit numbers, N and M, and two bit positions, i and j. Write a method to set all bits between i and j in N equal to M (eg, M becomes a substring of N located at i and starting at j)
+EXAMPLE:
+Input: N = 10000000000, M = 10101, i = 2, j = 6
+Output: N = 10001010100**
+
+(N ^ ~(1&amp;lt;&amp;lt;(j-i+1)-1)&amp;lt;&amp;lt;i) | (M&amp;lt;&amp;lt;i)
+
+**5.2 Given a (decimal - eg 3.72) number that is passed in as a string, print the binary representation. If the number can not be represented accurately in binary, print “ERROR”**
+
+Using &apos;%&apos; op to deal with integer part and  multiply op to deal with decimal part which should be finished the same time s as its length, for example  decimal part of 3.72  should be finished in two times of multiply or should print &quot;ERROR&quot;
+
+**5.3 Given an integer, print the next smallest and next largest number that have the same number of 1 bits in their binary representation**
+
+To make a larger number just find the 1st zero bit after 1 bits and change that bit into 1 and set all lower bit into 0, in the mean time of going though the number remember to count the number of 1 bit (not including the last 1 bit before the changed bit) and then set the same number of 1 bit from the lowest bit place. A better way to count 1 bit is using following method:
+&lt;pre&gt;`
+int count_one(int x){
+    x = (x &amp;amp; (0x55555555)) + ((x &amp;gt;&amp;gt; 1) &amp;amp; (0x55555555));
+    x = (x &amp;amp; (0x33333333)) + ((x &amp;gt;&amp;gt; 2) &amp;amp; (0x33333333));
+    x = (x &amp;amp; (0x0f0f0f0f)) + ((x &amp;gt;&amp;gt; 4) &amp;amp; (0x0f0f0f0f));
+    x = (x &amp;amp; (0x00ff00ff)) + ((x &amp;gt;&amp;gt; 8) &amp;amp; (0x00ff00ff));
+    x = (x &amp;amp; (0x0000ffff)) + ((x &amp;gt;&amp;gt; 16) &amp;amp; (0x0000ffff));
+    return x;
+}
+</code></pre><p>To make a lower number is the same just find the 1st 1 bit after zero bits and count 1 bits(including the changed bit) and then set.<br>Yet you should be careful with the negative numbers.</p>
+<p><strong>5.4 Explain what the following code does: ((n &amp; (n-1)) == 0)</strong></p>
+<p>To check if n is power of 2.</p>
+<p><strong>5.5 Write a function to determine the number of bits required to convert integer A to integer B<br>Input: 31, 14<br>Output: 2</strong></p>
+<p>Using (1&lt;&lt;i) and operation and to go though two number and count how many bit are different. A better way is to count the 1 in result of A ^ B.</p>
+<p><strong>5.6 Write a program to swap odd and even bits in an integer with as few instructions as possible (eg, bit 0 and bit 1 are swapped, bit 2 and bit 3 are swapped, etc)</strong></p>
+<p>((x &amp; 0xaaaaaaaa) &gt;&gt; 1) | ((x &amp; 0x55555555) &lt;&lt; 1)</p>
+<p><strong>5.7 An array A[1…n] contains all the integers from 0 to n except for one number which is missing. In this problem, we cannot access an entire integer in A with a single operation. The elements of A are represented in binary, and the only operation we can use to access them is “fetch the jth bit of A[i]”, which takes constant time. Write code to find the missing integer. Can you do it in O(n) time?</strong></p>
+<p>Testing number of every bit in the array to select the minimal part and make the missing element.</p>
+<p><pre>def find_missing(a[], n):<br>     len = n-1<br>     column = lg(n)<br>     res = 0<br>     for j in range(column-1, 0, -1):<br>          count0=count1=0<br>          a1=a2=[]<br>          for i in a:<br>              if (getBit(i, j)):<br>                  a1[count1++]=i<br>              else:<br>                  a0[count0++]=ai<br>          if count1 &gt;= count0: #may have problem when count eqs to zero<br>              a=a0, len = count0<br>          else:<br>              a=a1, len = count1<br>              res+=(1&lt;&lt;j)<br>     return res</pre><br>Remember missing one number problem can always be solved by sumup(1,n)-sumup(a[1],a[n])</p>
+<p><strong>6.1 Add arithmetic operators (plus, minus, times, divide) to make the following expression true: 3 1 3 6 = 8   You can use any parentheses you’d like</strong></p>
+<p>(3+1)/3*6=8</p>
+<p><strong>6.2 There is an 8x8 chess board in which two diagonally opposite corners have been cut off You are given 31 dominos(多米诺骨牌), and a single domino can cover exactly two squares Can you use the 31 dominos to cover the entire board? Prove your answer (by providing an example, or showing why it’s impossible)</strong></p>
+<p>As two corners painted in the same color are cut off. It’s imporssible to cover with uncoupled numbers of squares.</p>
+<p><strong>6.3 You have a five quart jug and a three quart jug, and an unlimited supply of water (but no measuring cups) How would you come up with exactly four quarts of water? NOTE: The jugs are oddly shaped, such that filling up exactly ‘half’ of the jug would be impossible</strong></p>
+<p>Firstly using full five quart jug minus three quart jug(5-3=2), then put the rest in three quart jug(3-2=1) and then use full five quart jug to fill three quart jug(5-1=4).</p>
+<p><strong>6.4 A bunch of men are on an island A genie comes down and gathers everyone together and places a magical hat on some people’s heads (ie , at least one person has a hat) The hat is magical: it can be seen by other people, but not by the wearer of the hat himself. To remove the hat, those (and only those who have a hat) must dunk themselves underwater at exactly midnight If there are n people and c hats, how long does it take the men to remove the hats? The men cannot tell each other (in any way) that they have a hat.</strong></p>
+<p>All men on the island knowns there exists at least one hat. So one hat takes one day, two hats take two days and c hats take c days to remove.</p>
+<p><strong>6.5 There is a building of 100 floors If an egg drops from the Nth floor or above it will break If it’s dropped from any floor below, it will not break You’re given 2 eggs Find N, while minimizing the number of drops for the worst case.</strong></p>
+<p>Using section to reduce number of drops, <code>x + (x-1) + (x-2) + ... + 1 &amp;gt;= 100</code> and x eqs to 14 then sections will be <code>14, 27, 39, 50, 60, 69, 77, 84, 90, 95, 99, 100</code> and then first egg to test the section and second egg to test level sequencely.</p>
+<p><strong>6.6 There are one hundred closed lockers in a hallway. A man begins by opening all one hundred lockers. Next, he closes every second locker. Then he goes to every third locker and closes it if it is open or opens it if it is closed (eg , he toggles every third locker). After his one hundredth pass in the hallway, in which he toggles only locker number one hundred, how many lockers are open?</strong></p>
+<p>Except 1 and the number itself, if the number i can be divided exactly by factor a then it can be diveded exactly by factor i/a meaning that number of factors would be even. Only when i=i/a the number of factors will become odd and the number i must be the full square so from 1 to 100 will be 10 lockers remain open.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/08/12/cracking-the-coding-interview-q1-6/" data-id="cjap5lttq002mb8rlnlkeqrbx" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/08/12/cracking-the-coding-interview-q1-6/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/08/14/python-for-loop-with-backstep/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          python技巧：逆序循环
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/06/05/information-exange-for-war/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">阿里笔试题战士传信问题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/WordPress开发/">WordPress开发</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品设计/">产品设计</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端语言/">后端语言</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/新技术跟踪/">新技术跟踪</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/">系统架构</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/项目经历/">项目经历</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统经验/">系统经验</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/课程总结/">课程总结</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融/">金融</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试总结/">面试总结</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目经历/">项目经历</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InnoDB/">InnoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS模板/">JS模板</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux设置/">Linux设置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVCC/">MVCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP主题/">WP主题</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP实现/">WP实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP插件/">WP插件</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP设置/">WP设置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/">WebGL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache-coherence/">cache coherence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history/">history</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios应用/">ios应用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptv/">iptv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/">join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kv存储/">kv存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutex/">mutex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/">paxos</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raft/">raft</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url重定向/">url重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web2-0/">web2.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文汉化/">中文汉化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/互联网企业/">互联网企业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/债券/">债券</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内核/">内核</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式锁/">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/华为/">华为</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基金/">基金</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外设/">外设</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源项目/">开源项目</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无锁并发/">无锁并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/期货/">期货</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栅格系统/">栅格系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/科研/">科研</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/股票/">股票</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本加载/">脚本加载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/腾讯/">腾讯</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/苹果/">苹果</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法/">语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读写锁/">读写锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调度/">调度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金山/">金山</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隔离级别/">隔离级别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目管理/">项目管理</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/InnoDB/" style="font-size: 10px;">InnoDB</a> <a href="/tags/JS模板/" style="font-size: 11.67px;">JS模板</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Linux设置/" style="font-size: 10px;">Linux设置</a> <a href="/tags/MVCC/" style="font-size: 10px;">MVCC</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WP主题/" style="font-size: 16.67px;">WP主题</a> <a href="/tags/WP实现/" style="font-size: 10px;">WP实现</a> <a href="/tags/WP插件/" style="font-size: 16.67px;">WP插件</a> <a href="/tags/WP设置/" style="font-size: 11.67px;">WP设置</a> <a href="/tags/WebGL/" style="font-size: 11.67px;">WebGL</a> <a href="/tags/Zookeeper/" style="font-size: 10px;">Zookeeper</a> <a href="/tags/cache-coherence/" style="font-size: 10px;">cache coherence</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/fabric/" style="font-size: 11.67px;">fabric</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/google/" style="font-size: 11.67px;">google</a> <a href="/tags/history/" style="font-size: 10px;">history</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/ios应用/" style="font-size: 10px;">ios应用</a> <a href="/tags/iptv/" style="font-size: 10px;">iptv</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/kv存储/" style="font-size: 10px;">kv存储</a> <a href="/tags/memory/" style="font-size: 10px;">memory</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/paxos/" style="font-size: 11.67px;">paxos</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raft/" style="font-size: 10px;">raft</a> <a href="/tags/url重定向/" style="font-size: 10px;">url重定向</a> <a href="/tags/web2-0/" style="font-size: 10px;">web2.0</a> <a href="/tags/zookeeper/" style="font-size: 11.67px;">zookeeper</a> <a href="/tags/中文汉化/" style="font-size: 11.67px;">中文汉化</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/互联网企业/" style="font-size: 11.67px;">互联网企业</a> <a href="/tags/债券/" style="font-size: 11.67px;">债券</a> <a href="/tags/内核/" style="font-size: 11.67px;">内核</a> <a href="/tags/分布式锁/" style="font-size: 10px;">分布式锁</a> <a href="/tags/区块链/" style="font-size: 13.33px;">区块链</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/基金/" style="font-size: 11.67px;">基金</a> <a href="/tags/外设/" style="font-size: 10px;">外设</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/实习/" style="font-size: 15px;">实习</a> <a href="/tags/开源项目/" style="font-size: 10px;">开源项目</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/数据库/" style="font-size: 18.33px;">数据库</a> <a href="/tags/无锁并发/" style="font-size: 10px;">无锁并发</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/期货/" style="font-size: 11.67px;">期货</a> <a href="/tags/栅格系统/" style="font-size: 10px;">栅格系统</a> <a href="/tags/科研/" style="font-size: 10px;">科研</a> <a href="/tags/算法/" style="font-size: 18.33px;">算法</a> <a href="/tags/索引/" style="font-size: 11.67px;">索引</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/股票/" style="font-size: 11.67px;">股票</a> <a href="/tags/脚本加载/" style="font-size: 10px;">脚本加载</a> <a href="/tags/腾讯/" style="font-size: 15px;">腾讯</a> <a href="/tags/苹果/" style="font-size: 10px;">苹果</a> <a href="/tags/语法/" style="font-size: 11.67px;">语法</a> <a href="/tags/读写锁/" style="font-size: 10px;">读写锁</a> <a href="/tags/调度/" style="font-size: 10px;">调度</a> <a href="/tags/金山/" style="font-size: 10px;">金山</a> <a href="/tags/锁/" style="font-size: 10px;">锁</a> <a href="/tags/键盘/" style="font-size: 10px;">键盘</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试/" style="font-size: 20px;">面试</a> <a href="/tags/项目管理/" style="font-size: 11.67px;">项目管理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/03/">March 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/02/Qconf-summary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/08/blockchain-tech-summary/">区块链技术总结与架构实战</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/fabric-ca-design/">Hyperledger Fabric CA设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/05/sicp-charpter-two/">SICP第二章总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chao Zheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  </footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/php-development-env-setup-in-win7-x64.html" class="mobile-nav-link">PHP-WIN</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'chaozh';
+  
+  var disqus_url = 'http://chaozh.github.com/2013/08/12/cracking-the-coding-interview-q1-6/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

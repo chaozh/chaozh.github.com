@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives | chaozh.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="系统架构,移动开发,独立游戏">
+<meta property="og:type" content="website">
+<meta property="og:title" content="chaozh.com">
+<meta property="og:url" content="http://chaozh.github.com/archives/page/5/index.html">
+<meta property="og:site_name" content="chaozh.com">
+<meta property="og:description" content="系统架构,移动开发,独立游戏">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chaozh.com">
+<meta name="twitter:description" content="系统架构,移动开发,独立游戏">
+  
+    <link rel="alternative" href="/atom.xml" title="chaozh.com" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">chaozh.com</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">超然台上仙的知识库|系统架构,移动开发,独立游戏</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/php-development-env-setup-in-win7-x64.html">PHP-WIN</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chaozh.github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-design-and-implementation-of-high-performance-cache-subsystem-in-object-storage-server" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/09/02/design-and-implementation-of-high-performance-cache-subsystem-in-object-storage-server/" class="article-date">
+  <time datetime="2013-09-02T10:02:11.000Z" itemprop="datePublished">2013-09-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统架构/">系统架构</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/09/02/design-and-implementation-of-high-performance-cache-subsystem-in-object-storage-server/">高效对象存储服务器缓存设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>在OSD端实现读写缓存以优化服务器性能，提升IO性能</p>
+<h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>设计并实现数据缓存模块，包括缓存存储结构的设计，提供缓存刷新与替换机制及预读机制</p>
+<h3 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h3><p>参考Linux内核使用基树构建读写混合缓存，整个缓存空间基于一个大的内存池，该内存池使用buddy算法进行管理，读缓存方面实现LIRS算法取代LRU算法以提高缓存命中率，写缓存方面使用异步写回策略（做IO聚合），一定时间需要进行赃页回收以给读缓存热区预留空间。</p>
+<p>关于LIRS，主要是LRU算法存在以下问题：</p>
+<p>1, 顺序扫描。顺序扫描的情况下LRU没有命中情况，而且会淘汰其它将要被访问的item从而污染cache。</p>
+<p>2, 循环的数据集大于缓存大小。如果循环访问且数据集大于缓存大小，那么没有命中情况。</p>
+<p>LIRS将数据分为两部分：LIR热区和HIR冷区，第一级是HIR，第二级是LIR，数据先进入到第一级，当数据在较短的时间内被访问两次时成为热点数据则进入LIR，HIR和LIR内部都采用LRU策略。这样，LIR中的数据比较稳定，解决了LRU的上述两个问题。除Recency外引入与locality相关的的IRR概念，即使用最近两次访问之间其他唯一块的数目。该数目体现了再次出现的可能性（越大越不可能再次出现）使用该概念后的LIRS最有可能将最新的访问缓存起来并在下次访问剔除，但是依旧使用recency进行缓存内的调整。</p>
+<p>在设计时使用一个栈来剔除recency较大且HIR的块以方便考察（在栈中的HIR块才可能变为LIR块，相应在栈中Recency最大的LIR块被出栈并转化为HIR块，注意这些转化并未导致被剔除出缓存，被剔除缓存的一定是HIR块而无论其是否在栈中）工程实现时无论是栈还是队列都使用list将块链起来实现即可，mysql ndb也是这么干的。每次决定是否将一个HIR块加入到LIR的时候都需要往栈里扫描一遍，这个时间开销是O(c)</p>
+<h3 id="优化、难点"><a href="#优化、难点" class="headerlink" title="优化、难点"></a>优化、难点</h3><p>读写混合缓存与LIRS算法的冲突的问题采用回收线程定期回收赃页进行改善。多线程并发时有时使用读写锁效率不如互斥锁，原因在<a href="http://www.chaozh.com/why-sometimes-pthread-mutex-overhead-rwlock/" title="为何线程互斥锁优于读写锁" target="_blank" rel="noopener">前文</a>已述，且多线程调试充满困难。malloc在小文件频繁申请上损耗较多，所以采用内存池解决。</p>
+<p>关键点：内存空间管理，多线程同步，缓存替换算法，异步写回</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/09/02/design-and-implementation-of-high-performance-cache-subsystem-in-object-storage-server/" data-id="cjap5ltuh003wb8rlk05f49be" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/09/02/design-and-implementation-of-high-performance-cache-subsystem-in-object-storage-server/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-design-and-implementation-of-distributed-lock-manager" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/31/design-and-implementation-of-distributed-lock-manager/" class="article-date">
+  <time datetime="2013-08-31T20:58:42.000Z" itemprop="datePublished">2013-08-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统架构/">系统架构</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/31/design-and-implementation-of-distributed-lock-manager/">对象存储文件系统分布式锁设计与实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>capfs是实验室自主研发，隶属于国家863重大项目“海量存储系统整体研究”的分布式对象存储系统，设计采用类似于PNFS的三方架构，具有高聚合带宽，并且具备高可扩展性、支持大目录等。系统能够达到60GB/s聚合带宽，支持10PB级存储，IOPS达到10^4至10^5，系统能够支持10亿个文件的访问（这些不需要强调）。</p>
+<h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>主要任务是为capfs提供分布式锁服务，为系统中的共享资源提供协同访问和一致性视图，保证数据并发访问的安全性。主要涉及flock文件锁系统调用功能及多客户端访问同一文件的元数据或数据一致性，满足读写一致性要求。</p>
+<h3 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h3><p>首先是带领小组分析学习成熟系统NFS及Lustre文件系统的一致性保证机制，为设计作为参考。NFS在v3版本之前都仅采用时间戳判断元数据是否失效，并每次更新同步并重新请求元数据，在多客户端访问下可能存在短暂的读写不一致情况。NFSv4在此基础上引入租约及回调机制，但只在open操作时申请，并且在remove类似操作时释放并回调，导致在多客户端情况下可能出现ping-pong效应且客户端缓存利用不足。Lustre设计多种锁类型进行一致性保护，修改了Linux内核以支持意图锁模式，并利用多种回调机制使得客户端尽可能持有锁，在服务器实现方面利用namespace及资源两个概念描述被保护的共享资源，并为每个资源设计三种锁队列。</p>
+<p>编写分布式锁主体框架以及与分布式系统耦合相关的代码。主要是提供文件级租约锁服务以保障客户端元数据缓存的一致性，该设计充分吸取了NFS的设计经验，这样就可以避免复杂的锁请求恢复及死锁检测（租约会在一段时间后自动失效，目前设置为30s，优化可以使用自适应算法），但是在lookup时即申请并在对应操作进行锁升级以加大并发度。服务器与回调接口设计参考Lustre，服务器架设在mds端，这样锁请求与元数据请求同时发送；同时在客户端架设锁客户端以类似plugin的形式嵌合（模块），接口传入资源字符串以保证通用性，以不同的命名规则区分文件锁及租约锁申请。</p>
+<h3 id="优化、难点"><a href="#优化、难点" class="headerlink" title="优化、难点"></a>优化、难点</h3><p>性能优化方面实现锁客户端的锁缓存方便回调查找，以及所谓子树锁优化，前者保证回调查找的高效，后者保证同一目录下多文件不用多次进行租约授予。继续可以利用冲突判断（目前为5次，超过后即放弃元数据缓存）降低ping-pong效应，特别是子树锁可能导致的冲突加剧。容易忽略的地方是客户端的时间同步。高可用性方面，需要加强mds的高可用性，锁相关的mds事务处理尚未实现。（关键设计难点在删除操作的一致性保证，目前尚未解决）。</p>
+<p>支持5000并发访问</p>
+<p>关键点：Linux内核开发，租约机制，回调，子树锁优化</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/08/31/design-and-implementation-of-distributed-lock-manager/" data-id="cjap5ltuf003rb8rlnxk70rmn" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/08/31/design-and-implementation-of-distributed-lock-manager/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-cracking-the-coding-interview-q13-18" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/23/cracking-the-coding-interview-q13-18/" class="article-date">
+  <time datetime="2013-08-23T11:18:07.000Z" itemprop="datePublished">2013-08-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/课程总结/">课程总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/23/cracking-the-coding-interview-q13-18/">Cracking the coding interview Q13-18</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>13.1 Write a method to print the last K lines of an input file using C++.</strong></p>
+<pre>int tail(const string &amp;fname, int lines, list &amp;res)
+{
+    ifstream fs(fname.c_str());
+    if(!fs)
+        return -1;
+    int status = 0;
+    int bytes_perline = 100;
+    fs.seekg(0, fs.end);//fs.end
+    streamoff end_pos = fs.tellg();
+    streamoff start_pos = end_pos - bytes_perline*lines;
+    if(start_pos &lt; 0) start_pos = 0;
+    fs.seekg(start_pos, fs.beg);
+
+    string line;
+    list::iterator it = res.begin();
+    while(res.size() &lt; lines){         
+       getline(fs, line);         
+       it = res.insert(it, line);         
+       ++it;         
+       if(status == 0){ //find last lines             
+         if(fs.eof()){                 
+                if(res.size() &gt; lines)
+                    break;
+                end_pos = start_pos;
+                start_pos&gt;&gt;=1;
+                fs.clear();
+                fs.seekg(start_pos, fs.beg);
+                res.erase(--it);
+                it=res.begin();
+                status = 1;
+            }
+        }else if(status &gt; 0){ // look up in the front
+            if(fs.tellg() &gt;= end_pos){
+                if(res.size() &gt; lines)
+                    break;
+                end_pos = start_pos;
+                start_pos&gt;&gt;=1;
+                fs.clear();
+                fs.seekg(start_pos, fs.beg);
+                res.erase(--it);
+                it=res.begin();
+                 if(start_pos &lt;= 0) // reach the top                     
+                    break;             
+             }                  
+        }    
+   }         
+   if(res.size()&gt; lines ){
+       int i = res.size()-lines;
+       for(;i&gt;0;--i)
+          res.erase(res.begin());
+   }
+
+   return res.size();
+}
+
+int main(int argc, char const *argv[])
+{
+    int ret;
+    list res;
+    ret = tail(argv[1], atoi(argv[2]), res);
+    if(ret&gt;0)
+        copy(res.begin(), res.end(), ostream_iterator(cout, "\n"));
+    return 0;
+}</pre>
+**13.2 Compare and contrast a hash table vs an STL map. How is a hash table implemented?  If the number of inputs is small, what data structure options can be used instead of  a hash table.**
+
+STL map's pairs are in sorted order but hash table don't and STL map takes O(nlgn) to find a elm yet hash table takes O(1) time. When implement a hash table you should find a hash function, deal with collision and size of table. If inputs is small then RB tree would be a a alternative way for hash table.
+
+**13.3  How do virtual functions work in C++?**
+
+A virtual function depends on a "virtual table". If any function or class is declared as virtual, a v-table is constructed  which stores addresses of the virtual functions of this class. The compiler also adds a hidden vptr in all such classes which points to the vtable. If a virtual function is not overriden in the derived class, the vtable of the derived class stores the adress of the function in his parent class. The vtable is used to resolve the address of the function. Dynamic binding in C++ is therefore performed though the vtable mechanism.
+
+**13.4 What is the difference between deep copy and shallow copy? Explain how you would use each.**
+
+Shallow copy just copy the address of the object's ptr field yet deep copy also copy the values of that ptr points to which need dynamic allocated space.  The default copy constructor and assignment operator make shallow copies. Deep copy usually are used to deal with the string or buffer.
+
+**13.5  What is the significance of the keyword “volatile” in C**
+
+Volatile informs the compiler that the value of the variable can change from the outside, without any update done by the code, thus just don't optimize the variable related code and fetch the variable value from memory instead of the register.
+
+**13.6  What is name hiding in C++? **
+
+"Name hiding is particularly tricky if the derived class's method has a different signature than the base class's method of the same name." Base class's method would be hidden if the derived class overrides that method (no-virtual function) and overloaded in the same time. (see Effective C++ rule 33)
+
+**13.7  Why does a  destructor in base class need to be declared virtual?**
+
+If we delete on the base ptr which points to the derived class object, the base class destructor called first (for no-virtual function) which would lead to a memory leak for the derived part. We should declare base class's destructor in virtual so that derived destructor would be called first and destroy all parts of the object as we expected.
+
+**13.8 Write a method that takes a pointer to a Node structure as a parameter and returns a complete copy of the passed-in data structure.The Node structure contains two pointers to other Node structures.**
+
+It's mush alike deep copy a binary tree.
+<pre>typedef struct Node Node_t;
+struct Node{
+   struct Node* ptr1;
+   struct Node* ptr2; 
+};
+typedef set&lt;Node_t*&gt; NodeMap;
+
+Node_t* copy_recursive(Node_t* cur, NodeMap &amp;map){
+    if(cur == NULL) return NULL;
+    NodeMap::iterator it = map.find(cur);
+    if(it != map.end())
+       return *it;
+    Node_t* node = new Node_t;
+    map.insert(node);
+    node-&gt;ptr1 = copy_recursive(cur-&gt;ptr1, map);
+    node-&gt;ptr2 = copy_recursive(cur-&gt;ptr2, map);
+    return node;
+} 
+
+Node_t* copy_node(Node_t* root){
+     NodeMap map;
+     return copy_recursive(root, map);
+}</pre>
+**13.9  Write a smart pointer (smart_ptr) class.  **
+
+Check Effective C++ rule 14.
+<pre>template &lt;class T&gt;
+class smart_ptr {
+public:
+    smart_ptr(T *ptr){
+        //cout&lt;&lt;"default"&lt;&lt;endl;
+        ref = ptr;
+        ref_count = new unsigned int();
+        *ref_count = 1;
+    }
+
+    smart_ptr(smart_ptr &amp;sptr){
+        //cout&lt;&lt;"copy assign"&lt;&lt;endl;
+        ref = sptr.ref;
+        ref_count = sptr.ref_count;
+        ++*ref_count;
+    }
+
+    smart_ptr&amp; operator=(smart_ptr &amp;sptr){
+        //cout&lt;&lt;"= assign"&lt;&lt;endl;
+        if(this != &amp;sptr &amp;&amp; ref != sptr.ref) {
+            if (--*ref_count == 0){ // this may already got a ptr
+                clear();
+                //cout&lt;&lt;"= clear"&lt;&lt;endl;
+            }
+
+            ref = sptr.ref;
+            ref_count = sptr.ref_count;
+            ++*ref_count;
+        }
+        return *this;
+    }
+
+        T operator*() { return *ref; }
+
+    ~smart_ptr(){
+        //cout&lt;&lt;*ref_count&lt;&lt;endl;
+        if(--*ref_count == 0){
+            clear();
+            //cout&lt;&lt;"clear"&lt;&lt;endl;
+        }
+    }
+private:
+    void clear(){
+        delete ref;
+        delete ref_count;
+        ref = NULL;
+        ref_count = NULL;
+    }
+protected:
+    T *ref;
+    unsigned int *ref_count;
+};
+
+int main(int argc, char const *argv[])
+{
+    int *p1 = new int();
+    *p1 = 100;
+    smart_ptr sp1(p1), sp2(p1);
+    smart_ptr spa = sp1; // copy assign not = assign
+    sp2 = sp1; // = assign
+    cout&lt;&lt;*spa&lt;&lt;endl; // spa is the same of sp1
+    return 0;
+}</pre>
+**15.1 Write a method to find the number of employees in each department**
+<pre>SELECT Departments.name, count(Employees.id) FROM Departments, Employees WHERE Employees.depid = Departments.id(+) GROUP BY Departments.id
+
+SELECT Departments.name, count(Employees.id) FROM Departments LEFT JOIN Employees ON Employees.depid = Departments.id GROUP BY Departments.id</pre>
+**15.2 What are the different types of joins? Please explain how they differ and why certain types are better in certain situations.**
+
+** ** There are innerjoin, left outer join, right outer join, full outer join and cross join. INNER JOIN result set will only contain datas where the criteria match.
+<pre>SELECT * FROM Employees, Departments WHERE Employees.dpid = Departments.id;</pre>
+CROSS JOIN returns the Cartesian product of rows from tables in the join. It will produce rows which combine each row from the first table with each row from the second table.
+<pre>SELECT * FROM Employees, Departments;</pre>
+LEFT OUTER JOIN returns all the values from an inner join plus all values in the left table that do not match to the right table(NULL in the case of no matching join predicate).
+<pre>SELECT * FROM Employees, Departments WHERE Employees.dpid = Departments.id(+);</pre>
+RIGHT OUTER JOIN returns all the values from the right table and matched values from the left table (NULL in the case of no matching join predicate). Right and left outer joins are functionally equivalent. FULL OUTER JOIN combines the effect of applying both left and right outer joins. Some database systems do not support the full outer join functionality directly.
+<pre>SELECT * FROM Employees INNER JOIN Departments ON Employees.dpid = Departments.id UNION ALL;</pre>
+**15.3 What is denormalization? Explain the pros and cons.**
+
+denormalization is the process of attempting to optimize the read performance of a database by adding redundant data or by grouping data, like storing the count of the "many" objects in a one-to-many relationship as an attribute of the "one" relation or adding attributes to a relation from another relation with which it will be joined. It's do good in performance yet more redundant data.
+
+**15.5 Imagine a simple database storing information for students’ grades. Design what this database might look like, and provide a SQL query to return a list of the honor roll students (top 10%), sorted by their grade point average.**
+<pre>CREATE TABLE Students(
+    'sid' INT NOT NULL AUTO_INCREMENT,
+    'name' varchar(20) NOT NULL,
+    'sex' enum(f,m),
+    PRIMARY KEY('sid')
+);
+
+CREATE TABLE Courses(
+    'cid' INT NOT NULL AUTO_INCREMENT,
+    'name' varchar(20) NOT NULL,
+    'description' text,
+    PRIMARY KEY('cid')
+);
+
+CREATE TABLE Enrollment(
+     'eid' INT NOT NULL AUTO_INCREMENT,
+     'cid' INT NOT NULL,
+     'sid' INT NOT NULL,
+     'grade' INT NOT NULL,
+     PRIMARY KEY('eid')
+);
+
+SELECT Students.name, GPA 
+FROM (
+     SELECT TOP 10 percent Avg(Enrollment.grade) AS GPA, Enrollment.sid 
+     FROM Enrollment 
+     GROUP BY Enrollment.sid 
+     ORDER BY Avg(Enrollment.grade)
+) Honors, Students 
+WHERE Students.sid = Honors.sid;</pre>
+**16.1 Explain the following terms: virtual memory, page fault, thrashing.**
+
+_Virtual memory_ maps memory addresses used by programs to physical addresses in memory hardware, thus Main storage as seen by a process or task appears as a contiguous address space.
+
+_Page fault_ is a trap raised by the hardware when a program accesses a page that is mapped in the virtual address space, but not loaded in physical memory.
+
+_Thrashing_ occurs when a computer's virtual memory subsystem is in a constant state of paging, rapidly exchanging data in memory for data on disk, to the exclusion of most application-level processing, which causes the performance of the computer to degrade or collapse.
+
+**16.2 What is a Branch Target buffer? Explain how it can be used in reducing bubble cycles in cases of branch misprediction**
+
+The _branch target buffer_ is a true cache, the full PC value must be conpared to validate that this is a branch instruction before taking any action which reduces the penalty by predicting the path of the branch, computing the target of the branch and caching the information used by the branch. There will be no stalls if the branch entry found on BTB and the prediction is correct, otherwise the penalty will be at least two cycles.
+
+**16.3 Describe direct memory access (DMA). Can a user level buffer/pointer be used by kernel or drivers? **
+
+_DMA_ is a feature that allows certain hardware subsystems within the computer to access system memory independently of the CPU. By using DMA, drivers can access the memory allocated to the user level buffer/pointer.
+
+**16.5 Write a program to find whether a machine is big endian or little endian.**
+<pre>bool check_little_endian()
+{
+   union{
+       int a;
+       char b;
+   }c;
+   c.a = 1;
+   return c.b ? true : false;
+}
+
+bool check_little_endian()
+{
+    short int a = 0x0001;
+    char* b = (char*)&amp;a;
+    return b[0] ? true : false;
+}</pre>
+**16.6 Discuss how would you make sure that a process doesn’t access an unauthorized part of the stack **
+
+For native code there is the possiblility of stack overflow and remember in a multi-threaded environment, there can be multiple stacks in a process and nothing can fully prevent process access memory addresses. We can build a sandbox for the program and vm is a good example.
+
+**16.8 A device boots with an empty FIFO queue. In the first 400ns period after startup, and in each subsequent 400ns period, a maximum of 80 words will be written to the queue. Each write takes 4ns. A worker thread requires 3ns to read a word, and 2ns to process it before reading the next word. What is the shortest depth of the FIFO such that no data is lost?**
+
+&nbsp;
+
+**16.9 Write an aligned malloc &amp; free function that takes number of bytes and aligned byte (which is always power of 2) EXAMPLE align_malloc(1000,128) will return a memory address that is a multiple of 128 and that points to memory of size 1000 bytes aligned_free() will free memory allocated by align_malloc **
+<pre>void* align_malloc(size_t bytes, size_t aligned){
+    void* p1; // original block
+    void** p2; // aligend block
+    // extra space for storing p1 and alignment
+    int offset = aligend - 1 + sizeof(void*); 
+    if ((p1 = (void*)malloc(bytes + offset)) == NULL)
+        return NULL;
+    // make sure p2 minus the extra space address and the result is aligned
+    p2 = (void**)(((size_t)(p1) + offset) &amp; ~(aligend - 1)); 
+    p2[-1] = p1; //store p1 for free operation
+    return p2;
+}
+
+void align_free(void* p){
+    free(((void**)p)[-1]);
+}</pre>
+**16.10 Write a function called my2DAlloc which allocates a two dimensional array. Minimize the number of calls to malloc and make sure that the memory is accessible by the notation arr[i][j] **
+<pre>int** my2DAlloc(int r, int c){
+    int header = r * sizeof(int*);
+    int data = r * c * sizeof(int);
+    int** arr = (int**)malloc(header + data);
+    int* buf = (int*)(arr + r); // save space for r ptrs
+    for(int i =0; i&lt; r; ++i)
+        arr[i] = buf + i * c; //every ptr points to the right place which works for arr[i][j]
+    return arr;
+}</pre>
+**17.1 Explain what happens, step by step, after you type a URL into a browser. Use as much detail as possible.**
+
+In an extremely rough and simplified sketch, assuming the simplest possible HTTP request, no proxies and IPv4 (this would work similarly for IPv6-only client):
+
+1.  browser checks cache; if requested object is in cache and is fresh, skip to #9
+2.  browser asks OS for server's IP address
+3.  OS makes a DNS lookup and replies the IP address to the browser
+4.  browser opens a TCP connection to server (this step is much more complex with HTTPS)
+5.  browser sends the HTTP request through TCP connection
+6.  browser receives HTTP response and may close the TCP connection, or reuse it for another request
+7.  browser checks if the response is a redirect (3xx result status codes), authorization request (401), error (4xx and 5xx), etc.; these are handled differently from normal responses (2xx)
+8.  if cacheable, response is stored in cache
+9.  browser decodes response (e.g. if it's gzipped)
+10.  browser determines what to do with response (e.g. is it a HTML page, is it an image, is it a sound clip?)
+11.  browser renders response, or offers a download dialog for unrecognized types
+Again, discussion of each of these points have filled countless pages; take this as a starting point. Also, there are many other things happening in parallel to this (processing typed-in address, adding page to browser history, displaying progress to user, notifying plugins and extensions, rendering the page while it's downloading, pipelining, connection tracking for keep-alive, etc.).
+
+**17.5 What are the differences between TCP and UDP?**
+
+TCP is a connection-oriented protocol and it's reliable, ordered and heavyweight. UDP is connectionless protocol and it's unreliable, not ordered and lightweight.
+
+**18.1 What’s the difference between a thread and a process?**
+
+A process can be thought of as an instance of a program in execution. Each process is an independent entity to which system resources (CPU time, memory, etc ) are allocated and each process is executed in a separate address space.
+
+A thread uses the same heap space of a process. A process can have multiple threads. Each thread still has its own registers and its own stack, but other threads can read and write the heap memory.
+
+**18.2 How can you measure the time spent in a context switch?**
+
+If the total timeof execution of all the processes was T, then the context switch time = T – (SUM for all processes (waiting time + execution time)). Overall, we can say that this is mostly an approximate calculation which depends on the underlying OS.
+
+**18.3 Implement a singleton design pattern as a template such that, for any given class Foo, you can call Singleton::instance() and get a pointer to an instance of a singleton of type Foo. Assume the existence of a class Lock which has acquire() and release() methods How could you make your implementation thread safe and exception safe?**
+<pre>class Lock {
+public:
+    Lock();
+    ~Lock();
+    void AcquireLock(){};
+    void RelaseLock(){};
+};
+
+template  class Singleton{
+public:
+    Singleton();
+    ~Singleton(){
+        if (object != 0)
+            delete object;
+    }
+    static T* instance();
+private:
+    static Lock lock;
+    static T* object;
+};
+
+template 
+Lock Singleton::lock;
+
+template 
+T* Singleton::object;
+
+template 
+T* Singleton::instance(){
+    if(object == 0){
+        lock.AcquireLock();
+        if (object == 0) {
+            object = new T;
+        }
+        lock.RelaseLock();
+    }
+    return object;
+}
+
+int main(int argc, char const *argv[])
+{
+    int* stest = Singleton::instance();
+    return 0;
+}</pre>
+**18.5 i) Can you design a mechanism to make sure that B is executed after A, and C is ex -
+ecuted after B?
+ii) Suppose we have the following code to use class Foo We do not know how the threads will be scheduled in the OS
+Foo f;
+f.A(.....); f.B(.....); f.C(.....);
+f.A(.....); f.B(.....); f.C(.....);
+Can you design a mechanism to make sure that all the methods will be executed in sequence?**
+
+i)
+<pre>Semaphore a(0),b(0);
+A {
+   ...
+   a.Release(1);
+}
+B {
+   a.Acquire(1);
+   ....
+   b.Release(1);
+}
+C {
+   b.Acquire(1);
+   ...
+}</pre>
+ii)
+<pre>Semaphore a(0),b(0),c(1);
+A {
+   c.Acquire(1);
+   ...
+   a.Release(1);
+}
+B {
+   a.Acquire(1);
+   ....
+   b.Release(1);
+}
+C {
+   b.Acquire(1);
+   ...
+   c.Release(1);
+}</pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/08/23/cracking-the-coding-interview-q13-18/" data-id="cjap5ltts002qb8rluts8kmpl" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/08/23/cracking-the-coding-interview-q13-18/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-cracking-the-coding-interview-q7-12" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/15/cracking-the-coding-interview-q7-12/" class="article-date">
+  <time datetime="2013-08-15T13:02:54.000Z" itemprop="datePublished">2013-08-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/课程总结/">课程总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/15/cracking-the-coding-interview-q7-12/">Cracking the coding interview Q7-12</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>7.7 Explain how you would design a chat server In particular, provide details about the various backend components, classes, and methods. What would be the hardest problems to solve?</strong></p>
+<p>We can learn from twitter and QQ server design. The main concepts of the chat server would be user(status), chat group and messages.</p>
+<p><pre>enum Status{offline, online, away}<br>struct Message{ User from_user; User to_user; String post_message;}<br>class User {Status type; Message posts[]; sendMessage(); addGroup(); updateStatus(); createGroup(); }<br>struct Group { Message posts[]; User list[];}</pre><br>Information sync with memory cache and database; Server scale; User session management;</p>
+<p><strong>7.9 Explain the data structures and algorithms that you would use to design an in-memory file system. Illustrate with an example in code where possible</strong></p>
+<p>File system must inlude dir and file structure. The key points are design of super block, directory and inodes. Super block mainly deal with namespace and organize inodes, which we could use hash table for fast fetching. Inodes contains meta data and organize datas, which we could use B tree (memory efficient) or radix tree(linux, fast fetching) or log structure (journaling tech for availability). Directory mainly deal with file lookup operations which convert string path to the rightful inode.</p>
+<p><strong>7.10 Describe the data structures and algorithms that you would use to implement a garbage collector in C++</strong></p>
+<p>Organize object with Smart ptr using  reference counting tech(bad with dead lock). Will java’s mark-sweep tech work?</p>
+<p><strong>8.1 Write a method to generate the nth Fibonacci number</strong></p>
+<p><pre>def fibonacci(n):<br>    a,b=0,1<br>    while(n&gt;0):<br>        a,b,n=b,a+b,n-1<br>    return a</pre><br><strong>8.2 Imagine a robot sitting on the upper left hand corner of an NxN grid. The robot can only move in two directions: right and down. How many possible paths are there for the robot? FOLLOW UP Imagine certain squares are “off limits”, such that the robot can not step on them. Design an algorithm to get all possible paths for the robot.</strong></p>
+<p>Using DFS and traceback to print all paths.</p>
+<p><strong>8.3 Write a method that returns all subsets of a set.</strong></p>
+<p><strong> </strong> It’s easy to solve this problem using 2^n bitmap for all subsets status and go thourgh to print corresponding subset.</p>
+<p><pre>def subsets(a, idx, len):<br>    sbs = []<br>    if idx == len:<br>        sb = []<br>        sbs.append(sb) #empty set<br>        print(sb)<br>    else:<br>        rsb = subsets(a, idx+1, len)<br>        e = a[idx]</pre></p>
+<pre><code>    #print(idx,rsb)
+    for i in rsb:
+        t1 = i[:]
+        sbs.append(t1) #keep origin
+        t2 = i[:]
+        t2.append(e) #add new elm
+        sbs.append(t2)
+        print(t2)
+return sbs&lt;/pre&gt;
+</code></pre><p><strong>8.4 Write a method to compute all permutations of a string. </strong></p>
+<p><pre>void permutations(const string &amp;s, vector &amp;v){<br>    if (s == “”){<br>        v.push_back(s);<br>    }else{<br>        string c = s.substr(0, 1); // substr(offset, len)<br>        vector vt;</pre></p>
+<pre><code>    permutations(s.substr(1), vt); // get rest permutations
+    for (std::vector::iterator i = vt.begin(); i != vt.end(); ++i)
+    {
+        v.push_back(*i);
+        //insert in any space between the character to get permutation
+        for (int j = 0; j &amp;lt;= i-&amp;gt;length(); ++j)
+        {
+            string st = *i; //copy one
+            st.insert(j, c);
+            v.push_back(st);
+        }
+
+    }
+}
+</code></pre><p>}<br>if duplicate character is allowed which may result in duplicate answers then</p>
+<p><pre>void unique_permutations(const string &amp;s, set &amp;v){<br>    if (s == “”){<br>        v.insert(s);<br>    }else{<br>        for (int i = 0; i &lt; s.length(); ++i){<br>            string c = s.substr(i, 1); // substr(offset, len)<br>            string t = s; //copy one for erase<br>            set vt;<br>            unique_permutations(t.erase(i, 1), vt); // get rest permutations<br>            for (std::set::const_iterator i = vt.begin(); i != vt.end(); ++i)<br>            {<br>                v.insert(<em>i);<br>                v.insert(c + </em>i);<br>            }<br>        }<br>    }<br>}</pre><br><strong>8.5 Implement an algorithm to print all valid (e g , properly opened and closed) combi -nations of n-pairs of parentheses EXAMPLE: input: 3 (e g , 3 pairs of parentheses) output: ()()(), ()(()), (())(), ((()))</strong></p>
+<p><pre>void paretheses(int n, int idx, int len, string res){<br>    int i, j;<br>    int remain = idx + 1;<br>    if(n == len){<br>        res += “(“;<br>        for(j = remain; j &gt; 0; –j){<br>            res += “)”;<br>        }<br>        cout&lt;&lt;res&lt;&lt;”,”;<br>        }else{<br>                 res += “(“;<br>                 for(i = remain; i &gt;= 0; –i){<br>            string tmp = res;</pre></p>
+<pre><code>        for(j = i; j &amp;gt; 0; --j){
+            tmp += &quot;)&quot;;
+        }
+
+        paretheses(n + 1, remain - i, len, tmp);
+
+    }
+}
+</code></pre><p>}<br><strong>8.6 Implement the “paint fill” function that one might see on many image editing programs. That is, given a screen (represented by a 2 dimensional array of Colors), a point, and a new color, fill in the surrounding area until you hit a border of that color’. </strong></p>
+<p>Using recursive DFS or better using BFS way to search, no need to traceback so pretty easy.</p>
+<p><strong>8.7 Given an infinite number of quarters (25 cents), dimes (10 cents), nickels (5 cents) and pennies (1 cent), write code to calculate the number of ways of representing n cents</strong></p>
+<p>It could be solved by generating function, but a little bit complicate:</p>
+<p><pre>int cents[] = {1, 5, 10, 25};<br>int caculate(int n){<br>    int i, j, k, res;<br>    int <em>c1 = new int[n+1];<br>    int </em>c2 = new int[n+1];<br>    for(i=0; i&lt;=n; ++i){<br>        c1[i] = 1;  //firstly one cent<br>        c2[i] = 0;<br>    }</pre></p>
+<pre><code>//then 5, 10, 25 cents
+for(i=1; i&amp;lt;=3; ++i){
+
+    for(j=0; j&amp;lt;=n; ++j){
+        for(k=0; k+j&amp;lt;=n; k+=cents[i]){
+            c2[j+k] += c1[j];
+        }
+    }
+
+    for(j=0; j&amp;lt;=n; ++j){
+        c1[j] = c2[j];
+        c2[j] = 0;
+    }
+}
+
+res = c1[n];
+
+delete[] c1;
+delete[] c2;
+
+return res;
+</code></pre><p>}<br>or using a recursive method:</p>
+<p><pre>int caculate2(int sum, int c, int n){<br>    int ways = 0;<br>    int i;<br>    if(sum &lt;= n){<br>           if(sum == n) return 1;<br>                for(i=3; i&gt;=0; –i){<br>                if(c &gt;= cents[i])<br>            ways += caculate2(sum+cents[i], cents[i], n);<br>        }<br>    }<br>    return ways;<br>}</pre><br><strong>9.2 Write a method to sort an array of strings so that all the anagrams are next to each other </strong></p>
+<p>Simply sort every string alphabetically first and then compare with other strings (c++ string could use “&gt;” op to compare).</p>
+<p><strong>9.3 Given a sorted array of n integers that has been rotated an unknown number of times, give an O(log n) algorithm that finds an element in the array.You may assume that the array was originally sorted in increasing order EXAMPLE: Input: find 5 in array (10 14 15 16 19 20 25 1 3 4 5 7) Output: 10 (the index of 5 in the array)</strong></p>
+<p><pre>int search(int n, int a[], int len){<br>    int low, high, mid;<br>    low = 0, high = len-1;<br>    while(low&lt;=high){<br>       mid = (low + high)/2;<br>       if(a[mid] == n){<br>          return mid;<br>       }else if (a[mid] &lt; n){ //25 1 3 4 5 7 10 14 15 16 19 20<br>           if(a[mid] &lt; a[low]){<br>               if(a[low] &lt; n) high = mid -1;<br>               else low = mid + 1;<br>           }else<br>               low = mid + 1;<br>       }else if (a[mid] &gt; n){<br>           if(a[mid] &lt; a[low]) high = mid -1;<br>           else{<br>              if(a[low] &lt; n) high = mid - 1;<br>              else low = mid + 1;<br>           }<br>       }<br>    }<br>}</pre><br><strong>9.4  If you have a 2 GB file with one string per line, which sorting algorithm would you use to sort the file and why?</strong></p>
+<p>&nbsp;</p>
+<p><strong>9.5 Given a sorted array of strings which is interspersed with empty strings, write a method to find the location of a given string<br>Example: find “ball” in [“at”, “”, “”, “”, “ball”, “”, “”, “car”, “”, “”, “dad”, “”, “”] will return 4<br>Example: find “ballcar” in [“at”, “”, “”, “”, “”, “ball”, “car”, “”, “”, “dad”, “”, “”] will return -1</strong></p>
+<p>Using binary search method just moving right to neglect empty strings.</p>
+<p><strong>9.6 Given a matrix in which each row and each column is sorted, write a method to find an element in it. </strong><br>Just search line by line in O(m+n) time:</p>
+<p><pre>int search_matrix(int mat[][], int m, int n, int x){<br>    int row = 0, col = n-1;<br>    while(row&lt;=m &amp;&amp; col &gt;=0){<br>        if(mat[row][col] == x) return row * n + col;<br>        else if(mat[row][col] &gt; x) –col;<br>        else  ++row;<br>    }<br>}</pre><br>Binary search method also works:</p>
+<p><pre>int search_matrix(int mat[][], int m, int n, int x){<br>    int r1 = 0, c1 = 0;<br>    int r2 = m-1, c2 = n-1;<br>    int i = (r1+r2)/2, j = (c1+c2)/2;<br>    while((i!=r1||i!=r2) &amp;&amp; (j!=c1||j!=c2)){ //may have some problems<br>        if(mat[i][j] == x)<br>           return i<em>n+j;<br>        else if(mat[i][j] &lt; x){<br>            r2 = i, c2 = j;<br>        }else {<br>            r1 = i, c1 = j;<br>        }<br>        i = (r1+r2)/2, j = (c1+c2)/2;<br>    }<br>}</em></pre><br><em>*9.7 A circus is designing a tower routine consisting of people standing atop one another’s shoulders. For practical and aesthetic reasons, each person must be both shorter and lighter than the person below him or her. Given the heights and weights of each person in the circus, write a method to compute the largest possible number of people in such a tower.<br>EXAMPLE:<br>Input (ht, wt): (65, 100) (70, 150) (56, 90) (75, 190) (60, 95) (68, 110)<br>Output:The longest tower is length 6 and includes from top to bottom: (56,90) (60,95) (65,100) (68,110) (70,150) (75,190)</em></p>
+<p>It’s a LIS problem which can be solved in O(nlgn) by mento and binary search. (hdu1025)</p>
+<p><strong>10.2 There are three ants on different vertices of a triangle. What is the probability of collision (between any two or all of them) if they start walking on the sides of the triangle? Similarly find the probability of collision with ‘n’ ants on an ‘n’ vertex polygon.</strong></p>
+<p>Q1:For three ants and triangle, every ant has two directions and vertices to crawl, so there will be 2^3 conditions and only when all ants choose the same direction(clockwise or anticlockwise) will lead them not to collision. So probability of collision is 1 - 2/2^3</p>
+<p>Q2: Similarly, probability of collision is 1 - 2/2^n</p>
+<p><strong>10.3 Given two lines on a Cartesian plane, determine whether the two lines would intersect. </strong></p>
+<p>line is different from segment, but the latter is more difficlut to judge if intersect with each other which could be solved by vector multiply.</p>
+<p><strong>10.4 Write a method to implement *, - , / operations You should use only the + operator</strong></p>
+<p>For multiply operation:</p>
+<p><pre>for i in range (1,n):<br>         res+=m</pre><br>For minus operation:</p>
+<p><pre>for i in range(0,n):<br>     if (i + m == n):<br>         return i</pre><br>For division operation:</p>
+<p><pre>res=0<br>for i in range(1,m):<br>    res+=n<br>    if(res==m):<br>       return i<br>    if(res&gt;m):<br>       return i-1</pre><br><strong>10.5 Given two squares on a two dimensional plane, find a line that would cut these two squares in half </strong></p>
+<p>Any line go though the center of square would cut it in half, so a line go though both squares’ center would be the answer. Just be careful with the case that both sqaures’ center are the same point.</p>
+<p><strong>10.6 Given a two dimensional graph with points on it, find a line which passes the most number of points</strong></p>
+<p>Rather than using two points pair methond to represent the segment(we could also go though and check every pair in O(n^3) time), we could use slope and y-intercept thus this problem is no different than finding most common number in a list of numbers.</p>
+<p><strong>10.7 Design an algorithm to find the kth number such that the only prime factors are 3, 5, and 7</strong></p>
+<p>Using O(n^2) time to caculate one by one, which can be accelerated by hash list to reduce repeated aculation(hdu1058)</p>
+<p><strong>11.2 You are given the source to an application which crashes when it is run. After running it ten times in a debugger, you find it never crashes in the same place. The application is single threaded, and uses only the C standard library. What programming errors could be causing this crash? How would you test each one?</strong></p>
+<p>Memory leak causes out of memory and leads to crash or variable is not initialized with proper value. Unproper system configuration could also leads to crash (eg. max fd or max thread numbers) and sometimes interacting with hardware may also cause such problems.</p>
+<p><strong>11.3 We have the following method used in a chess game: boolean canMoveTo(int x, int y) x and y are the coordinates of the chess board and it returns whether or not the piece can move to that position. Explain how you would test this method </strong></p>
+<p>Invalid conditions for four corners and all possible move in board.<br>Valid conditions for all direction and all pieces.</p>
+<p><strong>11.4 How would you load test a webpage without using any test tools?</strong></p>
+<p>Load test usaually includes thoughput, response time, resource utilization and pressure tests.</p>
+<p><strong>11.5 How would you test an ATM in a distributed banking system?</strong></p>
+<p>Test should include UI test (accessiblity test) and functional test (single machine test and ditributed system test).</p>
+<p><strong>12.1 If you were integrating a feed of end of day stock price information (open, high, low, and closing price) for 5,000 companies, how would you do it? You are responsible for the development, rollout and ongoing monitoring and maintenance of the feed. Describe the different methods you considered and why you would recommend your approach.The feed is delivered once per trading day in a comma separated format via an FTP site. The feed will be used by 1000 daily users in a web application.</strong></p>
+<p>This problem actually ask you how to store this feed. SQL Database would be a good choice. NoSQL storage engine like mogodb would also do the job. Format could be XML or JSON.</p>
+<p><strong>12.2 How would you design the data structures for a very large social network (Facebook, LinkedIn, etc)? Describe how you would design an algorithm to show the connection, or path, between two people (eg, Me-&gt;Bob-&gt;Susan-&gt;Jason-&gt;You)</strong></p>
+<p>Using array to store friends’ id so a graph in general. We could use other information to seperate people’s information cleverly.</p>
+<p><strong>12.3 Given an input file with four billion integers, provide an algorithm to generate an integer which is not contained in the file. Assume you have 1 GB of memory. FOLLOW UP What if you have only 10 MB of memory?</strong></p>
+<p>If 1 GB memory we could simply use bitmap approach. For 10 MB memory we have to deal with blocks of numbers firstly using counting method and then deal with proper blocks using bitmap.</p>
+<p><strong>12.4 You have an array with all the numbers from 1 to N, where N is at most 32,000. The array may have duplicate entries and you do not know what N is. With only 4KB of memory available, how would you print all duplicate elements in the array?</strong></p>
+<p>Just use bitmap method as we have space for 0 ~ 4<em>2^10</em>8 which is exactly bigger than 32,000.</p>
+<p><strong>12.5 If you were designing a web crawler, how would you avoid getting into infinite loops?</strong></p>
+<p>Simply try DFS or BFS approach to go through the whole gragh which means you have got a map to store the all urls as points.</p>
+<p><strong>12.6 You have a billion urls, where each is a huge page. How do you detect the duplicate documents?</strong></p>
+<p>You have to check the content of huge web page for url rather than url it self. To content comparing we could use hash finger method(or other similar method), then we’ve got a billion finger prints which is still a large number. We could hash those finger prints to different files and deal with every file in memory one by one or hash those to different machine.</p>
+<p><strong>12.7 You have to design a database that can store terabytes of data. It should support efficient range queries. How would you do it?</strong></p>
+<p>Using B+ tree to build the database.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/08/15/cracking-the-coding-interview-q7-12/" data-id="cjap5lttx002xb8rlswxajsx2" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/08/15/cracking-the-coding-interview-q7-12/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-python-for-loop-with-backstep" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/14/python-for-loop-with-backstep/" class="article-date">
+  <time datetime="2013-08-14T22:30:04.000Z" itemprop="datePublished">2013-08-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/后端语言/">后端语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/14/python-for-loop-with-backstep/">python技巧：逆序循环</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Python可以很简单实现C语言中for(i = len; i&gt;=0; –i)的逆序循环，而且有不止一种写法：</p>
+<p>第一种，<code>for i in range(len, -1, -1)</code> ，简单易懂</p>
+<p>第二种，<code>for i in range(0, len+1)[::-1]</code>，利用list的[start:end:step]排序功能，当然在大数组下性能堪忧</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/08/14/python-for-loop-with-backstep/" data-id="cjap5ltvt006rb8rly54al9cg" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/08/14/python-for-loop-with-backstep/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-cracking-the-coding-interview-q1-6" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/12/cracking-the-coding-interview-q1-6/" class="article-date">
+  <time datetime="2013-08-12T03:09:17.000Z" itemprop="datePublished">2013-08-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/课程总结/">课程总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/12/cracking-the-coding-interview-q1-6/">Cracking the coding interview Q1-6</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>1. 1 Implement an algorithm to determine if a string has all unique characters. What if you can not use additional data structures?</strong></p>
+<p>It’s means to check if a string has repeated character or not. It can be solved by using a bitmap and Assic table(128 for normal and 256 with special). key: using <code>n=(int)string[i]</code> to get Assic number and <code>(bitmap[n/32] &amp;amp; 1&amp;lt;&amp;lt;(n%32))</code> to check if repeated.</p>
+<p><strong>1.2 Write code to reverse a C-Style String (C-String means that “abcd” is represented as five characters, including the null character )?</strong></p>
+<p>Exchange characters between start index 0 and end index string length - 1, stop when two pointers meet.</p>
+<p><strong>1.3 Design an algorithm and write code to remove the duplicate characters in a string without using any additional buffer. NOTE: One or two additional variables are fine. An extra copy of the array is not. FOLLOW UP Write the test cases for this method ?</strong></p>
+<p>Not allowed to apply for new arrays. Compare each characters in the string and if duplicated just remove in place, key: using null character to replace duplicated  character. Test cases should include unique characters string, null string, string with only one character, common string with sequence  duplicate characters or with not.</p>
+<p><strong>1.4 Write a method to decide if two strings are anagrams or not ?</strong></p>
+<p>If new array is allowed to apply for, it can be solved by counting table in O(n) time. Actually sort two strings and compare each characters is enough to get the answer in O(nlgn) time.</p>
+<p><strong>1.5 Write a method to replace all spaces in a string with ‘%20’ .</strong></p>
+<p>Firstly count the ectra space needed by replacing, two chars’ space for each character. If  space is enough then just fill and move, otherwise you should realloc space and copy whole string, don’t forget the null character.</p>
+<p><strong>1.6  Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes, write a method to rotate the image by 90 degrees Can you do this in place ?</strong></p>
+<p>To rotate 90 degrees in clockwise just exange M[i][j] with M[j][N-i], implementation could firstly exange elms between diagonal and then exange columns i with N-i</p>
+<p><strong>1.7 Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column is set to 0.</strong></p>
+<p>Go through the matrix only to register  which column or row has zero and then go through the matrix again to set those rows or columns to zero which takes O(mn) time, key: only need array row[m] nd column[n]</p>
+<p><strong>1.8 Assume you have a method isSubstring which checks if one word is a substring of  another. Given two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only one call to isSubstring (i e , “waterbottle” is a rotation of “erbottlewat”)</strong></p>
+<p>To use isSubstring function we need string s1 is longer than s2, so just duplicate s1 by s1’ = s1 + s1 (s1’ contains all rotations of s1) then check if s2 is substring of s1’ to judge rotaion.</p>
+<p><strong>2.1 Write code to remove duplicates from an unsorted linked list FOLLOW UP How would you solve this problem if a temporary buffer is not allowed?</strong></p>
+<p>Using hash table could be the best way. If temporay buffer is not allowed then just using algorithm in 1.3 taking O(n^2) time.</p>
+<p><strong>2.2 Implement an algorithm to find the nth to last element of a singly linked list.</strong></p>
+<p>Using two pointers at a distance of n to solve. Another way is using recursion as stack.</p>
+<p><strong>2.3 Implement an algorithm to delete a node in the middle of a single linked list, given only access to that node</strong></p>
+<p><strong>EXAMPLE</strong><br><strong> Input: the node ‘c’ from the linked list a-&gt;b-&gt;c-&gt;d-&gt;e</strong><br><strong> Result: nothing is returned, but the new linked list looks like a-&gt;b-&gt;d-&gt;e</strong></p>
+<p>Just copy the data from next node and delete next node by pointing the next pointer field to the node after next node. Note that there would be a problem if the node is the last node in the list.</p>
+<p><strong>2.4 You have two numbers represented by a linked list, where each node contains a single digit The digits are stored in reverse order, such that the 1’s digit is at the head of the list. Write a function that adds the two numbers and returns the sum as a linked list</strong></p>
+<p><strong>EXAMPLE</strong><br><strong> Input: (3 -&gt; 1 -&gt; 5) + (5 -&gt; 9 -&gt; 2)</strong><br><strong> Output: 8 -&gt; 0 -&gt; 8</strong></p>
+<p>Just pay attention to null list and list in different length.</p>
+<p><strong>3.1 Describe how you could use a single array to implement three stacks</strong></p>
+<p>It’s easy to implement with three stack top pointers to seperate space.</p>
+<p><strong>3.2 How would you design a stack which, in addition to push and pop, also has a function min which returns the minimum element? Push, pop and min should all operate in O(1) time</strong></p>
+<p>It’s hard to deal with the pop when  min element was on the top of the stack. So extra space are needed to store those bigger elms. An extra stack could be used to store min elms. Every time you push a new elem, compare it with the top of extra stack and smaller one has to be pushed into extra stack. The same, when pop out a elem you should check if it equal to the top of extra stack and if so you have to pop it out from the extra stack.</p>
+<p><strong>3.3 Imagine a (literal) stack of plates. If the stack gets too high, it might topple. Therefore, in real life, we would likely start a new stack when the previous stack exceeds some threshold. Implement a data structure SetOfStacks that mimics this. SetOfStacks should be composed of several stacks, and should create a new stack once the previous one exceeds capacity. SetOfStacks push() and SetOfStacks pop() should behave identically to a single stack (that is, pop() should return the same values as it would if there were just a single stack) FOLLOW UP Implement a function popAt(int index) which performs a pop operation on a specific sub-stack</strong></p>
+<p>It’s worth implementing in C++</p>
+<p><strong>3.4 In the classic problem of the Towers of Hanoi, you have 3 rods and N disks of different sizes which can slide onto any tower The puzzle starts with disks sorted in ascending order of size from top to bottom (e g , each disk sits on top of an even larger one) You have the following constraints:</strong><br><strong> (A) Only one disk can be moved at a time</strong><br><strong> (B) A disk is slid off the top of one rod onto the next rod</strong><br><strong> (C) A disk can only be placed on top of a larger disk</strong><br><strong> Write a program to move the disks from the first rod to the last using Stacks</strong></p>
+<pre><code>void hanoi(int n, char src, char bri, char dst){
+    if(n==1){
+        cout&amp;lt;&amp;lt;&quot;Move disk &quot;&amp;lt;&amp;lt;n&amp;lt;&amp;lt;&quot; from &quot;&amp;lt;&amp;lt;src&amp;lt;&amp;lt;&quot; to &quot;&amp;lt;&amp;lt;dst&amp;lt;&amp;lt;endl;
+    }
+    else{
+        hanoi(n-1, src, dst, bri);
+        cout&amp;lt;&amp;lt;&quot;Move disk &quot;&amp;lt;&amp;lt;n&amp;lt;&amp;lt;&quot; from &quot;&amp;lt;&amp;lt;src&amp;lt;&amp;lt;&quot; to &quot;&amp;lt;&amp;lt;dst&amp;lt;&amp;lt;endl;
+        hanoi(n-1, bri, src, dst);
+    }
+}
+`&lt;/pre&gt;
+You should change it with using stack
+
+**3.5 Write a program to sort a stack in ascending order. You should not make any assumptions about how the stack is implemented. The following are the only functions that should be used to write this program: push | pop | peek | isEmpty.**
+
+If only stack could be used then an extra stack is needed to simulate insert sort
+
+**4.1 Implement a function to check if a tree is balanced. For the purposes of this question, a balanced tree is defined to be a tree such that no two leaf nodes differ in distance from the root by more than one**
+
+Just get every leaf node&apos;s depth by tree walk(time O(n)) and store them (space O(n/2)) then go through the array to judge if the tree is unbalanced or check the tree in a postorder that is recursively down and then judge.
+
+**4.2 Given a directed graph, design an algorithm to find out whether there is a route between two nodes**
+
+Using BFS to find.
+
+**4.3 Given a sorted (increasing order) array, write an algorithm to create a binary tree with minimal height **
+
+It&apos;s easy to use recursion way to build the tree with limited length. You can use binary search way to build binary search tree.
+
+**4.4 Given a binary search tree, design an algorithm which creates a linked list of all the nodes at each depth (ie , if you have a tree with depth D, you’ll have D linked lists) **
+
+Just walk though the tree and link those nodes to the linked lists based on the depth of the nodes. A better solution is using BFS way to walk though the tree.
+&lt;pre&gt;`void tree_level_walk(struct bt_tree* root, vector&amp;lt;list&amp;gt; &amp;amp;res){
+    list ltmp;
+    list::iterator it;
+    struct bt_tree* tmp;
+    int depth = 1;
+
+    ltmp.push_back(root);
+    res[depth].push_back(ltmp);
+
+    while(!res[depth].empty()){ // check every level
+        ltmp.clear();
+        for(it=res[depth].begin(); it!=res[depth].end(); ++it){ // using list as queue to store all next level nodes
+            tmp = *it;
+            if(tmp-&amp;gt;left) ltmp.push_back(tmp-&amp;gt;left);
+            if(tmp-&amp;gt;right) ltmp.push_back(tmp-&amp;gt;right);
+        }
+        ++depth;
+        res[depth].push_back(ltmp);
+    }
+}
+`&lt;/pre&gt;
+**4.5 Write an algorithm to find the ‘next’ node (ie , in-order successor) of a given node in a binary search tree where each node has a link to its parent**
+&lt;pre&gt;`def tree_successor(self, node):
+     if node.right != None:
+          return tree_min(node.right)
+     tmp = node.parent
+     while tmp != None and node == tmp.right:
+          node = tmp
+          tmp = node.parent
+     return tmp
+`&lt;/pre&gt;
+**4.6 Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This is not necessarily a binary search tree **
+
+If you want store all ancestor of one node to check then using hash table instead of simple array. But it requires every node has a link to its parent and additional space. Else you can start from root and using recursive way to find result and take over very time you find a closer one.
+&lt;pre&gt;`bool father(struct bt_tree* n1, struct bt_tree* n2){
+    if(n1 == NULL) return false;
+    else if(n1 == n2) return true;
+    else return father(n1-&amp;gt;lchild, n2) || father(n1-&amp;gt;rchild, n2);
+}
+
+void find_ancestor(struct bt_tree* head, struct bt_tree* n1, struct bt_tree* n2, struct bt_tree** res){
+    if(head == NULL) return;
+    if(head &amp;amp;&amp;amp; father(head, n1) &amp;amp;&amp;amp; father(head, n2)){
+        res = head; 
+        find_ancestor(head-&amp;gt;left, n1, n2, res);
+        find_ancestor(head-&amp;gt;right, n1, n2, res);
+    }
+}`&lt;/pre&gt;
+Here is a better solution to check less node
+&lt;pre&gt;`struct bt_tree* find_ancestor(struct bt_tree* head, struct bt_tree* n1, struct bt_tree *n2){
+     if(head == NULL) return NULL;
+     if(head == n1 || head == n2) return head; //check if ancestor
+     struct bt_tree* left = find_ancestor(head-&amp;gt;left, n1, n2);
+     struct bt_tree* right = find_ancestor(head-&amp;gt;right, n1, n2);
+     if(left &amp;amp;&amp;amp; right) return head;
+     return left?left:right;
+}`&lt;/pre&gt;
+**4.7 You have two very large binary trees: T1, with millions of nodes, and T2, with hundreds of nodes. Create an algorithm to decide if T2 is a subtree of T1**
+
+Using BFS way to go though T1 and compare with T2 if the node is equal with T2&apos;s root. Using string comparing technique is a better way for it&apos;s easier to store in disk file so just compare inorder and preoder sequence. It&apos;s a really hard to deal with such big data.
+
+**4.8 You are given a binary tree in which each node contains a value. Design an algorithm to print all paths which sum up to that value. Note that it can be any path in the tree it does not have to start at the root. **
+
+You can walk though the tree and backtrace every node if it has a link to parent to calculate the sum and judge.
+
+**5.1 You are given two 32-bit numbers, N and M, and two bit positions, i and j. Write a method to set all bits between i and j in N equal to M (eg, M becomes a substring of N located at i and starting at j)
+EXAMPLE:
+Input: N = 10000000000, M = 10101, i = 2, j = 6
+Output: N = 10001010100**
+
+(N ^ ~(1&amp;lt;&amp;lt;(j-i+1)-1)&amp;lt;&amp;lt;i) | (M&amp;lt;&amp;lt;i)
+
+**5.2 Given a (decimal - eg 3.72) number that is passed in as a string, print the binary representation. If the number can not be represented accurately in binary, print “ERROR”**
+
+Using &apos;%&apos; op to deal with integer part and  multiply op to deal with decimal part which should be finished the same time s as its length, for example  decimal part of 3.72  should be finished in two times of multiply or should print &quot;ERROR&quot;
+
+**5.3 Given an integer, print the next smallest and next largest number that have the same number of 1 bits in their binary representation**
+
+To make a larger number just find the 1st zero bit after 1 bits and change that bit into 1 and set all lower bit into 0, in the mean time of going though the number remember to count the number of 1 bit (not including the last 1 bit before the changed bit) and then set the same number of 1 bit from the lowest bit place. A better way to count 1 bit is using following method:
+&lt;pre&gt;`
+int count_one(int x){
+    x = (x &amp;amp; (0x55555555)) + ((x &amp;gt;&amp;gt; 1) &amp;amp; (0x55555555));
+    x = (x &amp;amp; (0x33333333)) + ((x &amp;gt;&amp;gt; 2) &amp;amp; (0x33333333));
+    x = (x &amp;amp; (0x0f0f0f0f)) + ((x &amp;gt;&amp;gt; 4) &amp;amp; (0x0f0f0f0f));
+    x = (x &amp;amp; (0x00ff00ff)) + ((x &amp;gt;&amp;gt; 8) &amp;amp; (0x00ff00ff));
+    x = (x &amp;amp; (0x0000ffff)) + ((x &amp;gt;&amp;gt; 16) &amp;amp; (0x0000ffff));
+    return x;
+}
+</code></pre><p>To make a lower number is the same just find the 1st 1 bit after zero bits and count 1 bits(including the changed bit) and then set.<br>Yet you should be careful with the negative numbers.</p>
+<p><strong>5.4 Explain what the following code does: ((n &amp; (n-1)) == 0)</strong></p>
+<p>To check if n is power of 2.</p>
+<p><strong>5.5 Write a function to determine the number of bits required to convert integer A to integer B<br>Input: 31, 14<br>Output: 2</strong></p>
+<p>Using (1&lt;&lt;i) and operation and to go though two number and count how many bit are different. A better way is to count the 1 in result of A ^ B.</p>
+<p><strong>5.6 Write a program to swap odd and even bits in an integer with as few instructions as possible (eg, bit 0 and bit 1 are swapped, bit 2 and bit 3 are swapped, etc)</strong></p>
+<p>((x &amp; 0xaaaaaaaa) &gt;&gt; 1) | ((x &amp; 0x55555555) &lt;&lt; 1)</p>
+<p><strong>5.7 An array A[1…n] contains all the integers from 0 to n except for one number which is missing. In this problem, we cannot access an entire integer in A with a single operation. The elements of A are represented in binary, and the only operation we can use to access them is “fetch the jth bit of A[i]”, which takes constant time. Write code to find the missing integer. Can you do it in O(n) time?</strong></p>
+<p>Testing number of every bit in the array to select the minimal part and make the missing element.</p>
+<p><pre>def find_missing(a[], n):<br>     len = n-1<br>     column = lg(n)<br>     res = 0<br>     for j in range(column-1, 0, -1):<br>          count0=count1=0<br>          a1=a2=[]<br>          for i in a:<br>              if (getBit(i, j)):<br>                  a1[count1++]=i<br>              else:<br>                  a0[count0++]=ai<br>          if count1 &gt;= count0: #may have problem when count eqs to zero<br>              a=a0, len = count0<br>          else:<br>              a=a1, len = count1<br>              res+=(1&lt;&lt;j)<br>     return res</pre><br>Remember missing one number problem can always be solved by sumup(1,n)-sumup(a[1],a[n])</p>
+<p><strong>6.1 Add arithmetic operators (plus, minus, times, divide) to make the following expression true: 3 1 3 6 = 8   You can use any parentheses you’d like</strong></p>
+<p>(3+1)/3*6=8</p>
+<p><strong>6.2 There is an 8x8 chess board in which two diagonally opposite corners have been cut off You are given 31 dominos(多米诺骨牌), and a single domino can cover exactly two squares Can you use the 31 dominos to cover the entire board? Prove your answer (by providing an example, or showing why it’s impossible)</strong></p>
+<p>As two corners painted in the same color are cut off. It’s imporssible to cover with uncoupled numbers of squares.</p>
+<p><strong>6.3 You have a five quart jug and a three quart jug, and an unlimited supply of water (but no measuring cups) How would you come up with exactly four quarts of water? NOTE: The jugs are oddly shaped, such that filling up exactly ‘half’ of the jug would be impossible</strong></p>
+<p>Firstly using full five quart jug minus three quart jug(5-3=2), then put the rest in three quart jug(3-2=1) and then use full five quart jug to fill three quart jug(5-1=4).</p>
+<p><strong>6.4 A bunch of men are on an island A genie comes down and gathers everyone together and places a magical hat on some people’s heads (ie , at least one person has a hat) The hat is magical: it can be seen by other people, but not by the wearer of the hat himself. To remove the hat, those (and only those who have a hat) must dunk themselves underwater at exactly midnight If there are n people and c hats, how long does it take the men to remove the hats? The men cannot tell each other (in any way) that they have a hat.</strong></p>
+<p>All men on the island knowns there exists at least one hat. So one hat takes one day, two hats take two days and c hats take c days to remove.</p>
+<p><strong>6.5 There is a building of 100 floors If an egg drops from the Nth floor or above it will break If it’s dropped from any floor below, it will not break You’re given 2 eggs Find N, while minimizing the number of drops for the worst case.</strong></p>
+<p>Using section to reduce number of drops, <code>x + (x-1) + (x-2) + ... + 1 &amp;gt;= 100</code> and x eqs to 14 then sections will be <code>14, 27, 39, 50, 60, 69, 77, 84, 90, 95, 99, 100</code> and then first egg to test the section and second egg to test level sequencely.</p>
+<p><strong>6.6 There are one hundred closed lockers in a hallway. A man begins by opening all one hundred lockers. Next, he closes every second locker. Then he goes to every third locker and closes it if it is open or opens it if it is closed (eg , he toggles every third locker). After his one hundredth pass in the hallway, in which he toggles only locker number one hundred, how many lockers are open?</strong></p>
+<p>Except 1 and the number itself, if the number i can be divided exactly by factor a then it can be diveded exactly by factor i/a meaning that number of factors would be even. Only when i=i/a the number of factors will become odd and the number i must be the full square so from 1 to 100 will be 10 lockers remain open.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/08/12/cracking-the-coding-interview-q1-6/" data-id="cjap5lttq002mb8rlnlkeqrbx" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/08/12/cracking-the-coding-interview-q1-6/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-information-exange-for-war" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/06/05/information-exange-for-war/" class="article-date">
+  <time datetime="2013-06-05T07:15:05.000Z" itemprop="datePublished">2013-06-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试总结/">面试总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/06/05/information-exange-for-war/">阿里笔试题战士传信问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Q: 战报交流：战场上不同的位置有N个战士（n&gt;4），每个战士知道当前的一些战况，现在需要这n个战士通过通话交流，互相传达自己知道的战况信息，每次通话，可以让通话的双方知道对方的所有情报，设计算法，使用最少的通话次数，使得战场上的n个士兵知道所有的战况信息，不需要写程序代码，得出最少的通话次数。</p>
+<p>A:</p>
+<ol>
+<li>分成两组：1) 2个node，2) n-2个node ;</li>
+<li>2个node需要连接1次，使得2个node拥有2个节点信息；</li>
+<li>n-2个node至少需要n-3次连接，使得最后连接的2个node拥有这n-2个node的信息；</li>
+<li><strong>第一组的2个node与第n-2组的最后两个node（即获得该组全部信息的2个nodes）分别连接；</strong>于是4个节点得到全部信息，连接了2次。这里是为什么节约了一次连接的关键。</li>
+<li>剩下的n-4个node都没有获得全部信息，每个node至少需要一次连接。因此至少需要n-4次连接。用拥有全部信息的其中一个node与剩下的n-4个node连接。则只需要n-4次。</li>
+<li>得总过需要1+(n-3)+<strong>2</strong>+(n-4)= 2n-4.<br>需要注意的是：每次连接有且仅有两个node，即使分成很多组，最终还是归结为两组的形式。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/06/05/information-exange-for-war/" data-id="cjap5ltuz0052b8rldlscysta" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/06/05/information-exange-for-war/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实习/">实习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-why-sometimes-pthread-mutex-overhead-rwlock" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/04/10/why-sometimes-pthread-mutex-overhead-rwlock/" class="article-date">
+  <time datetime="2013-04-10T10:22:28.000Z" itemprop="datePublished">2013-04-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统经验/">系统经验</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/04/10/why-sometimes-pthread-mutex-overhead-rwlock/">为何线程互斥锁优于读写锁</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>尽管确实是在读多写少的情况下使用，但系统在测试中确实出现线程互斥锁优于读写锁的情况，</p>
+<p>muduo库中给出了多种互斥锁优于读写锁的原因：</p>
+<p>1. 读锁加锁的开销不会比mutex小，因为它需要更新当前reader的数目，如果临界区很小，那么mutex往往更快。</p>
+<p>实际上mutex是由整形变量及等待队列构成</p>
+<p>2. 读锁可能提升为写锁，增大调试难度</p>
+<p>实际上系统调试过程中的确出现过这样的问题，甚至导致死锁，当时是以这样顺序调用的：</p>
+<p>写申请（获得写锁）-&gt;读申请（读申请被忽略）-&gt;释放（实际把写锁释放）-&gt;释放（实际获得读锁）-&gt;下次的写申请（卡死）</p>
+<p>3. 写锁会阻塞后面的读锁，在要求读低延迟的情况下使用并不适当。</p>
+<p>这条完全不明白。</p>
+<p>至于spinlock与互斥锁的使用对比在这篇文章《<a href="http://www.searchtb.com/2011/01/pthreads-mutex-vs-pthread-spinlock.html" target="_blank" rel="noopener">Pthreads mutex vs Pthreads spinlock</a>》介绍得十分清楚。</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/04/10/why-sometimes-pthread-mutex-overhead-rwlock/" data-id="cjap5ltwz0095b8rl1bff7887" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/04/10/why-sometimes-pthread-mutex-overhead-rwlock/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mutex/">mutex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/读写锁/">读写锁</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-conde-interview-brain-teasers-guess-rewards" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/04/09/conde-interview-brain-teasers-guess-rewards/" class="article-date">
+  <time datetime="2013-04-09T07:27:03.000Z" itemprop="datePublished">2013-04-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试总结/">面试总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/04/09/conde-interview-brain-teasers-guess-rewards/">面试题：猜奖品问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一个猜测游戏中，某一个瓶子中装有奖品。游戏者需要猜出奖品在哪个瓶子中，并且在m次结束游戏。（即m次猜中）<br>有n个黑色的瓶子（以至于游戏中看不到瓶中是否有东西）设从0到n-1编号，一字排开。每一次如果游戏者猜错了，那么奖品会各以50%的概率移动到左边或者右边的瓶子中。当奖品位于最左边或者最右边，游戏者猜错时，奖品必然右移或者左移。</p>
+<p>问题：请设计一个满足n和m的策略，帮助游戏者完成游戏。</p>
+<p>最多需要m=2n次 必能猜中<br>第一轮 先从0开始顺序往右猜，即0,1,…n-1,这样 如果奖品初始位于偶数位置处 必定能猜中<br>如果奖品初始是位于奇数处，则需要第二轮<br>如果n为偶数 则第一轮结束后奖品仍在奇数处<br>这样第二轮从1开始往右，即1,2,…,n-1 这样必中<br>如果n为奇数 则第一轮结束后奖品已经跳到偶数处<br>这样第二轮从0开始往右，即0,1,…,n-1 必中</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/04/09/conde-interview-brain-teasers-guess-rewards/" data-id="cjap5lttm002ib8rlmbzgqv8n" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/04/09/conde-interview-brain-teasers-guess-rewards/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-nested-classes-in-c-plus-plus" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/04/07/nested-classes-in-c-plus-plus/" class="article-date">
+  <time datetime="2013-04-07T12:28:15.000Z" itemprop="datePublished">2013-04-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/后端语言/">后端语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/04/07/nested-classes-in-c-plus-plus/">C++中的局部类与嵌套类</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>局部类指在函数内部定义的类，自然局部类不能含有static成员，所有函数定义也必须在定义体内完成。基本不会使用。</p>
+<p>嵌套类指在类内部定义类，该类名只能在外围类中使用，嵌套类中的函数成员可以在定义体外定义（但是需要使用限定符以使用类名），嵌套类中申明的成员不是外围类对象的成员，反之亦然。</p>
+<p>因此分析访问关系时，完全可以当做非嵌套类处理，即嵌套类无法访问外围类的私有成员，也不能对外围类中定义的私有嵌套类创建对象，嵌套类可以访问static private成员，嵌套类中申明的友元也不能访问外围类中的私有成员。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/04/07/nested-classes-in-c-plus-plus/" data-id="cjap5ltvm006bb8rl6sn8o1id" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/04/07/nested-classes-in-c-plus-plus/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/page/4/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/archives/page/6/">6</a><a class="page-number" href="/archives/page/7/">7</a><a class="page-number" href="/archives/page/8/">8</a><a class="extend next" rel="next" href="/archives/page/6/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/WordPress开发/">WordPress开发</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品设计/">产品设计</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端语言/">后端语言</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/新技术跟踪/">新技术跟踪</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/">系统架构</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/项目经历/">项目经历</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统经验/">系统经验</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/课程总结/">课程总结</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融/">金融</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试总结/">面试总结</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目经历/">项目经历</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InnoDB/">InnoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS模板/">JS模板</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux设置/">Linux设置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVCC/">MVCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP主题/">WP主题</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP实现/">WP实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP插件/">WP插件</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP设置/">WP设置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/">WebGL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache-coherence/">cache coherence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history/">history</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios应用/">ios应用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptv/">iptv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/">join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kv存储/">kv存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutex/">mutex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/">paxos</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raft/">raft</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url重定向/">url重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web2-0/">web2.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文汉化/">中文汉化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/互联网企业/">互联网企业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/债券/">债券</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内核/">内核</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式锁/">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/华为/">华为</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基金/">基金</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外设/">外设</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源项目/">开源项目</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无锁并发/">无锁并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/期货/">期货</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栅格系统/">栅格系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/科研/">科研</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/股票/">股票</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本加载/">脚本加载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/腾讯/">腾讯</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/苹果/">苹果</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法/">语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读写锁/">读写锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调度/">调度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金山/">金山</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隔离级别/">隔离级别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目管理/">项目管理</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/InnoDB/" style="font-size: 10px;">InnoDB</a> <a href="/tags/JS模板/" style="font-size: 11.67px;">JS模板</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Linux设置/" style="font-size: 10px;">Linux设置</a> <a href="/tags/MVCC/" style="font-size: 10px;">MVCC</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WP主题/" style="font-size: 16.67px;">WP主题</a> <a href="/tags/WP实现/" style="font-size: 10px;">WP实现</a> <a href="/tags/WP插件/" style="font-size: 16.67px;">WP插件</a> <a href="/tags/WP设置/" style="font-size: 11.67px;">WP设置</a> <a href="/tags/WebGL/" style="font-size: 11.67px;">WebGL</a> <a href="/tags/Zookeeper/" style="font-size: 10px;">Zookeeper</a> <a href="/tags/cache-coherence/" style="font-size: 10px;">cache coherence</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/fabric/" style="font-size: 11.67px;">fabric</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/google/" style="font-size: 11.67px;">google</a> <a href="/tags/history/" style="font-size: 10px;">history</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/ios应用/" style="font-size: 10px;">ios应用</a> <a href="/tags/iptv/" style="font-size: 10px;">iptv</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/kv存储/" style="font-size: 10px;">kv存储</a> <a href="/tags/memory/" style="font-size: 10px;">memory</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/paxos/" style="font-size: 11.67px;">paxos</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raft/" style="font-size: 10px;">raft</a> <a href="/tags/url重定向/" style="font-size: 10px;">url重定向</a> <a href="/tags/web2-0/" style="font-size: 10px;">web2.0</a> <a href="/tags/zookeeper/" style="font-size: 11.67px;">zookeeper</a> <a href="/tags/中文汉化/" style="font-size: 11.67px;">中文汉化</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/互联网企业/" style="font-size: 11.67px;">互联网企业</a> <a href="/tags/债券/" style="font-size: 11.67px;">债券</a> <a href="/tags/内核/" style="font-size: 11.67px;">内核</a> <a href="/tags/分布式锁/" style="font-size: 10px;">分布式锁</a> <a href="/tags/区块链/" style="font-size: 13.33px;">区块链</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/基金/" style="font-size: 11.67px;">基金</a> <a href="/tags/外设/" style="font-size: 10px;">外设</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/实习/" style="font-size: 15px;">实习</a> <a href="/tags/开源项目/" style="font-size: 10px;">开源项目</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/数据库/" style="font-size: 18.33px;">数据库</a> <a href="/tags/无锁并发/" style="font-size: 10px;">无锁并发</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/期货/" style="font-size: 11.67px;">期货</a> <a href="/tags/栅格系统/" style="font-size: 10px;">栅格系统</a> <a href="/tags/科研/" style="font-size: 10px;">科研</a> <a href="/tags/算法/" style="font-size: 18.33px;">算法</a> <a href="/tags/索引/" style="font-size: 11.67px;">索引</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/股票/" style="font-size: 11.67px;">股票</a> <a href="/tags/脚本加载/" style="font-size: 10px;">脚本加载</a> <a href="/tags/腾讯/" style="font-size: 15px;">腾讯</a> <a href="/tags/苹果/" style="font-size: 10px;">苹果</a> <a href="/tags/语法/" style="font-size: 11.67px;">语法</a> <a href="/tags/读写锁/" style="font-size: 10px;">读写锁</a> <a href="/tags/调度/" style="font-size: 10px;">调度</a> <a href="/tags/金山/" style="font-size: 10px;">金山</a> <a href="/tags/锁/" style="font-size: 10px;">锁</a> <a href="/tags/键盘/" style="font-size: 10px;">键盘</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试/" style="font-size: 20px;">面试</a> <a href="/tags/项目管理/" style="font-size: 11.67px;">项目管理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/03/">March 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/02/Qconf-summary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/08/blockchain-tech-summary/">区块链技术总结与架构实战</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/fabric-ca-design/">Hyperledger Fabric CA设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/05/sicp-charpter-two/">SICP第二章总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chao Zheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  </footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/php-development-env-setup-in-win7-x64.html" class="mobile-nav-link">PHP-WIN</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'chaozh';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Category: 前端 | chaozh.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="系统架构,移动开发,独立游戏">
+<meta property="og:type" content="website">
+<meta property="og:title" content="chaozh.com">
+<meta property="og:url" content="http://chaozh.github.com/categories/前端/index.html">
+<meta property="og:site_name" content="chaozh.com">
+<meta property="og:description" content="系统架构,移动开发,独立游戏">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chaozh.com">
+<meta name="twitter:description" content="系统架构,移动开发,独立游戏">
+  
+    <link rel="alternative" href="/atom.xml" title="chaozh.com" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">chaozh.com</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">超然台上仙的知识库|系统架构,移动开发,独立游戏</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/php-development-env-setup-in-win7-x64.html">PHP-WIN</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chaozh.github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-node-party-shenzhen" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/09/node-party-shenzhen/" class="article-date">
+  <time datetime="2016-04-09T14:05:31.000Z" itemprop="datePublished">2016-04-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/09/node-party-shenzhen/">深圳node party小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="实战ES2015"><a href="#实战ES2015" class="headerlink" title="实战ES2015"></a>实战ES2015</h2><ul>
+<li>classes</li>
+<li>export&amp;import 统一标准</li>
+<li>使用rollup.js打包、HTTP/2</li>
+</ul>
+<h2 id="平台化运营实践"><a href="#平台化运营实践" class="headerlink" title="平台化运营实践"></a>平台化运营实践</h2><p>腾讯MTT对比pm2设计</p>
+<ul>
+<li>进程管理</li>
+<li>日志类型（按大小滚动，按时间滚动）</li>
+<li>日志输出 时间|pid|级别|文件名:行号</li>
+<li>可配置的服务（不重启）</li>
+<li>TAF协议与JCE规范（编解码,不动态解析方便debug）</li>
+<li>调用监控（流量、耗时、超时率、异常率、服务+接口）与特性监控（自定义）</li>
+</ul>
+<p>日常问题</p>
+<ul>
+<li>时间计算 <code>Date.now()</code>最快，<code>process.uptime()</code>最好</li>
+<li>内存与进程 虚拟核心与物理核心问题</li>
+<li>用户环境 服务调用只在同环境中进行，服务转发？？</li>
+<li><p>染色应用 将整个服务调用链日志统一收集展示</p>
+<p>  push 类推送业务 （峰值流量-&gt;削峰）<br>  用户访问相关业务 （越平滑流量越大）<br>  定时拉取任务（持续资源使用-&gt;错峰）</p>
+</li>
+</ul>
+<p><code>process.setMaxListeners(Infinity)</code>隐患<br>load高、cpu不高 -&gt; 查io(socket)、swap使用率</p>
+<h2 id="Nodejs广发证券：koa2与微服务"><a href="#Nodejs广发证券：koa2与微服务" class="headerlink" title="Nodejs广发证券：koa2与微服务"></a>Nodejs广发证券：koa2与微服务</h2><p>nodejs定位（实现API Server）</p>
+<ul>
+<li>Restful Extend（Filter&amp;Sort，Bulk Inserts，Pagination，Optional-filds）</li>
+<li>Falcor @ Netflix </li>
+<li>使用Koa2 async&amp;await（异步，错误处理）koa-adapter</li>
+<li>接口验证与数据验证 koa-validate&amp;joi(数据验证)</li>
+</ul>
+<p>日常</p>
+<ul>
+<li>es2015使用</li>
+<li>npm scripts（npm-check）</li>
+<li>入库前检查 使用husky检查，</li>
+<li>测试覆盖 （经常修改、复杂、多人合作）<code>npm run coverage:lab</code> plato（js源码可视化）</li>
+</ul>
+<p>线上运行</p>
+<ul>
+<li>StrongLoop 性能优化系列文章</li>
+<li>上线准备（Event Loop监控，通过环境变量与信号来调整log级别，异常重启比忽略好）</li>
+<li>支持几千几万的流量（request-debug）</li>
+<li>docker运维，镜像部署方便，链路监控（Zebking）</li>
+</ul>
+<h2 id="TypeScript在Nodejs应用"><a href="#TypeScript在Nodejs应用" class="headerlink" title="TypeScript在Nodejs应用"></a>TypeScript在Nodejs应用</h2><p>techird.com </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2016/04/09/node-party-shenzhen/" data-id="cjap5ltvn006eb8rlm4redj3j" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2016/04/09/node-party-shenzhen/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2015-shenzhen-jsconf-summary-part-one" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/31/2015-shenzhen-jsconf-summary-part-one/" class="article-date">
+  <time datetime="2015-07-31T19:03:16.000Z" itemprop="datePublished">2015-07-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/31/2015-shenzhen-jsconf-summary-part-one/">2015 shen JSconf大会总结（第一天）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>两个星期前7月11～12日在深圳前海举行了第四届中国jsconf会议，第一次参加纪录一下学习内容与个人思考。本次会议由李学斌（hk）推广，wiredcraft公司承办</p>
+<p>##Part One 2015-07-11</p>
+<p>###1. Database everywhere - EvanYou@Meteor</p>
+<ul>
+<li>UI - Client data - Server data (sync)<br>Solution: UI - Client data (react, angular, vue)</li>
+<li>How about Client &amp; Server data?<br>REST (Backbone Model, ngResource, Restangular, Flux Stores)<br>pull-centric imperative/ trouble with non-conventional APIs/ difficult managing optimistic updates</li>
+<li>IDEA: UI - Server data (GraphSQL, JSON Graph, Om Next) <em>not ready</em></li>
+</ul>
+<p><strong>METEOR</strong>: DDP, Tracker, minimongo(both cli&amp; ser)<br>UI - minimongo - Server data</p>
+<p>publish &amp; subscribe?  component-level template</p>
+<p><code>$meteor.collection(new Mongo.Collection(&quot;Task&quot;))</code><br><code>Tasks.find().fetch()</code> ???</p>
+<p>QA: actions record -&gt; rollback</p>
+<p>ppt地址 Slide.com [<a href="http://slides.com/evanyou/shenjs" target="_blank" rel="noopener">http://slides.com/evanyou/shenjs</a>]</p>
+<p>###2. ES6 generators - BIHOLT@Netflix<br>node 0.12<br>as ES2015</p>
+<ul>
+<li>generators: async pro -&gt; sync<br>(Meteor, Babel use Regenerator)</li>
+</ul>
+<p>a function return a generator obj which is iterable</p>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> colorGenerator = <span class="function"><span class="keyword">function</span>*(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> <span class="built_in">color</span> <span class="keyword">of</span> colors) &#123;</span><br><span class="line">		<span class="keyword">yield</span> <span class="built_in">color</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> generator = colorGenerator();</span><br><span class="line"><span class="comment">//use generator.next();</span></span><br><span class="line"><span class="comment">//let values = Array.from(generator);</span></span><br></pre></td></tr></table></figure>
+<p>simulate ES7 asyc/await</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">co(function* ()&#123; </span><br><span class="line">	let<span class="built_in"> user </span>= yield 	promiseAjax.<span class="builtin-name">get</span>(<span class="string">"url"</span>); </span><br><span class="line">	handleUserData(user);	</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">async function() &#123;</span><br><span class="line">	let<span class="built_in"> user </span>= await promiseAjax.<span class="builtin-name">get</span>(<span class="string">"url"</span>); 		handleUserData(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>solution: gen store state between calls!</p>
+<pre>
+//for WebSockets or polling
+function *poll() {
+    while（true) {
+        let id = yield;
+        req.get(id).accept('json').end(function(err, data){
+        logger.next(data);
+        })
+    }
+}
+let poller = poll();
+//use poller.next(); poller.next(id++)
+</pre>
+
+<p>also call <code>.return()</code> or <code>.throw()</code>[inject into]</p>
+<p>ppt地址 speakerdeck.com/btholt</p>
+<p>##Lucky Draw<br>raffle.js漏洞百出</p>
+<p>###3. Koa&amp;Toa - Yan<br>vs express <code>req, res, next</code> P：异步流程控制</p>
+<ul>
+<li>koa <code>this, yield next</code> generator 函数 每个中间件可以分为前后两部分，都可以终止 P：流程复杂，第三方暴露</li>
+<li>toa vs koa <code>this, yield</code> 回到body <code>this.body</code></li>
+</ul>
+<p>异步原语：</p>
+<ul>
+<li>promise 标准接口，链式返回promise，任意多promise组合（多异步）</li>
+<li>thunk 新callback形式，返回thunk函数<code>(thunk(function(callback){ return Promise //thunk}))</code></li>
+<li>generator <code>(function *() { yield promise })</code></li>
+</ul>
+<p>###4. AngularJS real-time app - loddit(BohanLi)@BearyChat<br>demo: 二维码刷新 meteor</p>
+<p>api server – RPC – keep-alive ser</p>
+<p><strong>Protocol</strong>: XMPP / IRC , DDP(Meteor)[quick demo], CRDT(Swarm.js)</p>
+<p>Ping/pong to check, use object as singleton, push for everything</p>
+<p>Q：分组，消息等信息：普通Obj, Array；事件类型太多（命名，gonn）；</p>
+<p>Q：交互性能：减少watch（改用ng-switch）；消息丢失处理：长连接保证，update时序更需要保证；</p>
+<p>###5. PM2 - alexandre@Keymetrics<br>a process manager dedicated to Node.js [distributed!]</p>
+<ul>
+<li><a href="https://keymetrics.io/" target="_blank" rel="noopener">https://keymetrics.io/</a>  code:SHENJS2015</li>
+<li><a href="https://github.com/Unitech/pm2" target="_blank" rel="noopener">https://github.com/Unitech/pm2</a></li>
+</ul>
+<p>##NodeBot Session - ajfisher<br>NodeBots stack [&lt;3] IO Plugin – NodeJS (Johnny Five) – HTTP – clients </p>
+<ul>
+<li>Adurino.cc IDE</li>
+<li>npm install jornny-five -g</li>
+<li>nodebotsday.com</li>
+<li>github.com/jsconfcn/nodebots-session</li>
+</ul>
+<p>##light talk</p>
+<ol>
+<li>undoZen (<code>require(&#39;co&#39;); co.wrap(fun);</code>)</li>
+<li>zhangwenli.com/Polyvia vs Naive Random Method<br>selected vectile (webgl sobel edge) -&gt; dynamic -&gt; center of mass 视频淘汰率</li>
+<li>pmq20 <code>body.toString()</code></li>
+<li>socket 1000连接问题？ ulimit 设置！默认1024</li>
+<li>输入法 js</li>
+<li>Zearlin/重鱼 </li>
+</ol>
+<p>###6. NodeJS 分布式应用 - WenTianle@UCloud</p>
+<p>C++ -&gt; 分布式RPC架构（配置管理，服务自动发现，自动扩容，脚本）<br>umaster/zookeeper cluster 名称服务 -&gt; rabbitmq/zookeeper 服务异构(扩容)/配置管理</p>
+<p>node-amqp 3.4.1</p>
+<p><strong>遇到的问题</strong>：</p>
+<ol>
+<li>nodejs [protobuf extension]</li>
+<li>异步编程效率[Fibers]</li>
+<li>nodejs 内存泄漏（网络框架中回调函数导致）</li>
+<li>异步超时处理（定时清理？）</li>
+<li>异步中日志记录（Fibers包装为task queue，带上其id）</li>
+<li>rabbitmq ha（ser HA-》cli HA ip选择来解决100s定时断问题，heart beat时间约定机制）</li>
+<li>rabbitmq ha 网络闪断导致节点分区</li>
+<li>zookeeper session expired 网络断导致，client重连成功后由于session key不同导致server要求再次重连，同时产生一次session expired回调 容易导致内存泄漏</li>
+</ol>
+<p>###7. JS Frameworks - Eyalarubas.com@EF<br>全是吹水，外国人包装能力真强！</p>
+<p>###8. 前端可视化技术 - pissang @Echarts.baidu<br>Canvas vs SVG</p>
+<ol>
+<li>性能考虑，特效绘制，像素操作</li>
+<li>demo：尾迹特效(保存上一帧，另一个canvas alpha值调整)，热力图(像素操作)</li>
+</ol>
+<p>问题: 没有图像对象(层级，样式，变换)，事件</p>
+<p>解决：图像对象管理(借鉴SVG方法)，事件绑定(容器绑定代理，反向循环判断鼠标是否在某图像上，这时要将鼠标进行坐标变换-&gt; 包围盒判断 / 路径的精确判断，js实现<code>isPointPath</code>，<code>isPointInStroke</code> 不需要重新构建路径)</p>
+<p>latest: Path2d </p>
+<p>WebGL</p>
+<ol>
+<li>加速二维图像绘制</li>
+<li>问题：Shader计算动画小点位置 </li>
+</ol>
+<p>demo: lambertShading</p>
+<p>2D图形处理：Meth -&gt; canvas surface -&gt; canvas -&gt; 2D objects</p>
+<h3 id="9-NERD-Disco-TimPietrusky"><a href="#9-NERD-Disco-TimPietrusky" class="headerlink" title="9. NERD Disco - TimPietrusky@"></a>9. NERD Disco - TimPietrusky@</h3><ul>
+<li>web audio</li>
+</ul>
+<pre>
+var audio_context = new AudioContext();
+var audio_anay = audio_context.analyser();
+</pre>
+
+<p>try <em>ndAudio</em> -&gt; <em>ndVisualization</em> -&gt; NeoMatrix Adafruit (nodejs server)</p>
+<p>try <strong>web mini api</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2015/07/31/2015-shenzhen-jsconf-summary-part-one/" data-id="cjap5ltt6001wb8rln4aloskw" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2015/07/31/2015-shenzhen-jsconf-summary-part-one/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebGL/">WebGL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2015-shenzhen-jsconf-summary-part-two" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/31/2015-shenzhen-jsconf-summary-part-two/" class="article-date">
+  <time datetime="2015-07-31T19:03:16.000Z" itemprop="datePublished">2015-07-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/31/2015-shenzhen-jsconf-summary-part-two/">2015 shen JSconf总结（第二天）　</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第二天干货非常多，全是实战经验，基本没有什么技术介绍。</p>
+<p>##Part Two 2015-07-12</p>
+<p>###1. 七牛前端测试实践 - 马逸清<br>angularjs dom隔离，测试不需mock；依赖注入可以mock (service,  controller) 可以使用stub</p>
+<p>stub适合返回值依赖，mock行为验证</p>
+<p>官方jasmine<br>View状态测试</p>
+<p><strong>phantom，sinon(stub)，fixture(karma)</strong></p>
+<p>###2. Node Profiler - 朴灵@阿里云alinode<br>hack了部分v8代码，跟CPU Profile相关</p>
+<ul>
+<li>常用工具: benchmark.js，node-webkit-agent，ab/wrk(压力测试)，–prof &amp; mac-tick-processor(v8)</li>
+<li>v8以JIT方式执行js(产出机器码)，以函数为单位处理<br>Crankshaft架构(可以运行时优化 fulCompiler -&gt; optimizeCompiler) P：bailout, deoptimize</li>
+<li>Profiler： 更多函数状态，优化建议(v8能否优化) <a href="http://alinode.aliyun.com" target="_blank" rel="noopener">http://alinode.aliyun.com</a></li>
+<li>(program) 系统空转</li>
+</ul>
+<p>? 第一次访问测试</p>
+<p>###3. P2P pipes - mafintosh(dat)</p>
+<p>demo: multiplayer game(socket)<br>websockets, webrtc</p>
+<p>**ndjson, nc, crypto, dupsh(two app in-out pipe), airpaste(udp multicast with pipe), blecat(blutooth with pipe), webcat(webrtc with pipe)</p>
+<p>###4. 微服务架构下的服务通信 - 老雷leizongmin @ucdok.com/ superid.me一登<br><strong>后台Node逻辑</strong><br>SDK - 多进程？- API服务器（人脸识别模块）</p>
+<p>=》 SDK - API服务器 -人脸识别进程（多线程）</p>
+<p>=》 - 更多应用（后台微服务架构）</p>
+<p>–&gt; 服务注册（消息队列总线式 / P2P）+远程调用</p>
+<p><strong>实现原理</strong></p>
+<p>总线可以用redis实现，通信也用redis订阅机制（服务提供者可以动态加入）<br>vs amqp-rpc， eureca.io</p>
+<p>未来：备份切换，数据量太大</p>
+<p>服务发现 + 服务通信</p>
+<p>ppt地址 github.com/leizongmin/clouds</p>
+<p><strong>etcd + k8s + docker</strong></p>
+<p>###5. 前端服务化之路 - Herman@阿里CXDC 客服中心</p>
+<p> 前后端分离-》前端给后端提供接口（服务化）-》web component<br> **flipper.js 支持IE8以上 – webcomponents.js 更好的隔离性</p>
+<p>###6. JS lang - hax贺诗俊@百姓网<br>NodeJS + CommonJS -&gt; ES6 module( class, arrow function[this bind], map/set, for..of..[for in] )</p>
+<p>WebAssembly</p>
+<p><strong>babel(es6 compiler)</strong></p>
+<p>###7. JS on Fiber - 庄恒飞@孢子社区fibjs-&gt; 那么社区named.cn<br>fibjs vs nodejs， Fiber-Driven，No Callback</p>
+<ul>
+<li>Module lib: CommonJS，async require</li>
+<li>coroutine.parallel 【改变nodejs单线程】多CPU利用率<br>js，用<br><code>brew install fibjs [http://fibjs.org]</code><br>fibjs底层多种线程(fiber) -&gt; js线程-》work线程池【实际改动了v8下一层，解决了nodejs的callback与计算密集】</li>
+</ul>
+<p>##Lighting Talk</p>
+<ol>
+<li>tangrui.net (js in JVM: 1.6 ringo 1.8 nashorm(vert.x/avatar.js)) cde.io</li>
+<li>wangyan @oneapm.com (npm2dot) 转换dot格式</li>
+<li>dafeng @strikling.com “GraphQL &amp; Relay”: restful api问题：依赖多次发送-&gt;custom endpoint-》 GraphQL帮忙管理</li>
+<li>homlinju @fontmin js方案的字体最小化</li>
+<li>一狂 @阿里cxdc www.zouyesheng.com angular问题：不单单使用，模块化加载，自己的渲染机制，怎么合作？模块内定义dir最后手动触发bootstrap</li>
+<li>EvanYou @vue webpack vue-element.js </li>
+<li>xeodou crazyapp.net/#/explore</li>
+</ol>
+<p>###8. Persistent data structure in JS-NiYue@splunk<br>persistent data structure [like COW] -&gt; concurrency<br>real good: </p>
+<ol>
+<li>performance（判断状态是否变化）</li>
+<li>features on copy（undo/redo，recording/reply，time traveling） </li>
+</ol>
+<p>实现策略：COW -&gt; structual sharing<br>问题：内存消耗，内存回收</p>
+<p><strong>mori, Immutable</strong> </p>
+<p><strong>一页千级dom元素？</strong><br>LightTable演示</p>
+<p>###9. WebIDE with React - hulufei @coding.net<br>React - Flux - karma</p>
+<p>Components: <code>&lt;WebIDE/&gt;</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> App = React.createClass(&#123;</span><br><span class="line">	render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		&lt;div&gt;<span class="xml"><span class="tag">&lt;<span class="name">Menu</span>/&gt;</span></span><span class="xml"><span class="tag">&lt;<span class="name">Tree</span>/&gt;</span></span><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Flux: Dispatchor -&gt; store -&gt; view -&gt; action<br><code>&lt;Editor/&gt;</code>与<code>&lt;SettingModel/&gt;</code> 通信：<br>SettingStore -&gt; SettingAction</p>
+<p>Addons: store或action引用API层</p>
+<p><strong>roit, ace rather than codemirror</strong><br>QA：store划分标准：组件需要，共享； 数据放store里面方便做数据缓存，返回promise；Flux写太多模板代码；</p>
+<p>###10. WebGL &amp; WebVR - Martin @Zurich - archilogic.com @g33konaut</p>
+<p>faces + vertices -&gt; GL buffers -&gt; shader code -&gt; print</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> renderer = THREE.WebGLRenderer();</span><br><span class="line"><span class="keyword">var</span> box = <span class="keyword">new</span> <span class="type">THREE</span>.Mesh(</span><br><span class="line">	<span class="keyword">new</span> <span class="type">THREE</span>.BoxGeometry(<span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>),</span><br><span class="line">	<span class="keyword">new</span> <span class="type">Three</span>.MeshBasicMaterial()</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">scene.add(box);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> light = <span class="keyword">new</span> <span class="type">THREE</span>.PointLight()</span><br><span class="line">light.position.<span class="keyword">set</span>();</span><br><span class="line">renderer.render(<span class="function"><span class="keyword">function</span></span>()&#123;</span><br><span class="line">	box.rotation.y += Math.PI / <span class="number">200</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//OBJMITLoader()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//VR</span></span><br><span class="line"><span class="keyword">var</span> vrEffect = <span class="keyword">new</span> <span class="type">THREE</span>.VREffect(render),</span><br><span class="line">	vrControls = <span class="keyword">new</span> <span class="type">THREE</span>.VRControls()</span><br></pre></td></tr></table></figure>
+<p>###11. maintainable nodejs - 死马 不四@天猫前端,dead-horse@github koa<br>提供固定的输出</p>
+<p>异步try-catch -&gt; promise 可以传递error<br>默认的错误监听函数，可以利用事件方式让外层感知</p>
+<p><strong>bluebird, co</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2015/07/31/2015-shenzhen-jsconf-summary-part-two/" data-id="cjap5ltt8001yb8rlktqvw4r4" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2015/07/31/2015-shenzhen-jsconf-summary-part-two/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebGL/">WebGL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/karma/">karma</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-create-your-hexo-blog" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/26/create-your-hexo-blog/" class="article-date">
+  <time datetime="2015-07-26T20:57:14.000Z" itemprop="datePublished">2015-07-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/26/create-your-hexo-blog/">创建你的hexo博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>目前由于hexo的升级。在github上搭建hexo博客的过程与网络上的文章指导内容会有少许变化。</p>
+<p>第一步当然还是安装hexo，接着在本地创建自己的hexo博客目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo -g</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo init &lt;YOU_BLOG_DIR_NAME&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后切换到那个目录下面，安装必备的node插件<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> &lt;YOU_BLOG_DIR_NAME&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo-deployer-git --save</span></span><br></pre></td></tr></table></figure></p>
+<p>这时你的博客已经准备就绪啦，接着按照自己的需求修改配置文件，需要注意的是deploy部分<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">deploy:</span></span><br><span class="line"><span class="symbol">  type:</span> git</span><br><span class="line"><span class="symbol">  repo:</span> <span class="params">&lt;YOUR_GITHUB_REPO_URL&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>万事大吉，可以使用<code>hexo new &lt;POST_NAME&gt;</code>来创建新文章，写完后使用<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo<span class="built_in"> server </span>#本地查看博客效果</span><br><span class="line">$ hexo generate #生成静态文件用于部署</span><br><span class="line">$ hexo deploy #部署同步到Github的项目上</span><br></pre></td></tr></table></figure></p>
+<p>有些遗憾的是这个git的deploy插件有点傻，仅把博客的静态文件提交到了远程仓库的master分支，而没有提交原始配置文件。没办法，只能自己动手进行分支同步。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> &lt;YOU_BLOG_DIR_NAME&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git init</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git add remote origin &lt;YOUR_GITHUB_REPO_URL&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -a</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push origin master:&lt;YOUR_REMOTE_BRANCHNAME&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>好啦，以后任何位置都可以利用Github同步文章写博客啦</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2015/07/26/create-your-hexo-blog/" data-id="cjap5lttz0032b8rl9zcrm70y" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2015/07/26/create-your-hexo-blog/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开源项目/">开源项目</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-very-useful-javascript-code-snippers" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/30/very-useful-javascript-code-snippers/" class="article-date">
+  <time datetime="2015-06-30T22:59:57.000Z" itemprop="datePublished">2015-06-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/06/30/very-useful-javascript-code-snippers/">JavaScript实用代码片段</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近抽空在忙<a href="http://chaozh.github.io/RiskDemo" target="_blank" rel="noopener">小项目</a>，总结了下一些项目中碰到的常见问题，搜集对应的实用JS代码片段，跟大家分享。</p>
+<h2 id="1-产生限定范围内不重复的随机数"><a href="#1-产生限定范围内不重复的随机数" class="headerlink" title="1.产生限定范围内不重复的随机数"></a>1.产生限定范围内不重复的随机数</h2><p>在深js也碰到了完全相同的问题，即抽奖程序的核心算法，结果是bug频出。这里给出<a href="https://github.com/jsconfcn/raffle" target="_blank" rel="noopener">js抽奖程序</a>，大家去鄙视一下。<br>一种思路是在给定大小数组中每次抽取一个随机位置的数进行剔除，这个程序的问题是必须始终维护抽取的数组，好处是不会重复抽取：</p>
+<pre>var originalArray=[];
+for (var i=0;i&lt;len;i++) { 
+    originalArray[i]= i; 
+} 
+var getRandom = function(){
+    var index=Math.floor(Math.random()*originalArray.length); //随机取一个位置 
+    var value = originalArray[parseInt(index)];
+    originalArray.splice(index,1);
+    return value;
+}
+</pre>
+有什么其他好方法不妨分享一下。
+
+## 2\. 数字保留两位小数
+
+数字进行截断保留两位小数只想到如下方法
+<pre>floatNum = Math.round(floatNum*100)/100;</pre>
+但是还有情况是仅展示两位小数，这时只要用原生的API方法就可以了
+<pre>floatNum.toFixed(2)</pre>
+
+<h2 id="3-触发change事件"><a href="#3-触发change事件" class="headerlink" title="3. 触发change事件"></a>3. 触发change事件</h2><p>这是在使用AmazeUI中按钮组时碰到的问题，按钮组并没有对应的js封装，所以点击div模拟的按钮并不能触发实际单选按钮的change事件，因此需要jquery来手动触发。估计Bootstrap应该有进行更好的封装吧。</p>
+<pre>$button.children().attr('checked',true).trigger("change");</pre>
+这里使用`children`仅是为了获得包含在外层`div`下的单选按钮，还得设置check状态
+
+## 4\. 单选按钮选择信息获取
+
+按钮组中究竟选择了哪一个可以使用下面代码获得
+<pre>$('input[name="radio-options"]:checked').val()</pre>
+
+<h2 id="5-中文编解码"><a href="#5-中文编解码" class="headerlink" title="5. 中文编解码"></a>5. 中文编解码</h2><p>在URL中传递中文就需要进行URI编码转为16进制的数字表示</p>
+<pre>location.href = "result.html?u="+encodeURIComponent(name)+"&amp;b="+invest_status.profit+"&amp;r="+invest_status.rounds;</pre>
+展示也得使用相应的URI函数解码进行
+<pre>user = decodeURI(name);</pre>
+发现不少浏览器现在已经支持直接在URL中插入中文，估计这里有些变化了。
+
+## 6\. 转换为数字类型
+
+两种方法，一种是
+<pre>option = parseInt(IntNumStr);</pre>
+另一种是
+<pre>option = Number(IntNumStr);</pre>
+注意单选按钮的选择值就可以用这个方法进行转换
+
+## 7\. 浏览器url信息处理
+
+主要是处理GET请求的分隔符"&amp;"与值的获得，也就是运用`.split("&amp;")`和`.split("=")`
+<pre>infos = url.split('&amp;'), user = (infos[0].split('='))[1];</pre>
+搜到一个大而全的[处理工具](https://github.com/websanova/js-url)
+
+## 8\. 网页title设置
+
+直接给`document.title`赋值即可
+
+## 9\. 异步加载与性能优化
+
+promise
+
+## 10.文件上传处理
+
+<pre><input id="input" type="file">
+window.Blob slice
+file</pre>
+
+<h2 id="11-多场景管理"><a href="#11-多场景管理" class="headerlink" title="11. 多场景管理"></a>11. 多场景管理</h2><h2 id="12-简单模板与双向绑定"><a href="#12-简单模板与双向绑定" class="headerlink" title="12. 简单模板与双向绑定"></a>12. 简单模板与双向绑定</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2015/06/30/very-useful-javascript-code-snippers/" data-id="cjap5ltwr008hb8rlt3kqbj1n" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2015/06/30/very-useful-javascript-code-snippers/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-status-of-web-componets-echosystem" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/08/28/status-of-web-componets-echosystem/" class="article-date">
+  <time datetime="2014-08-28T11:11:46.000Z" itemprop="datePublished">2014-08-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/08/28/status-of-web-componets-echosystem/">Web Components生态圈现状</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>由Polymer的主要开发人员总结的Web Components生态圈现状，还是Polymer的各种广告。</p>
+<script class="speakerdeck-embed" src="//speakerdeck.com/assets/embed.js" async data-id="8a99e8000ed301329562323b621a35b7" data-ratio="1.77777777777778"></script>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2014/08/28/status-of-web-componets-echosystem/" data-id="cjap5ltvy0072b8rluqi0xixm" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2014/08/28/status-of-web-componets-echosystem/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-use-data-star-attribute" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/08/25/use-data-star-attribute/" class="article-date">
+  <time datetime="2014-08-25T22:33:08.000Z" itemprop="datePublished">2014-08-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/08/25/use-data-star-attribute/">使用data-*属性指南</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文内容参考自MDN的<a href="https://hacks.mozilla.org/2012/10/using-data-attributes-in-javascript-and-css/" target="_blank" rel="noopener">using-data-attributes-in-javascript-and-css</a>一文</p>
+<div><br><br>一篇2012年的文章，目前data-<em>属性作为HTML5规范已经不能算是新特性了，主要是JSconf里看到troopjs使用，而boss问其他小伙伴时他们居然都不知道，于是就想总结一番。<br><br>data-</em>属性使用起来也很直观：<br><pre>&lt;article id=”electriccars” data-columns=”3” data-indexnumber=”12314” data-parent=”cars”&gt;…&lt;/article&gt;</pre><br>;<br><br>JS可以使用getAttribute方法获得data-<em>属性的值，当然HTML5规范里也提供更为简便的方法:<br><div><br><pre>    var article = document.querySelector(‘#electriccars’),<br>                  data = article.dataset;<br><br>    // data.columns -&gt; “3”<br>    // data.indexnumber -&gt; “12314”<br>    // data.parent -&gt; “cars”<br></pre><br></div><br>每个属性返回都是string类型，但是可以直接设置article.dataset.columns = 5 从而改变属性的值<br><br>大多数人不知道的是HTML5还规定了data-属性相关CSS接口，可以通过该属性值来填充内容:<br><div><br><pre>    article::before {<br>      content: attr(data-parent);<br>    }<br></pre><br></div><br>你也可以在选择器中使用data-</em>属性:<br><div><br><pre>    article[data-columns=’3’]{<br>      width: 400px;<br>    }<br>    article[data-columns=’4’]{<br>      width: 600px;<br>    }<br></pre><br></div><br>data-*属性的优势在于相关数据直接与dom节点绑定，css接口使用也挺方便，至于效率方面是否比window storage更高，留待以后测试。未来结合Web Component技术，倒是又可以大放异彩。<br><br></div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2014/08/25/use-data-star-attribute/" data-id="cjap5ltwp008eb8rl48yqio7r" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2014/08/25/use-data-star-attribute/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-introduce-web-components" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/08/10/introduce-web-components/" class="article-date">
+  <time datetime="2014-08-10T21:00:00.000Z" itemprop="datePublished">2014-08-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/08/10/introduce-web-components/">漫谈Web Components技术</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第一次听说Web Components相关技术是在2013年从<a href="http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom/" title="Shadow DOM 101" target="_blank" rel="noopener">Shadow DOM 101</a>这篇文章得知，只当是个模板技术的浏览器实现。谁想在Google IO 2014竟然将基于Web Components技术的Polymer专门做了个专题进行大篇幅介绍，其中Custom Element加上Imports的组合概念堪称惊艳，有种前端界的MapReduce的感觉。其实Google早在13年就已经花了部分精力对<a href="http://www.webcomponentsshift.com/#1" target="_blank" rel="noopener">Web Components技术进行了介绍</a>(链接是当时演讲里的ppt，部分协议标准已经产生了变化)，只是未像IO 14一样做专题介绍。</p>
+<p>比如：<br><img src="https://cms-assets.tutsplus.com/uploads/users/53/posts/21524/image/gangnam.gif" alt=""><br><a href="http://playground.chaozh.com/gangnam.html" target="_blank" rel="noopener">Live demo</a> - 自己实现了一个，得用现代浏览器(推荐webkit内核)打开才行</p>
+<p>使用Custom Element创建后可以通过HTML Import加载，然后直接使用</p>
+<pre>&lt;x-gangnam-style&gt;&lt;/x-gangnam-style&gt;</pre>
+
+<h2 id="1-规范现状"><a href="#1-规范现状" class="headerlink" title="1. 规范现状"></a>1. 规范现状</h2><p>Web Components技术由W3C规范进行定义，实际由四种技术组成：</p>
+<ul>
+<li>Custom ELements，可以创建自定义html标签元素，而且支持对现有html元素进行扩展，从而自定义新的API</li>
+<li>HTML Template, 使用template标签包含html相关代码片段，作用行为基本类似于JS模板引擎里的视图(View)</li>
+<li>Shadow DOM,，可以创建对外隐藏的web片段，关键是支持独立的样式，不会影响所在文档内的其他样式</li>
+<li>HTML Imports, 提供对模板或者自定义元素这些资源的加载支持，可以像引用JS或CSS一样引用HTML组件<br>截至2014年8月17日，四个技术标准中HTML Template已经从Web Components规范中移除，并加入到HTML5标准中，这意味着该技术协议已经处于完成状态，不会再出现改动。Custom ELements也进入“Last Call”阶段，今后改动可能性也不大了。另外两个仍然存在修改的可能，因此下面的介绍只能当做谈资了解了解罢了。有关Web Components的规范现状与详细定义可以在这个<a href="http://www.w3.org/TR/#tr_Web_Components" target="_blank" rel="noopener">链接</a>中找到。</li>
+</ul>
+<h2 id="2-Custom-ELements"><a href="#2-Custom-ELements" class="headerlink" title="2. Custom ELements"></a>2. Custom ELements</h2><p>原本Custom ELements设计是通过新增的element标签来实现自定义html标签元素，但由于种种问题，最终删去了相关规范。目前只能通过<code>document.registerElement(tagName, prototype)</code>方法来定义标签。该方法提供元素原型继承的接口，可以通过<code>Object.create</code>方法创建元素作为prototype传入。在这个gangnam-style示例中就使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gangnamProto = <span class="built_in">Object</span>.create(HTMLElement.prototype);</span><br><span class="line"></span><br><span class="line">  gangnamProto.createdCallback = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="comment">// deal with element view create </span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  gangnamProto.attachedCallback = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// deal with event bind</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">document</span>.registerElement(<span class="string">"x-gangnam-style"</span>, &#123;</span><br><span class="line">    prototype: gangnamProto </span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p>接着就可以直接在html文件中使用x-gangnam-style标签了</p>
+<h2 id="3-HTML-Template"><a href="#3-HTML-Template" class="headerlink" title="3. HTML Template"></a>3. HTML Template</h2><p>该技术规范已经加入到HTML5规范中，成为一个新增的HTML5标签。使用非常简单，直接在html文件中添加template标签即可。该标签在浏览器中会被渲染处理，但不会展示，因此会比以前使用script做js的模板容器在效率上会高一些。需要注意的是获得template标签中的内容，需要使用其content属性，该属性返回<code>documentFragment</code>类型。而将content内容插入到目标元素中后会导致内容丢失，因此需要使用cloneNode方法进行拷贝保证其他元素仍然可以使用这个template中的content内容，或是使用<code>document.importNode</code>方法进行拷贝。在这个gangnam-style示例中就使用：</p>
+<pre>
+&lt;template id="gangnam-style-tmpl"&gt;
+&lt;style&gt;
+...
+&lt;/style&gt;
+
+&lt;div id="maia-signature"&gt;
+&lt;div id="sig" class="zg-sig"&gt;
+ &lt;div id="psydroid" class="zg-psydroid"&gt;
+ &lt;img alt="" class="zg-psydroid-head" src="http://www.google.com/zeitgeist/2012/images/psydroid-head.png"&gt; 
+ &lt;img alt="" class="zg-psydroid-body" src="http://www.google.com/zeitgeist/2012/images/psydroid-body.png"&gt; 
+ &lt;img alt="" class="zg-psydroid-arm-l" src="http://www.google.com/zeitgeist/2012/images/psydroid-arm-l.png"&gt;
+ &lt;img alt="" class="zg-psydroid-arm-r" src="http://www.google.com/zeitgeist/2012/images/psydroid-arm-r.png"&gt;
+ &lt;img alt="" class="zg-psydroid-leg-l" src="http://www.google.com/zeitgeist/2012/images/psydroid-leg-l.png"&gt;
+ &lt;img alt="" class="zg-psydroid-leg-r" src="http://www.google.com/zeitgeist/2012/images/psydroid-leg-r.png"&gt;
+ &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+ ...  
+gangnamProto.createdCallback = function(){     
+   //deal with element view create     
+   var thisDoc = document.currentScript.ownerDocument;  
+   var tmpl = thisDoc.querySelector("#gangnam-style-tmpl");               
+   //shadow.appendChild(tmpl.content.cloneNode(true)); also works!
+   shadow.appendChild(document.importNode(tmpl.content, true)); 
+} 
+...  
+&lt;/script&gt;
+</pre>
+
+<p>这样就可以在Custom Element中使用template中已经定义好的html结构与样式。当然为保证接口与样式的封装性，这里还将HTML Template与Shadow DOM结合了起来。</p>
+<h2 id="4-Shadow-DOM"><a href="#4-Shadow-DOM" class="headerlink" title="4. Shadow DOM"></a>4. Shadow DOM</h2><p>这个技术规范堪称Web Components的灵魂所在，而且早已经用于HTML5标签技术中，只是不曾暴露接口给JS调用罢了。例如HTML5中的video标签就包含了Shadow DOM。现在可以在任何DOM节点上创建Shadow DOM，使用这个技术的好处在于Shadow DOM可以完全封装其中的dom结构与style样式，使得相关信息对用户透明。特别是包含在其中的样式，完全不会影响到其他元素，从而使得形成独立UI组件成为可能。Shadow DOM创建起来非常简单，调用createShadowRoot即可：</p>
+<p><pre> gangnamProto.createdCallback = function(){<br>   …<br>   var shadow = this.createShadowRoot();<br>   shadow.appendChild(document.importNode(tmpl.content, true));<br> }<br></pre><br>同时Shadow DOM还提供<code>&lt;content&gt;</code>标签，该标签可以使用rel属性让浏览器选择性的填充其中的内容。（<del>不知为何该标签在Chrome 36里失效 </del>实际没有失效，只是dev tool展示比较奇怪，让本人误会了）<br>为方便CSS样式进行Shadow DOM的匹配选择，该技术还提供了多个CSS相关选择符，包括::shadow，/deep/，::host，::host-context，::content等。<br>目前该技术仍然在修订中，所以还存在不少变数。</p>
+<h2 id="5-HTML-Import"><a href="#5-HTML-Import" class="headerlink" title="5. HTML Import"></a>5. HTML Import</h2><p>在前面将Web Component封装在一个HTML文件中后，如何引用该组件并重复运用就成为了问题，这时就需要使用HTML Import技术。该技术使用起来很方便，一句话即可：</p>
+<p><pre>&lt;link rel=”import” href=”./x-gangnam-style.html”&gt;</pre><br>同时可以使用<code>rel=import</code>获得该link节点：</p>
+<p><pre>var link = document.querySelector(‘link[rel=import]’);</pre><br>目前该技术也仍然在修订中，而且很多细节都在变更。</p>
+<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h2><p>这些技术目前还没有浏览器完全支持，而且规范还在修改中，因此完全不存在工业界使用的可能性。但是这些技术其实早就在浏览器中不断使用，只是没有暴露相关接口而已，规范需要决定的只是怎么暴露，如何让开发者方便使用而已，因此这些Web Component技术的普及可谓是必然。当然，Web组件的最终形态肯定不是直接使用这些规范，多看看微软GUI组件的发展轨迹就可以知道基于新的Web Component规范的Web组件未来还有很长的路要走。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2014/08/10/introduce-web-components/" data-id="cjap5ltvb005nb8rl2c2tvjx9" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2014/08/10/introduce-web-components/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS模板/">JS模板</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-techniques-from-simple-javascript-templating" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/01/09/techniques-from-simple-javascript-templating/" class="article-date">
+  <time datetime="2013-01-09T14:19:54.000Z" itemprop="datePublished">2013-01-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/01/09/techniques-from-simple-javascript-templating/">出自jquery作者简单js模板中的技巧</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>短短的一段代码，看懂之后能真正认识javascript语言中的各种技巧 来自<a href="http://ejohn.org/blog/javascript-micro-templating/" title="JavaScript Micro-Templating  " target="_blank" rel="noopener">JavaScript Micro-Templating</a></p>
+<pre>
+// Simple JavaScript Templating
+// John Resig - http://ejohn.org/ - MIT Licensed
+(function(){
+  var cache = {};
+  // tmpl解析函数，参数str通常为模板tag的id，参数data为传入的数据
+  this.tmpl = function tmpl(str, data){ 
+   //首先判断传入str第一个字符是否为非单词字符，\W等价于[^A-Za-z0-9_]，注意判断条件取反
+    var fn = !/\W/.test(str) ? 
+      //为真，说明开头字符为单词字符，即str表示id，则首先查找缓存中的模板函数
+      cache[str] = cache[str] || 
+        //未缓存则并取出模板中的内容运行tmpl解析函数，由于未传入data参数，故返回模板函数指针进行缓存
+        tmpl(document.getElementById(str).innerHTML) : 
+
+      // 为假，说明开头字符为非单词字符，即str表示模板内容，则创建相应的模板函数fn对象
+      new Function("obj", //fn接受一个参数obj，实质即data
+         //函数内容，p为需要显示的内容以数组形式保存，内部函数print即调用p的push方法将所有参数压入（该函数用法不明）
+        "var p=[],print=function(){p.push.apply(p,arguments);};" + 
+
+        //使用with关键字，将参数obj即data带入到执行环境中，这样模板中的变量即可使用
+        "with(obj){p.push('" +
+        // 在创建fn函数对象时即将str模板内容转换为完全的js代码，
+        // 例子：&lt;i class='a'&gt;&lt;%=user.id%&gt;&lt;/i&gt;
+        str
+        // 先清除各种换行符以方便后面作为替代符号进行使用
+          .replace(/[\r\t\n]/g, " ")
+        // 将模板开头标志替换为缩进符，
+        // 例子：&lt;i class='a'&gt;\t=user.id%&gt;&lt;/i&gt;
+          .split("&lt;%").join("\t")           
+        // 模板中非脚本部分（即html标签）中的单引号替换为换行符，其中$1即正则中小括号能匹配的内容
+        // 例子：&lt;i class=\ra\r&gt;\t=user.id%&gt;&lt;/i&gt;
+          .replace(/((^|%&gt;)[^\t]*)'/g, "$1\r")
+        // 将模板中直接显示的变量提取出来，用单引号与逗号进行分隔,由于字符串使用单引号，故而上一步需要记录
+        // 例子：&lt;i class=\ra\r&gt;',user.id,'&lt;/i&gt;
+          .replace(/\t=(.*?)%&gt;/g, "',$1,'")
+        // 将代替模板开头标志的缩进符替换为push调用结束，注意例子中的\t在上一步已被删去
+          .split("\t").join("');")
+        // 将模板结束标志替换为p.push调用开始，意为模板标志之间的html标签即以字符串的形式压入p数组
+        // 注意例子中的%&gt;也在显示变量那步被删除
+          .split("%&gt;").join("p.push('")
+        // 还原模板中原有字符串部分的单引号
+        // 例子：&lt;i class=\\'t\\'&gt;',user.id,'&lt;/i&gt;
+          .split("\r").join("\\'")
+        // fn函数返回最终拼接的字符串,p.push('&lt;i class=\\'t\\'&gt;',user.id,'&lt;/i&gt;');，注意push方法是可以压入多个元素的
+      + "');}return p.join('');");
+
+    //如果传入data，则返回运行模板函数后的最终结果，否则返回模板函数fn指针
+    return data ? fn( data ) : fn; 
+  };
+})();
+</pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/01/09/techniques-from-simple-javascript-templating/" data-id="cjap5ltwh007vb8rlgii8p30m" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/01/09/techniques-from-simple-javascript-templating/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS模板/">JS模板</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-how-to-make-bookmarklet-in-javascript" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/02/19/how-to-make-bookmarklet-in-javascript/" class="article-date">
+  <time datetime="2012-02-19T11:32:49.000Z" itemprop="datePublished">2012-02-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/02/19/how-to-make-bookmarklet-in-javascript/">制作Bookmarklet书签</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>基本模板就是这样，主要是javascript:起了作用，导致代码执行。</p>
+<pre rel="javascript">javascript:(function(){
+
+if(window.bookmarklet!=undefined){bookmarklet();}
+else{document.body.appendChild(document.createElement('script')).src='http://YOURURL/bookmarklets.js';}
+
+})();</pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2012/02/19/how-to-make-bookmarklet-in-javascript/" data-id="cjap5ltut004rb8rlqrvtsfbp" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2012/02/19/how-to-make-bookmarklet-in-javascript/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/WordPress开发/">WordPress开发</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品设计/">产品设计</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端语言/">后端语言</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/新技术跟踪/">新技术跟踪</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/">系统架构</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/项目经历/">项目经历</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统经验/">系统经验</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/课程总结/">课程总结</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融/">金融</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试总结/">面试总结</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目经历/">项目经历</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InnoDB/">InnoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS模板/">JS模板</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux设置/">Linux设置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVCC/">MVCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP主题/">WP主题</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP实现/">WP实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP插件/">WP插件</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP设置/">WP设置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/">WebGL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache-coherence/">cache coherence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history/">history</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios应用/">ios应用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptv/">iptv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/">join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kv存储/">kv存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutex/">mutex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/">paxos</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raft/">raft</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url重定向/">url重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web2-0/">web2.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文汉化/">中文汉化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/互联网企业/">互联网企业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/债券/">债券</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内核/">内核</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式锁/">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/华为/">华为</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基金/">基金</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外设/">外设</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源项目/">开源项目</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无锁并发/">无锁并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/期货/">期货</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栅格系统/">栅格系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/科研/">科研</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/股票/">股票</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本加载/">脚本加载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/腾讯/">腾讯</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/苹果/">苹果</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法/">语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读写锁/">读写锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调度/">调度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金山/">金山</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隔离级别/">隔离级别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目管理/">项目管理</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/InnoDB/" style="font-size: 10px;">InnoDB</a> <a href="/tags/JS模板/" style="font-size: 11.67px;">JS模板</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Linux设置/" style="font-size: 10px;">Linux设置</a> <a href="/tags/MVCC/" style="font-size: 10px;">MVCC</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WP主题/" style="font-size: 16.67px;">WP主题</a> <a href="/tags/WP实现/" style="font-size: 10px;">WP实现</a> <a href="/tags/WP插件/" style="font-size: 16.67px;">WP插件</a> <a href="/tags/WP设置/" style="font-size: 11.67px;">WP设置</a> <a href="/tags/WebGL/" style="font-size: 11.67px;">WebGL</a> <a href="/tags/Zookeeper/" style="font-size: 10px;">Zookeeper</a> <a href="/tags/cache-coherence/" style="font-size: 10px;">cache coherence</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/fabric/" style="font-size: 11.67px;">fabric</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/google/" style="font-size: 11.67px;">google</a> <a href="/tags/history/" style="font-size: 10px;">history</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/ios应用/" style="font-size: 10px;">ios应用</a> <a href="/tags/iptv/" style="font-size: 10px;">iptv</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/kv存储/" style="font-size: 10px;">kv存储</a> <a href="/tags/memory/" style="font-size: 10px;">memory</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/paxos/" style="font-size: 11.67px;">paxos</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raft/" style="font-size: 10px;">raft</a> <a href="/tags/url重定向/" style="font-size: 10px;">url重定向</a> <a href="/tags/web2-0/" style="font-size: 10px;">web2.0</a> <a href="/tags/zookeeper/" style="font-size: 11.67px;">zookeeper</a> <a href="/tags/中文汉化/" style="font-size: 11.67px;">中文汉化</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/互联网企业/" style="font-size: 11.67px;">互联网企业</a> <a href="/tags/债券/" style="font-size: 11.67px;">债券</a> <a href="/tags/内核/" style="font-size: 11.67px;">内核</a> <a href="/tags/分布式锁/" style="font-size: 10px;">分布式锁</a> <a href="/tags/区块链/" style="font-size: 13.33px;">区块链</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/基金/" style="font-size: 11.67px;">基金</a> <a href="/tags/外设/" style="font-size: 10px;">外设</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/实习/" style="font-size: 15px;">实习</a> <a href="/tags/开源项目/" style="font-size: 10px;">开源项目</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/数据库/" style="font-size: 18.33px;">数据库</a> <a href="/tags/无锁并发/" style="font-size: 10px;">无锁并发</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/期货/" style="font-size: 11.67px;">期货</a> <a href="/tags/栅格系统/" style="font-size: 10px;">栅格系统</a> <a href="/tags/科研/" style="font-size: 10px;">科研</a> <a href="/tags/算法/" style="font-size: 18.33px;">算法</a> <a href="/tags/索引/" style="font-size: 11.67px;">索引</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/股票/" style="font-size: 11.67px;">股票</a> <a href="/tags/脚本加载/" style="font-size: 10px;">脚本加载</a> <a href="/tags/腾讯/" style="font-size: 15px;">腾讯</a> <a href="/tags/苹果/" style="font-size: 10px;">苹果</a> <a href="/tags/语法/" style="font-size: 11.67px;">语法</a> <a href="/tags/读写锁/" style="font-size: 10px;">读写锁</a> <a href="/tags/调度/" style="font-size: 10px;">调度</a> <a href="/tags/金山/" style="font-size: 10px;">金山</a> <a href="/tags/锁/" style="font-size: 10px;">锁</a> <a href="/tags/键盘/" style="font-size: 10px;">键盘</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试/" style="font-size: 20px;">面试</a> <a href="/tags/项目管理/" style="font-size: 11.67px;">项目管理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/03/">March 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/02/Qconf-summary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/08/blockchain-tech-summary/">区块链技术总结与架构实战</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/fabric-ca-design/">Hyperledger Fabric CA设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/05/sicp-charpter-two/">SICP第二章总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chao Zheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  </footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/php-development-env-setup-in-win7-x64.html" class="mobile-nav-link">PHP-WIN</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'chaozh';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives: 2012 | chaozh.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="系统架构,移动开发,独立游戏">
+<meta property="og:type" content="website">
+<meta property="og:title" content="chaozh.com">
+<meta property="og:url" content="http://chaozh.github.com/archives/2012/index.html">
+<meta property="og:site_name" content="chaozh.com">
+<meta property="og:description" content="系统架构,移动开发,独立游戏">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chaozh.com">
+<meta name="twitter:description" content="系统架构,移动开发,独立游戏">
+  
+    <link rel="alternative" href="/atom.xml" title="chaozh.com" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">chaozh.com</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">超然台上仙的知识库|系统架构,移动开发,独立游戏</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/php-development-env-setup-in-win7-x64.html">PHP-WIN</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chaozh.github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-better-understanding-of-wordpress-settings-api" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/12/30/better-understanding-of-wordpress-settings-api/" class="article-date">
+  <time datetime="2012-12-30T12:50:48.000Z" itemprop="datePublished">2012-12-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WordPress开发/">WordPress开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/12/30/better-understanding-of-wordpress-settings-api/">正确理解Wordpress设置API</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Wordpress设置API使用起来并不算太方便，很多地方都容易混淆，因此在本人读懂并改写了主题相关的设置类之后，就想把相关容易混淆的地方详细说明一下。</p>
+<p>函数<code>register_setting</code>与<code>settings_fields</code>为一组，它们之间使用参数option_group进行关联，另外函数<code>register_setting</code>注册了get_option函数所需要的参数option_name。这两个函数一个用于注册设置信息，一个用于显示设置信息（实际即一组hidden属性的input标签，显示时使用参数option_group）。</p>
+<p>函数<code>add_settings_section</code>与<code>add_settings_field</code>与<code>add_[theme或options]_page</code>为一组，它们之间使用参数menu_slug进行关联，由该参数可知这些函数只与某个特别的page相关，用于注册表单展示信息。使用函数<code>do_settings_sections</code>来渲染展示表单（显示时使用参数menu_slug）。</p>
+<p>关于settings的状态栏使用&lt;?php settings_errors(); ?&gt;，该函数即可显示黄色的状态栏。更多状态栏相关开发参考这个<a href="http://wordpress.stackexchange.com/questions/23701/how-should-one-implement-add-settings-error-on-custom-menu-pages" target="_blank" rel="noopener">链接</a></p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2012/12/30/better-understanding-of-wordpress-settings-api/" data-id="cjap5lttg002ab8rln8ydl3ee" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2012/12/30/better-understanding-of-wordpress-settings-api/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WP主题/">WP主题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WP插件/">WP插件</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WP设置/">WP设置</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-magic-functions-in-php" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/12/11/magic-functions-in-php/" class="article-date">
+  <time datetime="2012-12-11T11:01:44.000Z" itemprop="datePublished">2012-12-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/后端语言/">后端语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/12/11/magic-functions-in-php/">PHP魔术函数集锦</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1。<strong>construct()<br>实例化对象时被调用，<br>当</strong>construct和以类名为函数名的函数同时存在时，__construct将被调用，另一个不被调用。</p>
+<p>2。__destruct()</p>
+<p>当删除一个对象或对象操作终止时被调用。</p>
+<p>3。<strong>call()<br>对象调用某个方法，<br>若方法存在，则直接调用；<br>若不存在，则会去调用</strong>call函数。</p>
+<p>4。<strong>get()<br>读取一个对象的属性时，<br>若属性存在，则直接返回属性值；<br>若不存在，则会调用</strong>get函数。</p>
+<p>5。<strong>set()<br>设置一个对象的属性时，<br>若属性存在，则直接赋值；<br>若不存在，则会调用</strong>set函数。</p>
+<p>6。__toString()</p>
+<p>打印一个对象的时被调用。如echo $obj;或print $obj;</p>
+<p>7。__clone()</p>
+<p>克隆对象时被调用。如：$t=new Test();$t1=clone $t;</p>
+<p>8。__sleep()</p>
+<p>serialize之前被调用。若对象比较大，想删减一点东东再序列化，可考虑一下此函数。</p>
+<p>9。__wakeup()</p>
+<p>unserialize时被调用，做些对象的初始化工作。</p>
+<p>10。__isset()<br>检测一个对象的属性是否存在时被调用。如：isset($c-&gt;name)。</p>
+<p>11。__unset()<br>unset一个对象的属性时被调用。如：unset($c-&gt;name)。</p>
+<p>12。<strong>set_state()<br>调用var_export时，被调用。用</strong>set_state的返回值做为var_export的返回值。</p>
+<p>13。__autoload()<br>实例化一个对象时，如果对应的类不存在，则该方法被调用。</p>
+<p>魔术常量</p>
+<p>1。<strong>LINE</strong><br>返回文件中的当前行号。</p>
+<p>2。<strong>FILE</strong><br>返回文件的完整路径和文件名。如果用在包含文件中，则返回包含文件名。自 PHP 4.0.2 起，<strong>FILE</strong> 总是包含一个绝对路径，而在此之前的版本有时会包含一个相对路径。</p>
+<p>3。<strong>FUNCTION</strong><br>返回函数名称（PHP 4.3.0 新加）。自 PHP 5 起本常量返回该函数被定义时的名字（区分大小写）。在 PHP 4 中该值总是小写字母的。</p>
+<p>4。<strong>CLASS</strong><br>返回类的名称（PHP 4.3.0 新加）。自 PHP 5 起本常量返回该类被定义时的名字（区分大小写）。在 PHP 4 中该值总是小写字母的。</p>
+<p>5。<strong>METHOD</strong><br>返回类的方法名（PHP 5.0.0 新加）。返回该方法被定义时的名字（区分大小写）。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2012/12/11/magic-functions-in-php/" data-id="cjap5ltvi0066b8rliu5a7eoz" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2012/12/11/magic-functions-in-php/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-simple-post-series-plugin-officially-publish" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/12/09/simple-post-series-plugin-officially-publish/" class="article-date">
+  <time datetime="2012-12-09T05:42:20.000Z" itemprop="datePublished">2012-12-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WordPress开发/">WordPress开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/12/09/simple-post-series-plugin-officially-publish/">Post Series插件(更名为SimplePostSeries)正式发布</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Post Series插件改名为Simple Post Series正式在Wordpress插件官网发布，可以<a href="http://wordpress.org/extend/plugins/simple-post-series/" title="simple-post-series官网下载" target="_blank" rel="noopener">自由下载使用</a>。</p>
+<p>Simple Post Series为Wordpress增加按照专题管理文章并展示的功能，集所有类似插件功能之所长，设置选项完善。</p>
+<p>融合所有类似插件的相关功能：</p>
+<ul>
+<li>*可以在文章编辑页面通过按钮与面板添加shortcode以展示某个专题下的文章列表，支持文章与页面，</li>
+<li>*可以设置自动在文章页或主页上显示某个专题下的文章列表，可以设置展示摘要或缩略图，</li>
+<li>*可以在管理员文章管理页面上对某个专题进行筛选，文章管理更加方便，</li>
+<li>*2.0最新版支持文章拖拽添加到专题的功能，页面特别参考eg-series插件。<br>专题文章的拖动管理页面，这是极其方便的管理页面，用户可以在该页面上自由拖动文章到某个专题，或是删除某个专题下的文章，或是改变文章的排序等。</li>
+</ul>
+<p>待完善：（BUG列表）</p>
+<p><del>1.页面无法在专题展示中列出</del></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p><strong>simple-post-series</strong> allows you to insert series short code for displaying a bunch of posts in the same serie.<br>This plugin allows to include posts into series, to create, delete or rename series. It also includes <em>widgets</em> and <em>shortcodes</em> to display list of series, or the list of posts belonging to the series of the current post.</p>
+<p>With this plugin, you can:</p>
+<ul>
+<li><ul>
+<li>Add / Delete a post from a serie,</li>
+</ul>
+</li>
+<li><ul>
+<li>Create / Rename / Delete series,</li>
+</ul>
+</li>
+<li><ul>
+<li>Display the list of series in a post, or display this list in sidebar, with widgets for exemple,</li>
+</ul>
+</li>
+<li><ul>
+<li>Filter posts by a special serie in your admin post managent page,</li>
+</ul>
+</li>
+<li><ul>
+<li>Automatically insert the list of posts of a specific serie, without using shortcode.<br><strong>simple-post-series</strong> is <strong>TinyMCE Integrated</strong>. That means you don’t need to learn the shortcode syntax. The plugin add a button in the tinymce toolbar. You just have to click on this button, choose parameters/options, and click insert. That’s all, the shortcode will be insert into your post with the right parameters.</li>
+</ul>
+</li>
+</ul>
+<p>You can find latest source code in <a href="https://github.com/chaozh/Post-Series" target="_blank" rel="noopener">github project</a>.</p>
+<p>This plugin is enlighted by Tuts+ and their Sessions. You can find a very helpful <a href="http://wp.tutsplus.com/tutorials/plugins/adding-post-series-functionality-to-wordpress-with-taxonomies/" target="_blank" rel="noopener">cource in NetTuts+</a> to figure out how this plugin works in Wordpress.</p>
+<h3 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h3><ol>
+<li>Uzip the <code>simple-post-series.zip</code> folder.</li>
+<li>Upload the <code>simple-post-series</code> folder to your <code>/wp-content/plugins</code> directory.</li>
+<li>In your WordPress dashboard, head over to the <em>Plugins</em> section.</li>
+<li>Activate <em>Post Series</em>.</li>
+</ol>
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p><strong>simple post series</strong> adds two administration pages, a widget and shortcode.</p>
+<h3 id="Customize-your-theme"><a href="#Customize-your-theme" class="headerlink" title="Customize your theme"></a>Customize your theme</h3><p>simple-post-series uses now a specific taxonomy to implement series. It means</p>
+<ul>
+<li><ul>
+<li>The link to series can be: <a href="http://host/path/series/[Name" target="_blank" rel="noopener">http://host/path/series/[Name</a> of the serie]</li>
+</ul>
+</li>
+<li><ul>
+<li>You can build / customize a specific page in your theme to display the content of a serie.<br>You can customize your theme by creating page like ‘taxonomy-series.php’ which overrides default archive page to display the content of a serie.<br>A sample archive page template is located in ‘[simple-post-series]/template/taxonomy-series.php’ and you can freely modified it and place in your own theme.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Administration-pages"><a href="#Administration-pages" class="headerlink" title="Administration pages"></a>Administration pages</h3><ul>
+<li><strong>* Series</strong> gives ability to change or rename series,</li>
+<li><strong>* Settings/Post Series</strong> contains all options of the plugin. In this page, you can activate the <strong>auto display</strong> feature.</li>
+</ul>
+<h3 id="Shortcodes"><a href="#Shortcodes" class="headerlink" title="Shortcodes"></a>Shortcodes</h3><p>To display the list of series: [series <em>options</em>], with the following options:</p>
+<ul>
+<li><strong>* id</strong> of the series. Default ‘ ‘,</li>
+<li><strong>* slug</strong> of the series. Default ‘ ‘,</li>
+<li><strong>* title</strong> of the list. Default ‘ ‘,</li>
+<li><strong>* limit</strong>: number of series to display in the list. Default: -1 to display all series,</li>
+<li><strong>* show_future</strong>: displays unpublish posts in the series. Default: on,</li>
+<li><strong>* class_prefix</strong>: of the list section. Default ‘post-series’.</li>
+</ul>
+<h3 id="Screenshots"><a href="#Screenshots" class="headerlink" title="Screenshots"></a>Screenshots</h3><ol>
+<li>Post Editing page: TinyMCE integration and additional metabox to quickly choose or add a serie 加入专题设置模块,</li>
+<li>List of posts in a serie 在文章页面展示专题列表,</li>
+<li>Easily manage series 拖拽管理专题下所属文章,</li>
+<li>TinyMCE window to choose shortcodes options, and insert shortcodes 文章编辑方便插入short code,</li>
+<li>Insert short code in edit post 插入short code的结果,</li>
+<li>Options page 插件设置页面,</li>
+</ol>
+<h3 id="Changelog"><a href="#Changelog" class="headerlink" title="Changelog"></a>Changelog</h3><p>= 2.1 =</p>
+<ul>
+<li>New: Fix bugs and improve code robustion</li>
+</ul>
+<p>= 2.0 =</p>
+<ul>
+<li>New: Add admin series bulk edition page for drag and drop posts to serie</li>
+</ul>
+<p>= 1.3 =</p>
+<ul>
+<li>New: Add option to choose where to display lists</li>
+<li>New: Add option to choose to display excerpt</li>
+<li>New: Add option to choose to display thumbnail</li>
+</ul>
+<p>= 1.2 =</p>
+<ul>
+<li>New: Add series filter in admin’s edit.php</li>
+<li>New: optional load of the stylesheet</li>
+<li>New: sample archive page for displaying series taxonomy in custom theme</li>
+</ul>
+<p>= 1.1 =</p>
+<ul>
+<li>New: add widget for post series with many options</li>
+</ul>
+<p>= 1.0 =</p>
+<ul>
+<li>Plugin released. Everything is new! Have to change name from post-series to simple-post-series.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2012/12/09/simple-post-series-plugin-officially-publish/" data-id="cjap5ltvw006zb8rlofeio1dw" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2012/12/09/simple-post-series-plugin-officially-publish/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WP插件/">WP插件</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-wordpress-plugin-post-series-publish" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/11/04/wordpress-plugin-post-series-publish/" class="article-date">
+  <time datetime="2012-11-04T13:21:58.000Z" itemprop="datePublished">2012-11-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WordPress开发/">WordPress开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/11/04/wordpress-plugin-post-series-publish/">WordPress专题系列文章管理插件Post Series发布</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本人第二个WordPress个人制作插件Post Series也完成了。功能是显示一个系列文章的列表，需求很常见，但是搜到的插件要么功能过于复杂，要么就得<a href="http://codecanyon.net/item/post-series/239344" target="_blank" rel="noopener">收费</a>。</p>
+<p>当然这个插件主要的展示代码逻辑也是来自一个Nettuts+教程《<a href="http://wp.tutsplus.com/tutorials/plugins/adding-post-series-functionality-to-wordpress-with-taxonomies/" target="_blank" rel="noopener">Adding Post Series Functionality to WordPress With Taxonomies</a>》，但是本人将其发扬光大，为其加入了编辑器按钮及界面，还加入插件设置界面以及相应小工具，而且可以设置自动在文章页面展示系列文章列表，彻底省去添加short code的烦恼。</p>
+<p>目前可定制性算是够强，下一步是参考其他Series插件继续完善一些功能。当然目前的第一步是发布到WordPress官网供大家下载。</p>
+<p>首先是学习免费插件EG-Series</p>
+<p>优点：其同样支持编辑器按钮（支持系列文章展示short code与展示所有系列的short code），可以用拖放的方式管理系列下的文章，为管理员导航栏增加菜单。居然使用的各种short code及tax设置都与本人写的通用。。。要好好学习。。。</p>
+<p>缺点：默认样式很一般，勉强可以用</p>
+<p>其次是参考免费插件Organize Series，其可以升级为付费版，只有付费版才支持short code与custom post type</p>
+<p>优点：普通版可以完整设置展示的template（全部HTML代码都可以更改，这个定制性过强）设置使用默认css样式表，可以为系列添加特色图标，为文章管理页面加上系列一栏（展示系列名称与文章数目），可以进行filter筛选，同样可以为文章自动添加系列展示等（设置使用checkbox input可以学习），可以改变文章在系列中的序数（比较麻烦）。</p>
+<p>缺点：默认样式很丑，默认展示位置很诡异，根本不适用，果然是逼人用付费版啊。</p>
+<p>优化点Todo：</p>
+<ol>
+<li><del>文章管理页面加上系列的filter</del>，系列支持特色图标</li>
+<li><del>设置是否使用默认css样式表，其他都改用checkbox来展示</del></li>
+<li>增加系列展示的各种设置，如是否显示thumbnail或excerpt</li>
+<li><del>增加系列内的导航，增加show all按钮</del></li>
+<li>系列展示可以使用list或select，改变sort order</li>
+<li><del>拖放的方式管理（同时可以参考收费插件）*</del></li>
+<li>设置short code的名称*</li>
+<li><del>设置自动展示的页面类型与位置及样式设置*</del></li>
+<li>增加更多的模板编码*</li>
+<li>设置界面分为几个section*</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2012/11/04/wordpress-plugin-post-series-publish/" data-id="cjap5ltx6009lb8rlfkq4iuhe" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2012/11/04/wordpress-plugin-post-series-publish/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WP插件/">WP插件</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-how-php-merge-two-arrays" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/10/24/how-php-merge-two-arrays/" class="article-date">
+  <time datetime="2012-10-24T03:27:55.000Z" itemprop="datePublished">2012-10-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/后端语言/">后端语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/10/24/how-php-merge-two-arrays/">PHP合并数组元素的两种方法与区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div><br><br><cite>array_merge()：</cite><br>如果输入的数组中有相同的字符串键名，则该键名后面的值将覆盖前一个值。如果数组包含数字键名，后面的值将不会覆盖原来的值，而是附加到后面。（数字键名会被重新分配，总会变成从零开始的。。）<br><br><cite>对于使用“＋”合并数组：</cite><br>如果数组中有相同的字符串键名（不管是不是数字），则会把最先出现的值作为最终结果返回，而把后面的数组拥有相同键名的那些值“抛弃”掉。<br><br>参考：<a href="php里面合并数组array_merge和加号有什么不同">php里面合并数组array_merge和加号有什么不同</a><br><br></div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2012/10/24/how-php-merge-two-arrays/" data-id="cjap5ltuq004kb8rlb0aa85v2" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2012/10/24/how-php-merge-two-arrays/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-wordpress-plugin-post-switch-publish" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/10/22/wordpress-plugin-post-switch-publish/" class="article-date">
+  <time datetime="2012-10-22T01:47:24.000Z" itemprop="datePublished">2012-10-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WordPress开发/">WordPress开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/10/22/wordpress-plugin-post-switch-publish/">Post Switch插件发布</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本人终于发布了首个WordPress个人制作插件Post Switch，该插件可以很方便的切换正在编辑的文章。主要是本人发现在WordPress后台修改同一分类下面的文章时，需要不断切换到“所有文章”界面再切换回“修改文章”界面，颇为不便，于是就想在“修改文章”界面添加一个选项栏可以选择同一个分类下面的任意文章进行切换。写完插件用起来个人感觉也还不错，至少目前满足了个人需求。</p>
+<p><img src="http://s-plugins.wordpress.org/post-switch/assets/screenshot-1.png?rev=611775" alt="post-switch 显示"></p>
+<p>插件使用后的“编辑文章”界面，增加了Post Switch功能块</p>
+<p><img src="http://s-plugins.wordpress.org/post-switch/assets/screenshot-2.png?rev=611775" alt="post-switch screenshot 2"></p>
+<p>Post Switch功能块，上面可以选择分类，下面可以选择文章进行切换</p>
+<p>取英文名倒是费了些神，写英文的说明文档也很痛苦，说明本人英文还需要加强。插件项目的托管使用了Github，于是也捎带熟悉了Git的使用，感觉确实很好用。无奈WordPress官方却使用SVN，怎么把这两个结合起来还需要继续研究。同时后续准备加强分类的选项，除了文章所属分类外还准备显示分类的父分类，这样能够进行编辑切换的文章就更多更容易查找了。</p>
+<p>WordPress官方提交插件的地址也十分难找，居然在个人管理界面里面都没有，这里也顺便给出吧：<a href="http://wordpress.org/extend/plugins/add/" title="提交地址" target="_blank" rel="noopener">插件提交地址</a></p>
+<p>Post Switch插件下载：</p>
+<p><a href="https://github.com/chaozh/Wp-Post-Switch" title="Github项目地址" target="_blank" rel="noopener">Github项目地址</a></p>
+<p><a href="http://wordpress.org/extend/plugins/post-switch/" title="WP官方地址" target="_blank" rel="noopener">WordPress官方地址</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2012/10/22/wordpress-plugin-post-switch-publish/" data-id="cjap5ltx9009pb8rlyqr49ht1" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2012/10/22/wordpress-plugin-post-switch-publish/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WP插件/">WP插件</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-how-to-understand-filter-in-theme-or-plugin" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/10/06/how-to-understand-filter-in-theme-or-plugin/" class="article-date">
+  <time datetime="2012-10-06T13:35:43.000Z" itemprop="datePublished">2012-10-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WordPress开发/">WordPress开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/10/06/how-to-understand-filter-in-theme-or-plugin/">filter的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>WordPress开发中action与filter的使用是一个重要的部分，相比action来说filter这个概念更难理解，如果能够完全理解filter，action就根本不是问题。本人也是在开发主题的过程中终于完全理解，于是立即记录分享一下。</p>
+<p>filter概念就如名字表示的那样用于过滤输出的内容，相关API很简单，基本就是<code>add_filter</code>与<code>apply_filters</code>两个函数。<code>add_filter</code>用于向filter的tag上注册函数，<code>apply_filters</code>则是触发filter的tag从而运行注册在其上的所有函数。</p>
+<p>开始本人不理解为何开发需要使用filter时不需要使用<code>apply_filters</code>进行触发反而只在使用<code>add_filter</code>注册函数，如果你也有相同的疑问，那么看下面这个本人碰到的实际例子：</p>
+<p>现在需要根据主题设置修改body上class属性的内容，于是可以定义一个函数注册到tag名为body_class的filter上：</p>
+<p><pre>function theme_layout_classes( $existing_classes ){<br>    $options = get_theme_options(); //get_theme_options函数可以获得相应主题设置<br>    $current_layout = $options[‘theme_layout’]; //这里得到相应主题使用的布局设置<br>    return array_merge( $existing_classes, $current_layout );//返回增加了设置的class内容<br>}<br>add_filter( ‘body_class’, ‘theme_layout_classes’ );//将我们定义的函数注册到tag名为body_class的filter上</pre><br>这样当调用<code>body_class()</code>函数时（该函数通常在header.php中使用用于输出body的class内容：<code>&amp;lt;body &amp;lt;?php body_class(); ?&amp;gt;&amp;gt;</code>）就会调用我们定义的这个函数，从而将原定输出的class内容加上$current_layout 。</p>
+<p>但如果现在需要在显示page时根据page的特殊布局设置覆盖主题的默认布局设置，我们应该如何处理呢？</p>
+<p>由于已经把主题设置的class内容加进去了，再使用filter把内容减去就比较困难。实际上解决方法应是将新增的内容进行整体替换，于是我们修改函数theme_layout_classes为：</p>
+<p><pre>function theme_layout_classes( $existing_classes ){<br>    $options = get_theme_options(); //get_theme_options函数可以获得相应主题设置<br>    $current_layout = $options[‘theme_layout’]; //这里得到相应主题使用的布局设置<br>    $classes = apply_filters( ‘theme_layout_classes’, $current_layout ); //这里实际我们定义了一个新的filter tag<br>    return array_merge( $existing_classes, $classes );//返回增加了的内容<br>}<br>add_filter( ‘body_class’, ‘theme_layout_classes’ );//将我们定义的函数注册到tag名为body_class的filter上</pre><br>可以看到我们通过<code>apply_filters</code>实际定义了一个新的filter tag，这样我们只要将新函数注册到这个tag上就能够整体替换新增的内容。<br>于是我们再注册一个函数：</p>
+<p><pre>function page_layout_classes( $existing_classes ) {<br>    global $post;<br>    $current_page_layout = esc_attr(get_post_meta($post-&gt;ID, ‘page_layout’, true));//获得page的特殊布局设置<br>    if (! empty($current_page_layout) ){ //如果存在特殊设置，则返回这个内容<br>        return $current_page_layout;<br>    }else{<br>        return $existing_classes; //否则还是返回原有内容<br>    }<br>}<br>add_filter( ‘theme_layout_classes’, ‘page_layout_classes’ );//将这个函数注册到我们定义的theme_layout_classes上，以实现替换新增内容的功能</pre><br>这样在调用<code>theme_layout_classes</code>时又会因为<code>apply_filters( &#39;theme_layout_classes&#39;, $current_layout );</code>触发调用<code>page_layout_classes</code>函数，注意<code>page_layout_classes</code>函数第一个参数$existing_classes这里会被赋值为$current_layout，于是就能用page的特殊设置覆盖主题的默认设置。</p>
+<p>通过这个例子我们知道产生之前疑问的关键是调用函数<code>body_class()</code>时实际上里面就有调用<code>apply_filters( &#39;body_class&#39;)</code>进行filter的触发（出自<code>get_body_class:wp-includes/post-template.php</code>），当然我们不需要再进行触发，只需要使用<code>add_filter</code>将我们的函数注册即可。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2012/10/06/how-to-understand-filter-in-theme-or-plugin/" data-id="cjap5ltuu004ub8rl1lsi1xm4" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2012/10/06/how-to-understand-filter-in-theme-or-plugin/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WP主题/">WP主题</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-key-value-storage-system-development-summary-part-one" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/09/08/key-value-storage-system-development-summary-part-one/" class="article-date">
+  <time datetime="2012-09-08T09:43:36.000Z" itemprop="datePublished">2012-09-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统架构/">系统架构</a>►<a class="article-category-link" href="/categories/系统架构/项目经历/">项目经历</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/09/08/key-value-storage-system-development-summary-part-one/">华为合作K-V存储系统项目纪实(1)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本来觉得这个博客应该只关注于web技术，只讨论些wordpress，各种前端技术，乃至互联网公司发展方式的问题。但转念想来此博客关注度又不高，便违背SEO专注的精神也不会有啥流量损失。何况一个人还是把技术问题分在几个博客说也未免太夸张，这个博客既然是技术博客，自然应该什么技术问题都可以在这里畅所欲言。</p>
+<p>于是决定把自己种种技术相关的文章都搬迁到这里，以丰富这个站点的内容，而关键的是要开始记录自己至今参加的第一个需要编码的多人合作项目历程。希望能够坚持每周写一篇，把从需求到设计到最后编码遇到的种种问题与思考都记录下来。</p>
+<p>项目组由一个博士，一个准博士，包括本人在内的三个硕士组成。准博士算是项目负责人，但是具体经验不足，还是需要博士进行辅助。发过来的项目要求只有简单几句，概括说来就是实现一个key-value存储系统，key为两种定长，value只有8字节整数。总规模可以达到20亿条记录，10次找key只准1次io，最多利用总数据量5%的缓存。</p>
+<p>这要求很是古怪，目前kv存储系统设计都会大量利用内存来做缓存，甚至很多都是所谓“内存数据库”。这里却对内存使用要求如此严格，但又要达到寻找key时90%的命中率，简直是不可能完成的任务。而且对性能还没有提成明确要求，已经可想见最终要求之苛刻。</p>
+<p>调研从系统与测试方面进行，选择了最简单的hashdb与同样以节约内存闻名的tokyo cabinet，hashdb不到500行代码，自然只是大概学习一下。而就资料来看tokyo cabinet也只是面对千万级别的设计，在到达上亿数据时性能会急剧下降。</p>
+<p>而后发现使用在工业环境的tokyo cabinet其实现居然如此简单，而且只能将数据存在一个文件中，很明显限制了最大存储的数据量，这彻底颠覆了本人对其的印象。测试下来自然性能也没传说中的那么牛，而且明显到达上亿级别测试结果不会好，一时全组陷入沮丧当中。</p>
+<p>后来再多方考察使用TC做后端存储的flare等设计思路，才突然想到不应该将TC看成一个完整的系统，而应该视为一个最底层的存储引擎。这个引擎足够简单，但是足够好用，你可以在上面开发更多东西。一个文件并非对应一个TC数据库管理系统，而是只对应一个数据库，甚至一个表，比如可以将20亿数据拆分成几个TC数据库来存，这样就能存储在多个文件中(就是说DBA还得弄分片分表，TC使用类似innobase的file_per_table设置)，也就可以扩展最大存储数据量了。当然性能如何，能否满足本项目苛刻的要求又是另一个话题，但是工业环境下是可以这样使用TC的。所以工业环境下使用软件不应该被限制住思维，一个不够，多搞几个，完成任务就行。</p>
+<p>回到项目上，显然TC的hash引擎设计使用mmap来进行性能优化不适合本项目，再看B+树引擎设计也同一般B+树类似，没看出特色来，所以架构设计方面仍然是一筹莫展，只期待下周的需求讨论华为方能够更明确设计目的与要求。老师自然不满意这种简单的设计，要求我们看看更先进的系统，但是能用的kv系统真的不多，Berkerly DB算是最大而全的吧，可以了解一下架构设计，但对项目感觉帮助不大。</p>
+<p>说到需求讨论，本人准备了各种问题，从系统基于的设备到可靠性与可扩展性要求乃至是否并发访问，结果博士来了句“问这些不相关的干什么，其实对方真正只是要一个能够管理大数据量而同时节省内存的算法而已”，仔细一看发过来的需求，还真是如此。所以项目需求最需要明确的是这个系统是用来干什么的，如果是一个为了算法测试用的原型系统，考虑那么多工程问题干什么呢？也许是本人太想鼓捣个工业环境用的系统玩玩了吧，以致忽略了对方提出项目的真实目的。所以需求明确是最必要的，而问出系统使用验收的环境是更关键的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2012/09/08/key-value-storage-system-development-summary-part-one/" data-id="cjap5ltve005vb8rlak9lcsu1" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2012/09/08/key-value-storage-system-development-summary-part-one/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kv存储/">kv存储</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/华为/">华为</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/项目管理/">项目管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-thought-when-i-read-on-the-top-of-tides" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/09/02/thought-when-i-read-on-the-top-of-tides/" class="article-date">
+  <time datetime="2012-09-02T11:56:12.000Z" itemprop="datePublished">2012-09-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/产品设计/">产品设计</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/09/02/thought-when-i-read-on-the-top-of-tides/">读浪潮之巅想到的 </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这是本人2011年10月的一篇读书笔记，当时对互联网的理解自然有限，倒是能结合<a href="http://www.chaozh.com/thought-of-internet-in-2012/" title="2012互联网哲思" target="_blank" rel="noopener">这篇</a>做个比较。</p>
+<p>读《浪潮之巅》帮助我梳理整个计算机发展的规矩，只要读这种梳理路线的书就会有n多想法被串在一起，许多当时觉得有记录必要但却慢慢淡忘的思想也逐渐浮出，真心希望自己能多碰到些这种书。</p>
+<p>1.作者从google出来却放弃去百度而选择了腾讯，这说明了一个态度：1.百度搜索霸主地位已经成熟，根据规律，其在搜索上的发展必然停止，而需要寻找新的盈利点。所以作者的搜索技术在百度是发挥不了作用的。2.作者认为百度找不到新的盈利点，他否定了百度作为技术公司的身份，认为其仅是一个互联网公司，存在转型困难的问题。这也是有一定道理的，尽管目前百度仍然是三巨头中最强调技术的公司，但百度盈利模式却放弃了技术路线，竞价排名让人工代替了自动化技术，这种矛盾性让作者从中看出公司基因的问题。3.作者说腾讯和淘宝将逐渐蚕食百度的搜索份额，但这与他所说的霸主规律相矛盾，显然这只是作者的一厢情愿。由1的证据完全可以推翻3的说法。</p>
+<p>2.目前腾讯的主攻发展方向是霸占桌面，以此继续巩固扩大自己的im优势。显然腾讯调整了原来希望霸占操作系统的心思，因为仔细分析就能发现那个其实迟早要被浏览器霸占，而浏览器大战腾讯tt没有丝毫转化优势，于是干脆放弃改为霸占用户的片段时间（即桌面）为此推出Q+并改变了webQQ的发展方向。由需要探索需要服务定制的一站式服务系统，改为一目了然扁平的桌面。</p>
+<p>原来总是不解为啥q+或webQQ桌面上要默认放那么多应用，现在更是推出常用网站功能，一打开满屏幕各种大众网站密密麻麻。其实这既是跟其战略制定相符合，而战略制定更是和中国用户习惯相适应。这点听了周鸿祎的分析才真正弄明白，中国大多数用户尤其是使用qq客户端的都是没有细分能力的，他们不喜欢探索更讨厌定制。即使给他们一站式服务系统，他们也搞不懂到底怎么用。而让他们用的最好的方法就是推送，他们不是懒得考虑自己需要什么吗，那就一股脑都给他们。所以腾讯放弃了系统，选择了桌面；放弃了分类，选择了扁平。</p>
+<p>3.腾讯微博明显干不过新浪微博，但腾讯还是在搞；腾讯朋友更是彻底失败，但还是反复在搞，目前甚至不惜使用最后绝招与im绑定。显然这是需找新盈利模式的无奈，目前世界成功模式有搜索，电子商务，web2.0社交平台（facebook，或twitter），前面俩个腾讯也在积极的做，但由于霸主规律，基本无望。社交方面腾讯是霸主，更有优势，但转向web2.0平台却不那么容易。好不容易在3Q大战后意识到不做成平台不行了，全力去促成，无奈目前两种平台都弄不起来。</p>
+<p>4.比腾讯朋友更有用户基础的Qzone也在改版，而且极其诡异的同时向两个方向努力，一方面是向社交平台转变，这当然是弥补腾讯朋友失败的无奈之举；一方面又得适应博客先轻博客转型的世界潮流，而问题在于信息爆炸的社交平台与小资情调信息极少的轻博客从设计本质上就是矛盾的。腾讯朋友的失败其实也是虚拟关系的qq号网络和真实信息的社交网络两者设计本质矛盾的产物。现在的腾讯其实在痛苦的转型期，所以才弄出桌面战略以此来进一步弥补平台的问题，既然平台建不出来，只好把im也往平台转。第一入口浏览器不成，只好选第二入口桌面。我原来也只想到了第二入口桌面，觉得以后肯定会有越来越多的公司抢这个，却没有想到浏览器，再看google的思路，发现确实有境界理解上的差距啊！</p>
+<p>5.腾讯这几条线都没有放弃，社交网络甚至采取得是齐头并进的模式，看来战略仍然是不断模仿直至对方找不到盈利来源拖垮为止。无奈新浪不吃这套，而且大有反抢qq社交关系的架势。微博本就很容易使用，和qq一样可以是虚拟身份也可以是真实身份（这点在中国很关键），而且最关键的是脱离平台限制，完全可以想象qq的危险境地。所幸对手是新浪，没啥创新能力与技术储备，否则其放弃平台专做统一接口，那将是对qq一次毁灭的打击。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2012/09/02/thought-when-i-read-on-the-top-of-tides/" data-id="cjap5ltwk0081b8rlpdgjo628" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2012/09/02/thought-when-i-read-on-the-top-of-tides/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/google/">google</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/互联网企业/">互联网企业</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-wordpress-trick-design-of-tag-and-category-and-usage-of-custom-taxonomy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/06/05/wordpress-trick-design-of-tag-and-category-and-usage-of-custom-taxonomy/" class="article-date">
+  <time datetime="2012-06-05T11:02:25.000Z" itemprop="datePublished">2012-06-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WordPress开发/">WordPress开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/06/05/wordpress-trick-design-of-tag-and-category-and-usage-of-custom-taxonomy/">tag与category的使用与自定义标签的设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>WordPress中存在两种类型的分类：一种是tag，另一种是category。这两种分类的区别在于: category通常是有层次的，而tag是平行平等的。</p>
+<p>一些著名博客如Smashing Magzine以及Nettut+是如何安排使用tag和category的呢？</p>
+<p>最新Smashing Magzine主题是轻博客类型，完全放弃有层次的category，而全部采用平等的tag。</p>
+<p>而传统博客类型的Nettut+基本采用category，其URL结构为/articles/javascript或是/tutorials/ 。tag用来标记类型如video或tips，该主题甚至可以结合两者进行查询。</p>
+<p>WordPress中可以使用函数<code>register_taxonomy注册</code>自定义标签，区分是category类型还是tag类型的关键就是参数hierarchical。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2012/06/05/wordpress-trick-design-of-tag-and-category-and-usage-of-custom-taxonomy/" data-id="cjap5ltxb009tb8rlmwwd934n" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2012/06/05/wordpress-trick-design-of-tag-and-category-and-usage-of-custom-taxonomy/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WP主题/">WP主题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WP插件/">WP插件</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WP设置/">WP设置</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/archives/2012/page/2/">2</a><a class="extend next" rel="next" href="/archives/2012/page/2/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/WordPress开发/">WordPress开发</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品设计/">产品设计</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端语言/">后端语言</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/新技术跟踪/">新技术跟踪</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/">系统架构</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/项目经历/">项目经历</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统经验/">系统经验</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/课程总结/">课程总结</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融/">金融</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试总结/">面试总结</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目经历/">项目经历</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InnoDB/">InnoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS模板/">JS模板</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux设置/">Linux设置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVCC/">MVCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP主题/">WP主题</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP实现/">WP实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP插件/">WP插件</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP设置/">WP设置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/">WebGL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache-coherence/">cache coherence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history/">history</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios应用/">ios应用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptv/">iptv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/">join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kv存储/">kv存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutex/">mutex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/">paxos</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raft/">raft</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url重定向/">url重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web2-0/">web2.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文汉化/">中文汉化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/互联网企业/">互联网企业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/债券/">债券</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内核/">内核</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式锁/">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/华为/">华为</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基金/">基金</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外设/">外设</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源项目/">开源项目</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无锁并发/">无锁并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/期货/">期货</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栅格系统/">栅格系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/科研/">科研</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/股票/">股票</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本加载/">脚本加载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/腾讯/">腾讯</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/苹果/">苹果</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法/">语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读写锁/">读写锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调度/">调度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金山/">金山</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隔离级别/">隔离级别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目管理/">项目管理</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/InnoDB/" style="font-size: 10px;">InnoDB</a> <a href="/tags/JS模板/" style="font-size: 11.67px;">JS模板</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Linux设置/" style="font-size: 10px;">Linux设置</a> <a href="/tags/MVCC/" style="font-size: 10px;">MVCC</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WP主题/" style="font-size: 16.67px;">WP主题</a> <a href="/tags/WP实现/" style="font-size: 10px;">WP实现</a> <a href="/tags/WP插件/" style="font-size: 16.67px;">WP插件</a> <a href="/tags/WP设置/" style="font-size: 11.67px;">WP设置</a> <a href="/tags/WebGL/" style="font-size: 11.67px;">WebGL</a> <a href="/tags/Zookeeper/" style="font-size: 10px;">Zookeeper</a> <a href="/tags/cache-coherence/" style="font-size: 10px;">cache coherence</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/fabric/" style="font-size: 11.67px;">fabric</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/google/" style="font-size: 11.67px;">google</a> <a href="/tags/history/" style="font-size: 10px;">history</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/ios应用/" style="font-size: 10px;">ios应用</a> <a href="/tags/iptv/" style="font-size: 10px;">iptv</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/kv存储/" style="font-size: 10px;">kv存储</a> <a href="/tags/memory/" style="font-size: 10px;">memory</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/paxos/" style="font-size: 11.67px;">paxos</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raft/" style="font-size: 10px;">raft</a> <a href="/tags/url重定向/" style="font-size: 10px;">url重定向</a> <a href="/tags/web2-0/" style="font-size: 10px;">web2.0</a> <a href="/tags/zookeeper/" style="font-size: 11.67px;">zookeeper</a> <a href="/tags/中文汉化/" style="font-size: 11.67px;">中文汉化</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/互联网企业/" style="font-size: 11.67px;">互联网企业</a> <a href="/tags/债券/" style="font-size: 11.67px;">债券</a> <a href="/tags/内核/" style="font-size: 11.67px;">内核</a> <a href="/tags/分布式锁/" style="font-size: 10px;">分布式锁</a> <a href="/tags/区块链/" style="font-size: 13.33px;">区块链</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/基金/" style="font-size: 11.67px;">基金</a> <a href="/tags/外设/" style="font-size: 10px;">外设</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/实习/" style="font-size: 15px;">实习</a> <a href="/tags/开源项目/" style="font-size: 10px;">开源项目</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/数据库/" style="font-size: 18.33px;">数据库</a> <a href="/tags/无锁并发/" style="font-size: 10px;">无锁并发</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/期货/" style="font-size: 11.67px;">期货</a> <a href="/tags/栅格系统/" style="font-size: 10px;">栅格系统</a> <a href="/tags/科研/" style="font-size: 10px;">科研</a> <a href="/tags/算法/" style="font-size: 18.33px;">算法</a> <a href="/tags/索引/" style="font-size: 11.67px;">索引</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/股票/" style="font-size: 11.67px;">股票</a> <a href="/tags/脚本加载/" style="font-size: 10px;">脚本加载</a> <a href="/tags/腾讯/" style="font-size: 15px;">腾讯</a> <a href="/tags/苹果/" style="font-size: 10px;">苹果</a> <a href="/tags/语法/" style="font-size: 11.67px;">语法</a> <a href="/tags/读写锁/" style="font-size: 10px;">读写锁</a> <a href="/tags/调度/" style="font-size: 10px;">调度</a> <a href="/tags/金山/" style="font-size: 10px;">金山</a> <a href="/tags/锁/" style="font-size: 10px;">锁</a> <a href="/tags/键盘/" style="font-size: 10px;">键盘</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试/" style="font-size: 20px;">面试</a> <a href="/tags/项目管理/" style="font-size: 11.67px;">项目管理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/03/">March 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/02/Qconf-summary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/08/blockchain-tech-summary/">区块链技术总结与架构实战</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/fabric-ca-design/">Hyperledger Fabric CA设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/05/sicp-charpter-two/">SICP第二章总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chao Zheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  </footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/php-development-env-setup-in-win7-x64.html" class="mobile-nav-link">PHP-WIN</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'chaozh';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

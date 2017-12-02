@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Category: 系统架构 | chaozh.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="系统架构,移动开发,独立游戏">
+<meta property="og:type" content="website">
+<meta property="og:title" content="chaozh.com">
+<meta property="og:url" content="http://chaozh.github.com/categories/系统架构/index.html">
+<meta property="og:site_name" content="chaozh.com">
+<meta property="og:description" content="系统架构,移动开发,独立游戏">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chaozh.com">
+<meta name="twitter:description" content="系统架构,移动开发,独立游戏">
+  
+    <link rel="alternative" href="/atom.xml" title="chaozh.com" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">chaozh.com</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">超然台上仙的知识库|系统架构,移动开发,独立游戏</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/php-development-env-setup-in-win7-x64.html">PHP-WIN</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chaozh.github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-weixin-backend-arch-design" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/12/weixin-backend-arch-design/" class="article-date">
+  <time datetime="2015-10-12T19:12:13.000Z" itemprop="datePublished">2015-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统架构/">系统架构</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/12/weixin-backend-arch-design/">微信后端存储架构学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>学习了解一下微信的后端存储架构。使用微信的过程中就能发现微信不像QQ并没有漫游所有聊天信息，记录基本完全是在本地存储的，因此后台存储难度应该不大。<br><a href="http://www.infoq.com/cn/presentations/weixin-background-memory-architecture#0-tsina-1-31024-397232819ff9a47a7b7e80a40613cfe1" target="_blank" rel="noopener">视频与ppt地址</a>，演讲人微信基础平台组许家滔sunnyxu</p>
+<p>主要介绍内部产品QuorumKV，具体关注kv系统的强一致性。</p>
+<p>需求背景：微信全球数据布局分在上海，天津，深圳，香港，加拿大，乃至同城多园区分布等等</p>
+<p>系统要求：分布式强一致性（不需要应用层再设计），同城园区灾备，类SQL查询</p>
+<p>存储信息：聊天记录，通讯录，个人信息，朋友圈</p>
+<p>存储介质：包含mem，ssd，sas</p>
+<p>增加数据流程：实现方法为分组<br>序列号发生器：微信后台与终端交互使用序列号进行数据同步，偏序，实现方法为仅一个client操作<br>（如果还要实现后来这些需求，前面这些hack实现是否有必要？）</p>
+<p>修改value：1.可以覆盖；2.可以根据条件修改；实现方法为每次变更选举（by key），分为1.检查版本号；2.向集群发出请求；3.收到请求检查版本号；4.返回选举结果；5.推送结果；（类似Raft？）</p>
+<p>问题：容灾成本仍然高(预留机器空间)</p>
+<p>权衡点：自治，负载均衡，扩散控制</p>
+<p>解决方案：六台机作为一组（挂一台20%增长）跨园区跨机分组</p>
+<p>数据sharding：均匀分布指定分段（先算好后直接用，更好可以用hash ring，为何不用一致性hash？可能不均匀与冲突，负载均衡问题），希望终端无状态可以方便的重启防止内存泄露</p>
+<p><img src="http://cdn1.infoqstatic.com/statics_s1_20151015-0307/resource/presentations/weixin-background-memory-architecture/zh/slides/xjt.22.jpg" alt="系统架构图"></p>
+<p>底层使用所谓bitcask（内存索引加顺序写），同时使用小表系统解决写放大问题</p>
+<p>同步流量要求幂等，为每个数据块记版本号，在某个版本号进行某个操作，保底策略:某台机器刚启动问题会要求对端发完整数据块</p>
+<p>通信包量：读写的动态合并</p>
+<p>异步化：协程，libco</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2015/10/12/weixin-backend-arch-design/" data-id="cjap5ltwt008mb8rl46kgopws" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2015/10/12/weixin-backend-arch-design/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/存储/">存储</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-TCP-IP-stack-implementation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/15/TCP-IP-stack-implementation/" class="article-date">
+  <time datetime="2015-08-15T12:29:00.000Z" itemprop="datePublished">2015-08-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统架构/">系统架构</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/08/15/TCP-IP-stack-implementation/">TCP/IP网络栈实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考 <a href="http://blog.2baxb.me/archives/1174" target="_blank" rel="noopener">翻译：理解TCP/IP网络栈&amp;编写网络应用</a>一文内容。</p>
+<h2 id="1-TCP-IP的特性"><a href="#1-TCP-IP的特性" class="headerlink" title="1. TCP/IP的特性"></a>1. TCP/IP的特性</h2><ol>
+<li>面向连接<br>这里的连接用什么结构管理？</li>
+<li>双向字节流<br> 字节流是什么意思？</li>
+<li>顺序投递<br> 能够完全遵循时间顺序投递？</li>
+<li>ACK实现可靠性<br> 怎么可靠？</li>
+<li>流量控制、阻塞控制</li>
+</ol>
+<h2 id="2-数据传输流程"><a href="#2-数据传输流程" class="headerlink" title="2. 数据传输流程"></a>2. 数据传输流程</h2><p>网络栈很多层<br><img src="http://blog.2baxb.me/wp-content/uploads/2015/04/1.png" alt="image"></p>
+<p>内核层使用socket（因为抽象成文件，会走VFS路径）来管理从用户区拷贝过来的接收与发送的数据缓冲区，socket会关联一个TCP控制块，其包含TCP连接的所有状态数据。（基本回答问题1）</p>
+<p>TCP中允许情况下会创建TCP segment，包含两个部分：TCP头＋数据，注意TCP校验和不会中内核中算出，会offload到NIC中处理<br><img src="http://blog.2baxb.me/wp-content/uploads/2015/04/2.png" alt="image"></p>
+<p>创建的TCP分段进入IP层中增加IP头，然后执行IP路由（之后下一层是链路层增加链路头，至此形成完整报文）在执行IP路由时回选择一个NIC传输接口，这时会调用NIC驱动程序。如果此时有抓包程序则会在此层进行数据拷贝处理。驱动程序与内核通过请求NIC定义的通讯协议进行传输。</p>
+<p>NIC会从系统内存中拷贝数据包，向数据包中增加帧间隙（Inter-Frame Gap，IFG），同步码（preamble）和crc校验和。帧间隙和同步码用于区分数据包的开始（NIC目前是在哪一层？）。NIC会在主机的CPU上产生中断。驱动程序在启动时会注册一个处理中断的函数。操作系统调用中断处理程序，之后中断处理程序会把已发送的数据包返回给操作系统。</p>
+<p>除了应用程序直接调用write之外，内核也可以直接调用TCP传输数据，比如接收到ACK并且得知接收方的接收窗口增大之后，内核会创建socket缓冲区剩余数据的TCP片段并且把数据发送给接收者。</p>
+<h2 id="3-数据接收流程"><a href="#3-数据接收流程" class="headerlink" title="3.数据接收流程"></a>3.数据接收流程</h2><p>NIC接收到数据包后计算CRC，然后拷贝到驱动提前向内核申请的缓冲区中，之后NIC发出中断。驱动程序会判断它是否能处理新的数据包。<br><img src="http://blog.2baxb.me/wp-content/uploads/2015/04/3.png" alt="image"></p>
+<p>驱动向上层发送数据包时，Linux的<code>sk_buff</code>，或者BSD系列内核的<code>mbuf</code>，或者windows的<code>NET_BUFFER_LIST</code>。驱动会把数据包包装成指定的数据结构，并发送到上一层。</p>
+<p>之后数据链路层，IP层同样检查数据包是否有效，最后到TCP层查找到对应的TCB，socket接收缓冲区的大小就是TCP接收窗口。TCP吞吐量会随着接收窗口变大而增加。</p>
+<h2 id="4-流量控制"><a href="#4-流量控制" class="headerlink" title="4. 流量控制"></a>4. 流量控制</h2><p><img src="http://blog.2baxb.me/wp-content/uploads/2015/04/4.png" alt="image"></p>
+<p>步骤3即使用定时器超时机制</p>
+<h2 id="5-中断处理"><a href="#5-中断处理" class="headerlink" title="5. 中断处理"></a>5. 中断处理</h2><p>中断比较复杂，例如NIC接收数据产生中断，驱动在释放已经传输的数据包之后调用<code>napi_schedule()</code>函数去处理接收到的数据包，这个函数会请求软中断。<br><img src="http://blog.2baxb.me/wp-content/uploads/2015/04/5.png" alt="image"></p>
+<p>在中断上下文被执行之后，软中断的上下文会被执行。中断上下文和软中断上下文会通过相同的线程执行，但是它们会使用不同的栈。并且中断上下文会屏蔽硬件中断；而软中断上下文不会屏蔽硬件中断。</p>
+<p>处理接收到的数据包的软中断处理程序是<code>net_rx_action()</code>函数。这个函数会调用驱动程序的<code>poll()</code>函数。而<code>poll()</code>函数会调用<code>netif_receive_skb()</code>函数，并把接收到的数据包一个接一个的发送到上层。在软中断处理结束后，应用程序会从停止的位置重新开始执行完成系统调用。所以才有多队列NIC以解决软中断并发处理瓶颈问题。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2015/08/15/TCP-IP-stack-implementation/" data-id="cjap5lttf0028b8rljw6lskrf" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2015/08/15/TCP-IP-stack-implementation/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TCP/">TCP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内核/">内核</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-design-and-implementation-of-journaling-object-storage-server" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/09/02/design-and-implementation-of-journaling-object-storage-server/" class="article-date">
+  <time datetime="2013-09-02T10:50:21.000Z" itemprop="datePublished">2013-09-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统架构/">系统架构</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/09/02/design-and-implementation-of-journaling-object-storage-server/">对象存储文件系统分布式日志设计与实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>为MDS和OSD缓存构建日志系统以加强系统可用性与一致性。当MDS与OSD使用缓存时，为防止突然的故障导致的内存数据丢失，需要使用日志技术以进行数据恢复</p>
+<h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>日志系统支持文件系统配置日志和文件系统操作更新日志（Redo日志），并在MDS端支持分布式事务</p>
+<h3 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h3><p>深入研究EXT3文件系统（JBD）及Innodb（MySQL存储引擎）日志系统源码及设计 。</p>
+<p>更新日志功能（Redo日志）结合缓存以满足WAL协议，在写缓存前先写日志，日志一直进行顺序写，检查点操作保证空间进行循环使用。</p>
+<p>配置日志功能加强客户端请求缓存的重新连接发送</p>
+<p>分布式事务主要是MDS端的两阶段提交<br>关键点：日志系统与缓存结合，异步增量检查点，分布式两阶段提交</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/09/02/design-and-implementation-of-journaling-object-storage-server/" data-id="cjap5ltui003yb8rlct6sm2b7" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/09/02/design-and-implementation-of-journaling-object-storage-server/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-design-and-implementation-of-high-performance-cache-subsystem-in-object-storage-server" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/09/02/design-and-implementation-of-high-performance-cache-subsystem-in-object-storage-server/" class="article-date">
+  <time datetime="2013-09-02T10:02:11.000Z" itemprop="datePublished">2013-09-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统架构/">系统架构</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/09/02/design-and-implementation-of-high-performance-cache-subsystem-in-object-storage-server/">高效对象存储服务器缓存设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>在OSD端实现读写缓存以优化服务器性能，提升IO性能</p>
+<h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>设计并实现数据缓存模块，包括缓存存储结构的设计，提供缓存刷新与替换机制及预读机制</p>
+<h3 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h3><p>参考Linux内核使用基树构建读写混合缓存，整个缓存空间基于一个大的内存池，该内存池使用buddy算法进行管理，读缓存方面实现LIRS算法取代LRU算法以提高缓存命中率，写缓存方面使用异步写回策略（做IO聚合），一定时间需要进行赃页回收以给读缓存热区预留空间。</p>
+<p>关于LIRS，主要是LRU算法存在以下问题：</p>
+<p>1, 顺序扫描。顺序扫描的情况下LRU没有命中情况，而且会淘汰其它将要被访问的item从而污染cache。</p>
+<p>2, 循环的数据集大于缓存大小。如果循环访问且数据集大于缓存大小，那么没有命中情况。</p>
+<p>LIRS将数据分为两部分：LIR热区和HIR冷区，第一级是HIR，第二级是LIR，数据先进入到第一级，当数据在较短的时间内被访问两次时成为热点数据则进入LIR，HIR和LIR内部都采用LRU策略。这样，LIR中的数据比较稳定，解决了LRU的上述两个问题。除Recency外引入与locality相关的的IRR概念，即使用最近两次访问之间其他唯一块的数目。该数目体现了再次出现的可能性（越大越不可能再次出现）使用该概念后的LIRS最有可能将最新的访问缓存起来并在下次访问剔除，但是依旧使用recency进行缓存内的调整。</p>
+<p>在设计时使用一个栈来剔除recency较大且HIR的块以方便考察（在栈中的HIR块才可能变为LIR块，相应在栈中Recency最大的LIR块被出栈并转化为HIR块，注意这些转化并未导致被剔除出缓存，被剔除缓存的一定是HIR块而无论其是否在栈中）工程实现时无论是栈还是队列都使用list将块链起来实现即可，mysql ndb也是这么干的。每次决定是否将一个HIR块加入到LIR的时候都需要往栈里扫描一遍，这个时间开销是O(c)</p>
+<h3 id="优化、难点"><a href="#优化、难点" class="headerlink" title="优化、难点"></a>优化、难点</h3><p>读写混合缓存与LIRS算法的冲突的问题采用回收线程定期回收赃页进行改善。多线程并发时有时使用读写锁效率不如互斥锁，原因在<a href="http://www.chaozh.com/why-sometimes-pthread-mutex-overhead-rwlock/" title="为何线程互斥锁优于读写锁" target="_blank" rel="noopener">前文</a>已述，且多线程调试充满困难。malloc在小文件频繁申请上损耗较多，所以采用内存池解决。</p>
+<p>关键点：内存空间管理，多线程同步，缓存替换算法，异步写回</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/09/02/design-and-implementation-of-high-performance-cache-subsystem-in-object-storage-server/" data-id="cjap5ltuh003wb8rlk05f49be" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/09/02/design-and-implementation-of-high-performance-cache-subsystem-in-object-storage-server/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-design-and-implementation-of-distributed-lock-manager" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/31/design-and-implementation-of-distributed-lock-manager/" class="article-date">
+  <time datetime="2013-08-31T20:58:42.000Z" itemprop="datePublished">2013-08-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统架构/">系统架构</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/31/design-and-implementation-of-distributed-lock-manager/">对象存储文件系统分布式锁设计与实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>capfs是实验室自主研发，隶属于国家863重大项目“海量存储系统整体研究”的分布式对象存储系统，设计采用类似于PNFS的三方架构，具有高聚合带宽，并且具备高可扩展性、支持大目录等。系统能够达到60GB/s聚合带宽，支持10PB级存储，IOPS达到10^4至10^5，系统能够支持10亿个文件的访问（这些不需要强调）。</p>
+<h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>主要任务是为capfs提供分布式锁服务，为系统中的共享资源提供协同访问和一致性视图，保证数据并发访问的安全性。主要涉及flock文件锁系统调用功能及多客户端访问同一文件的元数据或数据一致性，满足读写一致性要求。</p>
+<h3 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h3><p>首先是带领小组分析学习成熟系统NFS及Lustre文件系统的一致性保证机制，为设计作为参考。NFS在v3版本之前都仅采用时间戳判断元数据是否失效，并每次更新同步并重新请求元数据，在多客户端访问下可能存在短暂的读写不一致情况。NFSv4在此基础上引入租约及回调机制，但只在open操作时申请，并且在remove类似操作时释放并回调，导致在多客户端情况下可能出现ping-pong效应且客户端缓存利用不足。Lustre设计多种锁类型进行一致性保护，修改了Linux内核以支持意图锁模式，并利用多种回调机制使得客户端尽可能持有锁，在服务器实现方面利用namespace及资源两个概念描述被保护的共享资源，并为每个资源设计三种锁队列。</p>
+<p>编写分布式锁主体框架以及与分布式系统耦合相关的代码。主要是提供文件级租约锁服务以保障客户端元数据缓存的一致性，该设计充分吸取了NFS的设计经验，这样就可以避免复杂的锁请求恢复及死锁检测（租约会在一段时间后自动失效，目前设置为30s，优化可以使用自适应算法），但是在lookup时即申请并在对应操作进行锁升级以加大并发度。服务器与回调接口设计参考Lustre，服务器架设在mds端，这样锁请求与元数据请求同时发送；同时在客户端架设锁客户端以类似plugin的形式嵌合（模块），接口传入资源字符串以保证通用性，以不同的命名规则区分文件锁及租约锁申请。</p>
+<h3 id="优化、难点"><a href="#优化、难点" class="headerlink" title="优化、难点"></a>优化、难点</h3><p>性能优化方面实现锁客户端的锁缓存方便回调查找，以及所谓子树锁优化，前者保证回调查找的高效，后者保证同一目录下多文件不用多次进行租约授予。继续可以利用冲突判断（目前为5次，超过后即放弃元数据缓存）降低ping-pong效应，特别是子树锁可能导致的冲突加剧。容易忽略的地方是客户端的时间同步。高可用性方面，需要加强mds的高可用性，锁相关的mds事务处理尚未实现。（关键设计难点在删除操作的一致性保证，目前尚未解决）。</p>
+<p>支持5000并发访问</p>
+<p>关键点：Linux内核开发，租约机制，回调，子树锁优化</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/08/31/design-and-implementation-of-distributed-lock-manager/" data-id="cjap5ltuf003rb8rlnxk70rmn" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/08/31/design-and-implementation-of-distributed-lock-manager/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-key-value-storage-system-development-summary-part-one" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/09/08/key-value-storage-system-development-summary-part-one/" class="article-date">
+  <time datetime="2012-09-08T09:43:36.000Z" itemprop="datePublished">2012-09-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/系统架构/">系统架构</a>►<a class="article-category-link" href="/categories/系统架构/项目经历/">项目经历</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/09/08/key-value-storage-system-development-summary-part-one/">华为合作K-V存储系统项目纪实(1)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本来觉得这个博客应该只关注于web技术，只讨论些wordpress，各种前端技术，乃至互联网公司发展方式的问题。但转念想来此博客关注度又不高，便违背SEO专注的精神也不会有啥流量损失。何况一个人还是把技术问题分在几个博客说也未免太夸张，这个博客既然是技术博客，自然应该什么技术问题都可以在这里畅所欲言。</p>
+<p>于是决定把自己种种技术相关的文章都搬迁到这里，以丰富这个站点的内容，而关键的是要开始记录自己至今参加的第一个需要编码的多人合作项目历程。希望能够坚持每周写一篇，把从需求到设计到最后编码遇到的种种问题与思考都记录下来。</p>
+<p>项目组由一个博士，一个准博士，包括本人在内的三个硕士组成。准博士算是项目负责人，但是具体经验不足，还是需要博士进行辅助。发过来的项目要求只有简单几句，概括说来就是实现一个key-value存储系统，key为两种定长，value只有8字节整数。总规模可以达到20亿条记录，10次找key只准1次io，最多利用总数据量5%的缓存。</p>
+<p>这要求很是古怪，目前kv存储系统设计都会大量利用内存来做缓存，甚至很多都是所谓“内存数据库”。这里却对内存使用要求如此严格，但又要达到寻找key时90%的命中率，简直是不可能完成的任务。而且对性能还没有提成明确要求，已经可想见最终要求之苛刻。</p>
+<p>调研从系统与测试方面进行，选择了最简单的hashdb与同样以节约内存闻名的tokyo cabinet，hashdb不到500行代码，自然只是大概学习一下。而就资料来看tokyo cabinet也只是面对千万级别的设计，在到达上亿数据时性能会急剧下降。</p>
+<p>而后发现使用在工业环境的tokyo cabinet其实现居然如此简单，而且只能将数据存在一个文件中，很明显限制了最大存储的数据量，这彻底颠覆了本人对其的印象。测试下来自然性能也没传说中的那么牛，而且明显到达上亿级别测试结果不会好，一时全组陷入沮丧当中。</p>
+<p>后来再多方考察使用TC做后端存储的flare等设计思路，才突然想到不应该将TC看成一个完整的系统，而应该视为一个最底层的存储引擎。这个引擎足够简单，但是足够好用，你可以在上面开发更多东西。一个文件并非对应一个TC数据库管理系统，而是只对应一个数据库，甚至一个表，比如可以将20亿数据拆分成几个TC数据库来存，这样就能存储在多个文件中(就是说DBA还得弄分片分表，TC使用类似innobase的file_per_table设置)，也就可以扩展最大存储数据量了。当然性能如何，能否满足本项目苛刻的要求又是另一个话题，但是工业环境下是可以这样使用TC的。所以工业环境下使用软件不应该被限制住思维，一个不够，多搞几个，完成任务就行。</p>
+<p>回到项目上，显然TC的hash引擎设计使用mmap来进行性能优化不适合本项目，再看B+树引擎设计也同一般B+树类似，没看出特色来，所以架构设计方面仍然是一筹莫展，只期待下周的需求讨论华为方能够更明确设计目的与要求。老师自然不满意这种简单的设计，要求我们看看更先进的系统，但是能用的kv系统真的不多，Berkerly DB算是最大而全的吧，可以了解一下架构设计，但对项目感觉帮助不大。</p>
+<p>说到需求讨论，本人准备了各种问题，从系统基于的设备到可靠性与可扩展性要求乃至是否并发访问，结果博士来了句“问这些不相关的干什么，其实对方真正只是要一个能够管理大数据量而同时节省内存的算法而已”，仔细一看发过来的需求，还真是如此。所以项目需求最需要明确的是这个系统是用来干什么的，如果是一个为了算法测试用的原型系统，考虑那么多工程问题干什么呢？也许是本人太想鼓捣个工业环境用的系统玩玩了吧，以致忽略了对方提出项目的真实目的。所以需求明确是最必要的，而问出系统使用验收的环境是更关键的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2012/09/08/key-value-storage-system-development-summary-part-one/" data-id="cjap5ltve005vb8rlak9lcsu1" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2012/09/08/key-value-storage-system-development-summary-part-one/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kv存储/">kv存储</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/华为/">华为</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/项目管理/">项目管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/WordPress开发/">WordPress开发</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品设计/">产品设计</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端语言/">后端语言</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/新技术跟踪/">新技术跟踪</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/">系统架构</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/项目经历/">项目经历</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统经验/">系统经验</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/课程总结/">课程总结</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融/">金融</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试总结/">面试总结</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目经历/">项目经历</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InnoDB/">InnoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS模板/">JS模板</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux设置/">Linux设置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVCC/">MVCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP主题/">WP主题</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP实现/">WP实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP插件/">WP插件</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP设置/">WP设置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/">WebGL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache-coherence/">cache coherence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history/">history</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios应用/">ios应用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptv/">iptv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/">join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kv存储/">kv存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutex/">mutex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/">paxos</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raft/">raft</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url重定向/">url重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web2-0/">web2.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文汉化/">中文汉化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/互联网企业/">互联网企业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/债券/">债券</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内核/">内核</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式锁/">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/华为/">华为</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基金/">基金</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外设/">外设</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源项目/">开源项目</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无锁并发/">无锁并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/期货/">期货</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栅格系统/">栅格系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/科研/">科研</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/股票/">股票</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本加载/">脚本加载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/腾讯/">腾讯</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/苹果/">苹果</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法/">语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读写锁/">读写锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调度/">调度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金山/">金山</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隔离级别/">隔离级别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目管理/">项目管理</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/InnoDB/" style="font-size: 10px;">InnoDB</a> <a href="/tags/JS模板/" style="font-size: 11.67px;">JS模板</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Linux设置/" style="font-size: 10px;">Linux设置</a> <a href="/tags/MVCC/" style="font-size: 10px;">MVCC</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WP主题/" style="font-size: 16.67px;">WP主题</a> <a href="/tags/WP实现/" style="font-size: 10px;">WP实现</a> <a href="/tags/WP插件/" style="font-size: 16.67px;">WP插件</a> <a href="/tags/WP设置/" style="font-size: 11.67px;">WP设置</a> <a href="/tags/WebGL/" style="font-size: 11.67px;">WebGL</a> <a href="/tags/Zookeeper/" style="font-size: 10px;">Zookeeper</a> <a href="/tags/cache-coherence/" style="font-size: 10px;">cache coherence</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/fabric/" style="font-size: 11.67px;">fabric</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/google/" style="font-size: 11.67px;">google</a> <a href="/tags/history/" style="font-size: 10px;">history</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/ios应用/" style="font-size: 10px;">ios应用</a> <a href="/tags/iptv/" style="font-size: 10px;">iptv</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/kv存储/" style="font-size: 10px;">kv存储</a> <a href="/tags/memory/" style="font-size: 10px;">memory</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/paxos/" style="font-size: 11.67px;">paxos</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raft/" style="font-size: 10px;">raft</a> <a href="/tags/url重定向/" style="font-size: 10px;">url重定向</a> <a href="/tags/web2-0/" style="font-size: 10px;">web2.0</a> <a href="/tags/zookeeper/" style="font-size: 11.67px;">zookeeper</a> <a href="/tags/中文汉化/" style="font-size: 11.67px;">中文汉化</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/互联网企业/" style="font-size: 11.67px;">互联网企业</a> <a href="/tags/债券/" style="font-size: 11.67px;">债券</a> <a href="/tags/内核/" style="font-size: 11.67px;">内核</a> <a href="/tags/分布式锁/" style="font-size: 10px;">分布式锁</a> <a href="/tags/区块链/" style="font-size: 13.33px;">区块链</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/基金/" style="font-size: 11.67px;">基金</a> <a href="/tags/外设/" style="font-size: 10px;">外设</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/实习/" style="font-size: 15px;">实习</a> <a href="/tags/开源项目/" style="font-size: 10px;">开源项目</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/数据库/" style="font-size: 18.33px;">数据库</a> <a href="/tags/无锁并发/" style="font-size: 10px;">无锁并发</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/期货/" style="font-size: 11.67px;">期货</a> <a href="/tags/栅格系统/" style="font-size: 10px;">栅格系统</a> <a href="/tags/科研/" style="font-size: 10px;">科研</a> <a href="/tags/算法/" style="font-size: 18.33px;">算法</a> <a href="/tags/索引/" style="font-size: 11.67px;">索引</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/股票/" style="font-size: 11.67px;">股票</a> <a href="/tags/脚本加载/" style="font-size: 10px;">脚本加载</a> <a href="/tags/腾讯/" style="font-size: 15px;">腾讯</a> <a href="/tags/苹果/" style="font-size: 10px;">苹果</a> <a href="/tags/语法/" style="font-size: 11.67px;">语法</a> <a href="/tags/读写锁/" style="font-size: 10px;">读写锁</a> <a href="/tags/调度/" style="font-size: 10px;">调度</a> <a href="/tags/金山/" style="font-size: 10px;">金山</a> <a href="/tags/锁/" style="font-size: 10px;">锁</a> <a href="/tags/键盘/" style="font-size: 10px;">键盘</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试/" style="font-size: 20px;">面试</a> <a href="/tags/项目管理/" style="font-size: 11.67px;">项目管理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/03/">March 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/02/Qconf-summary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/08/blockchain-tech-summary/">区块链技术总结与架构实战</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/fabric-ca-design/">Hyperledger Fabric CA设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/05/sicp-charpter-two/">SICP第二章总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chao Zheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  </footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/php-development-env-setup-in-win7-x64.html" class="mobile-nav-link">PHP-WIN</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'chaozh';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

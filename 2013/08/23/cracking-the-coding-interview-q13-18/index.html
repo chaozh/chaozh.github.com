@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Cracking the coding interview Q13-18 | chaozh.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="13.1 Write a method to print the last K lines of an input file using C++. int tail(const string &amp;amp;fname, int lines, list &amp;amp;res) {     ifstream fs(">
+<meta name="keywords" content="算法,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cracking the coding interview Q13-18">
+<meta property="og:url" content="http://chaozh.github.com/2013/08/23/cracking-the-coding-interview-q13-18/index.html">
+<meta property="og:site_name" content="chaozh.com">
+<meta property="og:description" content="13.1 Write a method to print the last K lines of an input file using C++. int tail(const string &amp;amp;fname, int lines, list &amp;amp;res) {     ifstream fs(fname.c_str());     if(!fs)         return -1;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-02T09:46:23.907Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cracking the coding interview Q13-18">
+<meta name="twitter:description" content="13.1 Write a method to print the last K lines of an input file using C++. int tail(const string &amp;amp;fname, int lines, list &amp;amp;res) {     ifstream fs(fname.c_str());     if(!fs)         return -1;">
+  
+    <link rel="alternative" href="/atom.xml" title="chaozh.com" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">chaozh.com</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">超然台上仙的知识库|系统架构,移动开发,独立游戏</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/php-development-env-setup-in-win7-x64.html">PHP-WIN</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chaozh.github.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-cracking-the-coding-interview-q13-18" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/23/cracking-the-coding-interview-q13-18/" class="article-date">
+  <time datetime="2013-08-23T11:18:07.000Z" itemprop="datePublished">2013-08-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/课程总结/">课程总结</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Cracking the coding interview Q13-18
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>13.1 Write a method to print the last K lines of an input file using C++.</strong></p>
+<pre>int tail(const string &amp;fname, int lines, list &amp;res)
+{
+    ifstream fs(fname.c_str());
+    if(!fs)
+        return -1;
+    int status = 0;
+    int bytes_perline = 100;
+    fs.seekg(0, fs.end);//fs.end
+    streamoff end_pos = fs.tellg();
+    streamoff start_pos = end_pos - bytes_perline*lines;
+    if(start_pos &lt; 0) start_pos = 0;
+    fs.seekg(start_pos, fs.beg);
+
+    string line;
+    list::iterator it = res.begin();
+    while(res.size() &lt; lines){         
+       getline(fs, line);         
+       it = res.insert(it, line);         
+       ++it;         
+       if(status == 0){ //find last lines             
+         if(fs.eof()){                 
+                if(res.size() &gt; lines)
+                    break;
+                end_pos = start_pos;
+                start_pos&gt;&gt;=1;
+                fs.clear();
+                fs.seekg(start_pos, fs.beg);
+                res.erase(--it);
+                it=res.begin();
+                status = 1;
+            }
+        }else if(status &gt; 0){ // look up in the front
+            if(fs.tellg() &gt;= end_pos){
+                if(res.size() &gt; lines)
+                    break;
+                end_pos = start_pos;
+                start_pos&gt;&gt;=1;
+                fs.clear();
+                fs.seekg(start_pos, fs.beg);
+                res.erase(--it);
+                it=res.begin();
+                 if(start_pos &lt;= 0) // reach the top                     
+                    break;             
+             }                  
+        }    
+   }         
+   if(res.size()&gt; lines ){
+       int i = res.size()-lines;
+       for(;i&gt;0;--i)
+          res.erase(res.begin());
+   }
+
+   return res.size();
+}
+
+int main(int argc, char const *argv[])
+{
+    int ret;
+    list res;
+    ret = tail(argv[1], atoi(argv[2]), res);
+    if(ret&gt;0)
+        copy(res.begin(), res.end(), ostream_iterator(cout, "\n"));
+    return 0;
+}</pre>
+**13.2 Compare and contrast a hash table vs an STL map. How is a hash table implemented?  If the number of inputs is small, what data structure options can be used instead of  a hash table.**
+
+STL map's pairs are in sorted order but hash table don't and STL map takes O(nlgn) to find a elm yet hash table takes O(1) time. When implement a hash table you should find a hash function, deal with collision and size of table. If inputs is small then RB tree would be a a alternative way for hash table.
+
+**13.3  How do virtual functions work in C++?**
+
+A virtual function depends on a "virtual table". If any function or class is declared as virtual, a v-table is constructed  which stores addresses of the virtual functions of this class. The compiler also adds a hidden vptr in all such classes which points to the vtable. If a virtual function is not overriden in the derived class, the vtable of the derived class stores the adress of the function in his parent class. The vtable is used to resolve the address of the function. Dynamic binding in C++ is therefore performed though the vtable mechanism.
+
+**13.4 What is the difference between deep copy and shallow copy? Explain how you would use each.**
+
+Shallow copy just copy the address of the object's ptr field yet deep copy also copy the values of that ptr points to which need dynamic allocated space.  The default copy constructor and assignment operator make shallow copies. Deep copy usually are used to deal with the string or buffer.
+
+**13.5  What is the significance of the keyword “volatile” in C**
+
+Volatile informs the compiler that the value of the variable can change from the outside, without any update done by the code, thus just don't optimize the variable related code and fetch the variable value from memory instead of the register.
+
+**13.6  What is name hiding in C++? **
+
+"Name hiding is particularly tricky if the derived class's method has a different signature than the base class's method of the same name." Base class's method would be hidden if the derived class overrides that method (no-virtual function) and overloaded in the same time. (see Effective C++ rule 33)
+
+**13.7  Why does a  destructor in base class need to be declared virtual?**
+
+If we delete on the base ptr which points to the derived class object, the base class destructor called first (for no-virtual function) which would lead to a memory leak for the derived part. We should declare base class's destructor in virtual so that derived destructor would be called first and destroy all parts of the object as we expected.
+
+**13.8 Write a method that takes a pointer to a Node structure as a parameter and returns a complete copy of the passed-in data structure.The Node structure contains two pointers to other Node structures.**
+
+It's mush alike deep copy a binary tree.
+<pre>typedef struct Node Node_t;
+struct Node{
+   struct Node* ptr1;
+   struct Node* ptr2; 
+};
+typedef set&lt;Node_t*&gt; NodeMap;
+
+Node_t* copy_recursive(Node_t* cur, NodeMap &amp;map){
+    if(cur == NULL) return NULL;
+    NodeMap::iterator it = map.find(cur);
+    if(it != map.end())
+       return *it;
+    Node_t* node = new Node_t;
+    map.insert(node);
+    node-&gt;ptr1 = copy_recursive(cur-&gt;ptr1, map);
+    node-&gt;ptr2 = copy_recursive(cur-&gt;ptr2, map);
+    return node;
+} 
+
+Node_t* copy_node(Node_t* root){
+     NodeMap map;
+     return copy_recursive(root, map);
+}</pre>
+**13.9  Write a smart pointer (smart_ptr) class.  **
+
+Check Effective C++ rule 14.
+<pre>template &lt;class T&gt;
+class smart_ptr {
+public:
+    smart_ptr(T *ptr){
+        //cout&lt;&lt;"default"&lt;&lt;endl;
+        ref = ptr;
+        ref_count = new unsigned int();
+        *ref_count = 1;
+    }
+
+    smart_ptr(smart_ptr &amp;sptr){
+        //cout&lt;&lt;"copy assign"&lt;&lt;endl;
+        ref = sptr.ref;
+        ref_count = sptr.ref_count;
+        ++*ref_count;
+    }
+
+    smart_ptr&amp; operator=(smart_ptr &amp;sptr){
+        //cout&lt;&lt;"= assign"&lt;&lt;endl;
+        if(this != &amp;sptr &amp;&amp; ref != sptr.ref) {
+            if (--*ref_count == 0){ // this may already got a ptr
+                clear();
+                //cout&lt;&lt;"= clear"&lt;&lt;endl;
+            }
+
+            ref = sptr.ref;
+            ref_count = sptr.ref_count;
+            ++*ref_count;
+        }
+        return *this;
+    }
+
+        T operator*() { return *ref; }
+
+    ~smart_ptr(){
+        //cout&lt;&lt;*ref_count&lt;&lt;endl;
+        if(--*ref_count == 0){
+            clear();
+            //cout&lt;&lt;"clear"&lt;&lt;endl;
+        }
+    }
+private:
+    void clear(){
+        delete ref;
+        delete ref_count;
+        ref = NULL;
+        ref_count = NULL;
+    }
+protected:
+    T *ref;
+    unsigned int *ref_count;
+};
+
+int main(int argc, char const *argv[])
+{
+    int *p1 = new int();
+    *p1 = 100;
+    smart_ptr sp1(p1), sp2(p1);
+    smart_ptr spa = sp1; // copy assign not = assign
+    sp2 = sp1; // = assign
+    cout&lt;&lt;*spa&lt;&lt;endl; // spa is the same of sp1
+    return 0;
+}</pre>
+**15.1 Write a method to find the number of employees in each department**
+<pre>SELECT Departments.name, count(Employees.id) FROM Departments, Employees WHERE Employees.depid = Departments.id(+) GROUP BY Departments.id
+
+SELECT Departments.name, count(Employees.id) FROM Departments LEFT JOIN Employees ON Employees.depid = Departments.id GROUP BY Departments.id</pre>
+**15.2 What are the different types of joins? Please explain how they differ and why certain types are better in certain situations.**
+
+** ** There are innerjoin, left outer join, right outer join, full outer join and cross join. INNER JOIN result set will only contain datas where the criteria match.
+<pre>SELECT * FROM Employees, Departments WHERE Employees.dpid = Departments.id;</pre>
+CROSS JOIN returns the Cartesian product of rows from tables in the join. It will produce rows which combine each row from the first table with each row from the second table.
+<pre>SELECT * FROM Employees, Departments;</pre>
+LEFT OUTER JOIN returns all the values from an inner join plus all values in the left table that do not match to the right table(NULL in the case of no matching join predicate).
+<pre>SELECT * FROM Employees, Departments WHERE Employees.dpid = Departments.id(+);</pre>
+RIGHT OUTER JOIN returns all the values from the right table and matched values from the left table (NULL in the case of no matching join predicate). Right and left outer joins are functionally equivalent. FULL OUTER JOIN combines the effect of applying both left and right outer joins. Some database systems do not support the full outer join functionality directly.
+<pre>SELECT * FROM Employees INNER JOIN Departments ON Employees.dpid = Departments.id UNION ALL;</pre>
+**15.3 What is denormalization? Explain the pros and cons.**
+
+denormalization is the process of attempting to optimize the read performance of a database by adding redundant data or by grouping data, like storing the count of the "many" objects in a one-to-many relationship as an attribute of the "one" relation or adding attributes to a relation from another relation with which it will be joined. It's do good in performance yet more redundant data.
+
+**15.5 Imagine a simple database storing information for students’ grades. Design what this database might look like, and provide a SQL query to return a list of the honor roll students (top 10%), sorted by their grade point average.**
+<pre>CREATE TABLE Students(
+    'sid' INT NOT NULL AUTO_INCREMENT,
+    'name' varchar(20) NOT NULL,
+    'sex' enum(f,m),
+    PRIMARY KEY('sid')
+);
+
+CREATE TABLE Courses(
+    'cid' INT NOT NULL AUTO_INCREMENT,
+    'name' varchar(20) NOT NULL,
+    'description' text,
+    PRIMARY KEY('cid')
+);
+
+CREATE TABLE Enrollment(
+     'eid' INT NOT NULL AUTO_INCREMENT,
+     'cid' INT NOT NULL,
+     'sid' INT NOT NULL,
+     'grade' INT NOT NULL,
+     PRIMARY KEY('eid')
+);
+
+SELECT Students.name, GPA 
+FROM (
+     SELECT TOP 10 percent Avg(Enrollment.grade) AS GPA, Enrollment.sid 
+     FROM Enrollment 
+     GROUP BY Enrollment.sid 
+     ORDER BY Avg(Enrollment.grade)
+) Honors, Students 
+WHERE Students.sid = Honors.sid;</pre>
+**16.1 Explain the following terms: virtual memory, page fault, thrashing.**
+
+_Virtual memory_ maps memory addresses used by programs to physical addresses in memory hardware, thus Main storage as seen by a process or task appears as a contiguous address space.
+
+_Page fault_ is a trap raised by the hardware when a program accesses a page that is mapped in the virtual address space, but not loaded in physical memory.
+
+_Thrashing_ occurs when a computer's virtual memory subsystem is in a constant state of paging, rapidly exchanging data in memory for data on disk, to the exclusion of most application-level processing, which causes the performance of the computer to degrade or collapse.
+
+**16.2 What is a Branch Target buffer? Explain how it can be used in reducing bubble cycles in cases of branch misprediction**
+
+The _branch target buffer_ is a true cache, the full PC value must be conpared to validate that this is a branch instruction before taking any action which reduces the penalty by predicting the path of the branch, computing the target of the branch and caching the information used by the branch. There will be no stalls if the branch entry found on BTB and the prediction is correct, otherwise the penalty will be at least two cycles.
+
+**16.3 Describe direct memory access (DMA). Can a user level buffer/pointer be used by kernel or drivers? **
+
+_DMA_ is a feature that allows certain hardware subsystems within the computer to access system memory independently of the CPU. By using DMA, drivers can access the memory allocated to the user level buffer/pointer.
+
+**16.5 Write a program to find whether a machine is big endian or little endian.**
+<pre>bool check_little_endian()
+{
+   union{
+       int a;
+       char b;
+   }c;
+   c.a = 1;
+   return c.b ? true : false;
+}
+
+bool check_little_endian()
+{
+    short int a = 0x0001;
+    char* b = (char*)&amp;a;
+    return b[0] ? true : false;
+}</pre>
+**16.6 Discuss how would you make sure that a process doesn’t access an unauthorized part of the stack **
+
+For native code there is the possiblility of stack overflow and remember in a multi-threaded environment, there can be multiple stacks in a process and nothing can fully prevent process access memory addresses. We can build a sandbox for the program and vm is a good example.
+
+**16.8 A device boots with an empty FIFO queue. In the first 400ns period after startup, and in each subsequent 400ns period, a maximum of 80 words will be written to the queue. Each write takes 4ns. A worker thread requires 3ns to read a word, and 2ns to process it before reading the next word. What is the shortest depth of the FIFO such that no data is lost?**
+
+&nbsp;
+
+**16.9 Write an aligned malloc &amp; free function that takes number of bytes and aligned byte (which is always power of 2) EXAMPLE align_malloc(1000,128) will return a memory address that is a multiple of 128 and that points to memory of size 1000 bytes aligned_free() will free memory allocated by align_malloc **
+<pre>void* align_malloc(size_t bytes, size_t aligned){
+    void* p1; // original block
+    void** p2; // aligend block
+    // extra space for storing p1 and alignment
+    int offset = aligend - 1 + sizeof(void*); 
+    if ((p1 = (void*)malloc(bytes + offset)) == NULL)
+        return NULL;
+    // make sure p2 minus the extra space address and the result is aligned
+    p2 = (void**)(((size_t)(p1) + offset) &amp; ~(aligend - 1)); 
+    p2[-1] = p1; //store p1 for free operation
+    return p2;
+}
+
+void align_free(void* p){
+    free(((void**)p)[-1]);
+}</pre>
+**16.10 Write a function called my2DAlloc which allocates a two dimensional array. Minimize the number of calls to malloc and make sure that the memory is accessible by the notation arr[i][j] **
+<pre>int** my2DAlloc(int r, int c){
+    int header = r * sizeof(int*);
+    int data = r * c * sizeof(int);
+    int** arr = (int**)malloc(header + data);
+    int* buf = (int*)(arr + r); // save space for r ptrs
+    for(int i =0; i&lt; r; ++i)
+        arr[i] = buf + i * c; //every ptr points to the right place which works for arr[i][j]
+    return arr;
+}</pre>
+**17.1 Explain what happens, step by step, after you type a URL into a browser. Use as much detail as possible.**
+
+In an extremely rough and simplified sketch, assuming the simplest possible HTTP request, no proxies and IPv4 (this would work similarly for IPv6-only client):
+
+1.  browser checks cache; if requested object is in cache and is fresh, skip to #9
+2.  browser asks OS for server's IP address
+3.  OS makes a DNS lookup and replies the IP address to the browser
+4.  browser opens a TCP connection to server (this step is much more complex with HTTPS)
+5.  browser sends the HTTP request through TCP connection
+6.  browser receives HTTP response and may close the TCP connection, or reuse it for another request
+7.  browser checks if the response is a redirect (3xx result status codes), authorization request (401), error (4xx and 5xx), etc.; these are handled differently from normal responses (2xx)
+8.  if cacheable, response is stored in cache
+9.  browser decodes response (e.g. if it's gzipped)
+10.  browser determines what to do with response (e.g. is it a HTML page, is it an image, is it a sound clip?)
+11.  browser renders response, or offers a download dialog for unrecognized types
+Again, discussion of each of these points have filled countless pages; take this as a starting point. Also, there are many other things happening in parallel to this (processing typed-in address, adding page to browser history, displaying progress to user, notifying plugins and extensions, rendering the page while it's downloading, pipelining, connection tracking for keep-alive, etc.).
+
+**17.5 What are the differences between TCP and UDP?**
+
+TCP is a connection-oriented protocol and it's reliable, ordered and heavyweight. UDP is connectionless protocol and it's unreliable, not ordered and lightweight.
+
+**18.1 What’s the difference between a thread and a process?**
+
+A process can be thought of as an instance of a program in execution. Each process is an independent entity to which system resources (CPU time, memory, etc ) are allocated and each process is executed in a separate address space.
+
+A thread uses the same heap space of a process. A process can have multiple threads. Each thread still has its own registers and its own stack, but other threads can read and write the heap memory.
+
+**18.2 How can you measure the time spent in a context switch?**
+
+If the total timeof execution of all the processes was T, then the context switch time = T – (SUM for all processes (waiting time + execution time)). Overall, we can say that this is mostly an approximate calculation which depends on the underlying OS.
+
+**18.3 Implement a singleton design pattern as a template such that, for any given class Foo, you can call Singleton::instance() and get a pointer to an instance of a singleton of type Foo. Assume the existence of a class Lock which has acquire() and release() methods How could you make your implementation thread safe and exception safe?**
+<pre>class Lock {
+public:
+    Lock();
+    ~Lock();
+    void AcquireLock(){};
+    void RelaseLock(){};
+};
+
+template  class Singleton{
+public:
+    Singleton();
+    ~Singleton(){
+        if (object != 0)
+            delete object;
+    }
+    static T* instance();
+private:
+    static Lock lock;
+    static T* object;
+};
+
+template 
+Lock Singleton::lock;
+
+template 
+T* Singleton::object;
+
+template 
+T* Singleton::instance(){
+    if(object == 0){
+        lock.AcquireLock();
+        if (object == 0) {
+            object = new T;
+        }
+        lock.RelaseLock();
+    }
+    return object;
+}
+
+int main(int argc, char const *argv[])
+{
+    int* stest = Singleton::instance();
+    return 0;
+}</pre>
+**18.5 i) Can you design a mechanism to make sure that B is executed after A, and C is ex -
+ecuted after B?
+ii) Suppose we have the following code to use class Foo We do not know how the threads will be scheduled in the OS
+Foo f;
+f.A(.....); f.B(.....); f.C(.....);
+f.A(.....); f.B(.....); f.C(.....);
+Can you design a mechanism to make sure that all the methods will be executed in sequence?**
+
+i)
+<pre>Semaphore a(0),b(0);
+A {
+   ...
+   a.Release(1);
+}
+B {
+   a.Acquire(1);
+   ....
+   b.Release(1);
+}
+C {
+   b.Acquire(1);
+   ...
+}</pre>
+ii)
+<pre>Semaphore a(0),b(0),c(1);
+A {
+   c.Acquire(1);
+   ...
+   a.Release(1);
+}
+B {
+   a.Acquire(1);
+   ....
+   b.Release(1);
+}
+C {
+   b.Acquire(1);
+   ...
+   c.Release(1);
+}</pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chaozh.github.com/2013/08/23/cracking-the-coding-interview-q13-18/" data-id="cjap5ltts002qb8rluts8kmpl" class="article-share-link">Share</a>
+      
+        <a href="http://chaozh.github.com/2013/08/23/cracking-the-coding-interview-q13-18/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/08/31/design-and-implementation-of-distributed-lock-manager/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          对象存储文件系统分布式锁设计与实现
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/15/cracking-the-coding-interview-q7-12/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Cracking the coding interview Q7-12</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/WordPress开发/">WordPress开发</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品设计/">产品设计</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端语言/">后端语言</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/新技术跟踪/">新技术跟踪</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动开发/">移动开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/">系统架构</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/系统架构/项目经历/">项目经历</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统经验/">系统经验</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/课程总结/">课程总结</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融/">金融</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试总结/">面试总结</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目经历/">项目经历</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InnoDB/">InnoDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS模板/">JS模板</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux设置/">Linux设置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVCC/">MVCC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP/">TCP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP主题/">WP主题</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP实现/">WP实现</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP插件/">WP插件</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WP设置/">WP设置</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/">WebGL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cache-coherence/">cache coherence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/google/">google</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/history/">history</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios应用/">ios应用</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iptv/">iptv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/join/">join</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karma/">karma</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kv存储/">kv存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memory/">memory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mutex/">mutex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paxos/">paxos</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raft/">raft</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/url重定向/">url重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web2-0/">web2.0</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中文汉化/">中文汉化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/互联网企业/">互联网企业</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/债券/">债券</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内核/">内核</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式锁/">分布式锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/华为/">华为</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基金/">基金</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外设/">外设</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/存储/">存储</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实习/">实习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源项目/">开源项目</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/敏捷开发/">敏捷开发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无锁并发/">无锁并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/期货/">期货</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栅格系统/">栅格系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/科研/">科研</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译器/">编译器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/股票/">股票</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本加载/">脚本加载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/腾讯/">腾讯</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/苹果/">苹果</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语法/">语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读写锁/">读写锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调度/">调度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金山/">金山</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隔离级别/">隔离级别</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目管理/">项目管理</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/CPU/" style="font-size: 10px;">CPU</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/InnoDB/" style="font-size: 10px;">InnoDB</a> <a href="/tags/JS模板/" style="font-size: 11.67px;">JS模板</a> <a href="/tags/JVM/" style="font-size: 10px;">JVM</a> <a href="/tags/Linux设置/" style="font-size: 10px;">Linux设置</a> <a href="/tags/MVCC/" style="font-size: 10px;">MVCC</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/WP主题/" style="font-size: 16.67px;">WP主题</a> <a href="/tags/WP实现/" style="font-size: 10px;">WP实现</a> <a href="/tags/WP插件/" style="font-size: 16.67px;">WP插件</a> <a href="/tags/WP设置/" style="font-size: 11.67px;">WP设置</a> <a href="/tags/WebGL/" style="font-size: 11.67px;">WebGL</a> <a href="/tags/Zookeeper/" style="font-size: 10px;">Zookeeper</a> <a href="/tags/cache-coherence/" style="font-size: 10px;">cache coherence</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/fabric/" style="font-size: 11.67px;">fabric</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/google/" style="font-size: 11.67px;">google</a> <a href="/tags/history/" style="font-size: 10px;">history</a> <a href="/tags/html5/" style="font-size: 15px;">html5</a> <a href="/tags/ios应用/" style="font-size: 10px;">ios应用</a> <a href="/tags/iptv/" style="font-size: 10px;">iptv</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/join/" style="font-size: 10px;">join</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/karma/" style="font-size: 10px;">karma</a> <a href="/tags/kv存储/" style="font-size: 10px;">kv存储</a> <a href="/tags/memory/" style="font-size: 10px;">memory</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/nodejs/" style="font-size: 13.33px;">nodejs</a> <a href="/tags/paxos/" style="font-size: 11.67px;">paxos</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raft/" style="font-size: 10px;">raft</a> <a href="/tags/url重定向/" style="font-size: 10px;">url重定向</a> <a href="/tags/web2-0/" style="font-size: 10px;">web2.0</a> <a href="/tags/zookeeper/" style="font-size: 11.67px;">zookeeper</a> <a href="/tags/中文汉化/" style="font-size: 11.67px;">中文汉化</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/互联网企业/" style="font-size: 11.67px;">互联网企业</a> <a href="/tags/债券/" style="font-size: 11.67px;">债券</a> <a href="/tags/内核/" style="font-size: 11.67px;">内核</a> <a href="/tags/分布式锁/" style="font-size: 10px;">分布式锁</a> <a href="/tags/区块链/" style="font-size: 13.33px;">区块链</a> <a href="/tags/华为/" style="font-size: 10px;">华为</a> <a href="/tags/基金/" style="font-size: 11.67px;">基金</a> <a href="/tags/外设/" style="font-size: 10px;">外设</a> <a href="/tags/存储/" style="font-size: 10px;">存储</a> <a href="/tags/实习/" style="font-size: 15px;">实习</a> <a href="/tags/开源项目/" style="font-size: 10px;">开源项目</a> <a href="/tags/敏捷开发/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/数据库/" style="font-size: 18.33px;">数据库</a> <a href="/tags/无锁并发/" style="font-size: 10px;">无锁并发</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/期货/" style="font-size: 11.67px;">期货</a> <a href="/tags/栅格系统/" style="font-size: 10px;">栅格系统</a> <a href="/tags/科研/" style="font-size: 10px;">科研</a> <a href="/tags/算法/" style="font-size: 18.33px;">算法</a> <a href="/tags/索引/" style="font-size: 11.67px;">索引</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/股票/" style="font-size: 11.67px;">股票</a> <a href="/tags/脚本加载/" style="font-size: 10px;">脚本加载</a> <a href="/tags/腾讯/" style="font-size: 15px;">腾讯</a> <a href="/tags/苹果/" style="font-size: 10px;">苹果</a> <a href="/tags/语法/" style="font-size: 11.67px;">语法</a> <a href="/tags/读写锁/" style="font-size: 10px;">读写锁</a> <a href="/tags/调度/" style="font-size: 10px;">调度</a> <a href="/tags/金山/" style="font-size: 10px;">金山</a> <a href="/tags/锁/" style="font-size: 10px;">锁</a> <a href="/tags/键盘/" style="font-size: 10px;">键盘</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试/" style="font-size: 20px;">面试</a> <a href="/tags/项目管理/" style="font-size: 11.67px;">项目管理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">April 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">January 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/12/">December 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/03/">March 2010</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/02/Qconf-summary/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/Introduction-to-Basic-Fixed-Income-Securities/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/08/blockchain-tech-summary/">区块链技术总结与架构实战</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/fabric-ca-design/">Hyperledger Fabric CA设计</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/05/sicp-charpter-two/">SICP第二章总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chao Zheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  </footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/php-development-env-setup-in-win7-x64.html" class="mobile-nav-link">PHP-WIN</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'chaozh';
+  
+  var disqus_url = 'http://chaozh.github.com/2013/08/23/cracking-the-coding-interview-q13-18/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
